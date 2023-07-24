@@ -1,0 +1,21 @@
+<!-- dashboard.component.html -->
+
+<div class="dashboard-container">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
+  
+      <!-- First Row -->
+      <div class="w-full">
+        <app-user-profile></app-user-profile>
+      </div>
+      <div class="w-full">
+        <app-account-details></app-account-details>
+      </div>
+  
+      <!-- Second Row -->
+      <div class="col-span-2">
+        <app-transaction-history></app-transaction-history>
+      </div>
+      
+    </div>
+  </div>
+  <app-pin-creation-model *ngIf="showPINCreationModel" (redirect)="redirectToPINCreationPage()"></app-pin-creation-model>

@@ -1,0 +1,22 @@
+<div class="flex justify-center items-center h-full bg-gray-100">
+  <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
+    <h2 class="text-3xl font-semibold mb-6 text-center">Fund Transfer</h2>
+    <form [formGroup]="fundTransferForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label for="amount" class="block text-sm font-bold mb-2">Amount:</label>
+        <input autocomplete="off" formControlName="amount" type="number" id="amount" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500" placeholder="Enter the amount" />
+      </div>
+      <div>
+        <label for="pin" class="block text-sm font-bold mb-2">PIN:</label>
+        <input autocomplete="off" formControlName="pin" type="password" id="pin" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500" placeholder="Enter your account PIN" />
+      </div>
+      <div>
+        <label for="targetAccountNumber" class="block text-sm font-bold mb-2">Target Account Number:</label>
+        <input autocomplete="off" formControlName="targetAccountNumber" type="text" id="targetAccountNumber" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500" placeholder="Enter the target account number" />
+      </div>
+      <div class="flex justify-center">
+        <button type="submit" class="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none">Transfer Funds</button>
+      </div>
+    </form>
+  </div>
+</div>

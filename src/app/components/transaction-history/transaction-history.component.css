@@ -1,0 +1,36 @@
+::ng-deep .Withdraw-color {
+    border-radius: 4px;
+    padding: 4px;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: #e53e3e !important; /* Red */
+    background-color: #fed7d7; /* Light red background */
+  }
+  
+  ::ng-deep .Transfer-color {
+    border-radius: 4px;
+    padding: 4px;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: #3b82f6 !important; /* Blue */
+    background-color: #dbeffe; /* Light blue background */
+  }
+  
+  ::ng-deep .Credited-color {
+    border-radius: 4px;
+    padding: 4px;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: #10b981 !important; /* Green */
+    background-color: #d1fae5; /* Light green background */
+  }
+  
+  ::ng-deep .Deposited-color {
+    border-radius: 4px;
+    padding: 4px;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: #6366f1 !important; /* Indigo */
+    background-color: #e0e7ff; /* Light indigo background */
+  }
+  

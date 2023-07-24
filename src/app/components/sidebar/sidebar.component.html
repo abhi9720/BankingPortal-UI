@@ -1,0 +1,55 @@
+<div class="sidebar-wrapper"  *ngIf="isLoggedIn()">
+
+  <div class="togglebtnwrapper">
+    <button (click)="toggleSidebar()" class="toggle-button">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <div [ngClass]="{'showsidebar':sidebarVisible}" class="sidebar">
+    <nav class="h-screen">
+      <ul class="space-y-4">
+        <li>
+          <a routerLink="/dashboard" class="dashboard-link">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+          </a>
+        </li>
+        <li>
+          <a routerLink="/account/deposit" class="dashboard-link">
+            <i class="fas fa-money-bill-wave"></i> Deposit
+          </a>
+        </li>
+        <li>
+          <a routerLink="/account/withdraw" class="dashboard-link">
+            <i class="fas fa-money-bill"></i> Withdraw
+          </a>
+        </li>
+        <li>
+          <a routerLink="/account/fund-transfer" class="dashboard-link">
+            <i class="fas fa-exchange-alt"></i> Fund Transfer
+          </a>
+        </li>
+        <li>
+          <a routerLink="/account/pin" class="dashboard-link">
+            <i class="fas fa-key"></i> Account PIN
+          </a>
+        </li>
+        <!-- <li>
+          <a routerLink="/account" class="dashboard-link">
+            <i class="fas fa-address-card"></i> Account Details
+          </a>
+        </li>
+        <li>
+          <a routerLink="/user/profile" class="dashboard-link">
+            <i class="fas fa-user"></i> User Profile
+          </a>
+        </li> -->
+        <li>
+          <a routerLink="/account/transaction-history" class="dashboard-link">
+            <i class="fas fa-history"></i> Transaction History
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+/* sidebar.component.css */
+.sidebar-wrapper{
+  
+  background-color: #f7fafc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* White shadow effect */
+
+}
+.togglebtnwrapper{
+  display: flex;
+  justify-content: flex-end;
+  padding:  4px;
+  right: 0;
+}
+
+.togglebtnwrapper > button{
+  margin: 0;
+}
+.sidebar {
+
+  display: none;  
+  padding: 10px;
+}
+
+.showsidebar{
+  display: block;
+}
+
+.dashboard-link {
+  display: block;
+  color: #2d3748; /* Dark text color */
+  font-weight: bold;
+  padding: 10px;
+  border-left: 3px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.dashboard-link:hover {
+  border-color: #4299e1; /* Blue border color on hover */
+}
+
+
+
+.toggle-button {
+  display: block;
+  margin-bottom: 10px;
+  background-color: #4299e1; /* Blue background color for the toggle button */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}

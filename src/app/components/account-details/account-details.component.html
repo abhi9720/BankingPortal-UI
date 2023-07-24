@@ -1,0 +1,25 @@
+<div class="p-4 bg-blue-500 rounded-lg shadow-lg text-white">
+  <h2 class="text-4xl font-semibold mb-6 text-yellow-400">{{ accountDetails?.balance | currency:'INR':'symbol' }}</h2>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div class="mb-4">
+      <label for="accountNumber" class="block text-sm font-bold">Account Number:</label>
+      <span id="accountNumber" class="font-bold text-base">{{ accountDetails?.accountNumber }}</span>
+    </div>
+    <div class="mb-4">
+      <label for="accountType" class="block text-sm font-bold">Account Type:</label>
+      <span id="accountType" class="font-bold text-base">{{ accountDetails?.accountType }}</span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div class="mb-4">
+      <label for="branch" class="block text-sm font-bold">Branch:</label>
+      <span id="branch" class="font-bold text-base">{{ accountDetails?.branch }}</span>
+    </div>
+    <div class="mb-4">
+      <label for="ifsccode" class="block text-sm font-bold">IFSC Code:</label>
+      <span id="ifsccode" class="font-bold text-base">{{ accountDetails?.ifsccode }}</span>
+    </div>
+  </div>
+</div>

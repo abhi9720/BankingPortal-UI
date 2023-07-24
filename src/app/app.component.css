@@ -1,0 +1,21 @@
+.content-wrapper{
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 60px);
+    position: absolute;
+    overflow-y: hidden;
+     
+}
+
+.left-pannel{
+    flex: 0 0 auto;
+    width: fit-content; /* Adjust this width based on the content */
+    position: sticky;
+    left: 0;
+    top: 0;
+}
+
+.right-pannel{
+    flex: 1;
+    overflow-y: auto;
+}

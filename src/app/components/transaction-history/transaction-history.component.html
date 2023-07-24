@@ -1,0 +1,54 @@
+<!-- transaction-history.component.html -->
+
+<div class="p-4 bg-white rounded-lg shadow-lg flex-grow">
+  <h2 class="text-3xl font-semibold text-gray-800 mb-6">Transaction History</h2>
+
+  <div class="mt-4 flex items-center">
+    <label for="filterCriteria" class="block text-lg font-semibold text-gray-800 mr-4">Filter by Transaction Type:</label>
+    <div class="relative">
+      <select id="filterCriteria" class="block w-full pl-3 pr-8 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" (change)="onFilterCriteriaChange($event)">
+        <option value="">All Transactions</option>
+        <option value="Deposit">Deposits</option>
+        <option value="Withdrawal">Withdrawals</option>
+        <option value="Transfer">Transfers/Credited</option>
+        <!-- Add more options for other filter criteria if needed -->
+      </select>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto" *ngIf="!(filteredTransactionHistory.length === 0)">
+    <table class="w-full table-auto">
+      <thead>
+        <tr class="bg-blue-500 text-white">
+          <th class="p-2">Transaction ID</th>
+          <th class="p-2">Amount</th>
+          <th class="p-2">Transaction Type</th>
+          <th class="p-2">Transaction Date</th>
+          <th class="p-2">Source Account Number</th>
+          <th class="p-2">Target Account Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of filteredTransactionHistory" class="border-b border-gray-300">
+          <td class="p-2 text-center">{{ transaction.id }}</td>
+          <td class="p-2 text-center font-bold">{{ transaction.amount | currency:'INR':'symbol' }}</td>
+          <td class="p-2 text-center">
+            <span class="{{ getTransactionStatus(transaction) }}-color">{{ getTransactionStatus(transaction) }}</span>
+          </td>
+          <td class="p-2 text-center">{{ transaction.transaction_date | date:'yyyy-MM-dd' }}</td>
+          <td class="p-2 text-center">{{ transaction.sourceAccountNumber }}</td>
+          <td class="p-2 text-center">{{ transaction.targetAccountNumber }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="filteredTransactionHistory.length === 0" class="text-center mt-4">
+    <p class="text-3xl font-semibold text-gray-800">No Transaction History</p>
+  </div>
+</div>
