@@ -63,7 +63,7 @@ export class AccountPinComponent implements OnInit {
         (response: any) => {
           this._toastService.success("PIN generated successfully");
           console.log('PIN generated successfully:', response);
-          this.router.navigate(['/'])
+          this.router.navigate(['/dashboard'])
 
         },
         (error: any) => {
@@ -85,7 +85,7 @@ export class AccountPinComponent implements OnInit {
         (response: any) => {
           this._toastService.success("PIN updated successfully");
           console.log('PIN updated successfully:', response);
-          this.router.navigate(['/'])
+          this.router.navigate(['/dashboard'])
 
         },
         (error: any) => {

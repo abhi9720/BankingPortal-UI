@@ -8,5 +8,8 @@ header {
     height: 60px;
     padding: 10px;
     z-index: 999; 
+    border-bottom: 2px solid gainsboro;
+    background-color: white;
+
   }
   

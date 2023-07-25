@@ -36,7 +36,7 @@ export class WithdrawComponent implements OnInit {
           // Handle successful withdrawal if needed
           this._toastService.success(response.msg)
            console.log('Withdrawal successful!', response);
-           this.router.navigate(['/'])
+           this.router.navigate(['/dashboard'])
 
         },
         (error) => {

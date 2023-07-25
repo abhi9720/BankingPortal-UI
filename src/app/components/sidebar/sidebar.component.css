@@ -1,9 +1,6 @@
 /* sidebar.component.css */
 .sidebar-wrapper{
-  
-  background-color: #f7fafc;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* White shadow effect */
-
+  border-right: 2px solid gainsboro;
 }
 .togglebtnwrapper{
   display: flex;

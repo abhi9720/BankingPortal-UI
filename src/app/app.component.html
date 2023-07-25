@@ -1,10 +1,42 @@
-<app-header/>
+<div class="flex-grow">
+  <app-header />
   <div class="content-wrapper ">
-  <div class="left-pannel" >
-    <app-sidebar/>
-  </div>
-  <div class="right-pannel p-4">
-    <router-outlet></router-outlet>
+    <div class="left-pannel">
+      <app-sidebar />
+    </div>
+    <div class="right-pannel">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
+
+<footer class="bg-black text-white py-4 mt-8">
+  <div class="container mx-auto text-center">
+    <p>&copy; 2023 OneStopBank. All rights reserved.</p>
+
+    <!-- GitHub Repository Buttons -->
+    <div class="mt-4 flex flex-wrap p-3 justify-center  items-center">
+      <span class="text-white font-bold text-xl mr-2">Star on Github   </span>
+      <a href="https://github.com/abhi9720/BankingPortal-UI" target="_blank"
+        class="mr-4 text-white  border border-gray-300 p-2 shadow-lg  hover:text-blue-400 transition-all">
+        <i class="fab fa-github mr-1"></i>  UI Repo ⭐
+      </a>
+      <a href="https://github.com/abhi9720/BankingPortal-API" target="_blank"
+        class="text-white mr-6 border border-gray-300 p-2 shadow-lg  hover:text-blue-400 transition-all">
+        <i class="fab fa-github mr-1"></i>  API Repo ⭐
+      </a>
+      
+     
+
+
+      <a href="https://abhi-9720.github.io/" target="_blank" class="text-white  border border-gray-300 p-2 shadow-lg  hover:text-blue-400 transition-all">
+        <i class="fas fa-user-circle mr-1"></i>  Portfolio
+      </a>
+    </div>
+
+   
+  </div>
+</footer>
+
+
 <lib-toastify-toast-container></lib-toastify-toast-container>

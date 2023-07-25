@@ -3,17 +3,17 @@
 <div class="p-4 bg-white rounded-lg shadow-lg flex-grow">
   <h2 class="text-3xl font-semibold text-gray-800 mb-6">Transaction History</h2>
 
-  <div class="mt-4">
+  <div class="my-4">
     <label for="filterCriteria" class="block text-lg font-semibold text-gray-800">Filter by Transaction Type:</label>
     <div class="relative mt-1">
       <select id="filterCriteria" formControlName="filterCriteria"
+      (change)="onFilterCriteriaChange($event)"
         class="block w-full p-2 pl-8 pr-4 bg-white border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50 focus:ring-blue-500 focus:border-blue-500 sm:text-sm custom-select">
-        <option value="">All Transactions</option>
+        <option [attr.selected]="true" value="">All Transactions</option>
         <option value="Deposit">Deposits</option>
         <option value="Withdrawal">Withdrawals</option>
         <option value="Transfer">Transfers/Credited</option>
       </select>
-      <i class="fa fa-caret-down absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600"></i>
     </div>
   </div>
   

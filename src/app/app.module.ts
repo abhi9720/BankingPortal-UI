@@ -22,6 +22,7 @@ import { ApiService } from './services/api.service';
 import { AuthInterceptor } from './auth.interceptor';
 import { AngularToastifyModule } from 'angular-toastify';
 import { PinCreationModelComponent } from './components/pin-creation-model/pin-creation-model.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PinCreationModelComponent } from './components/pin-creation-model/pin-c
     TransactionHistoryComponent,
     HeaderComponent,
     SidebarComponent,
-    PinCreationModelComponent
+    PinCreationModelComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

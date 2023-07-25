@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
           const token = response.token;
           console.log(token);
           localStorage.setItem(this.authTokenName, token);
-          this.router.navigate(['/']);
+          this.router.navigate(['/dashboard']);
           // Redirect to the desired page or perform any other action
         },
         (error: any) => {

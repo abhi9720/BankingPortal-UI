@@ -39,7 +39,7 @@ export class FundTransferComponent implements OnInit {
             // Handle successful fund transfer if needed
             this._toastService.success(response.msg)
             console.log('Fund transfer successful!', response);
-            this.router.navigate(['/'])
+            this.router.navigate(['/dashboard'])
 
           },
           (error) => {
