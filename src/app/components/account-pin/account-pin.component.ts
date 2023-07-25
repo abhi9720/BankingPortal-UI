@@ -12,6 +12,10 @@ import { ApiService } from 'src/app/services/api.service';
 export class AccountPinComponent implements OnInit {
   showGeneratePINForm: boolean = true;
   pinChangeForm!: FormGroup;
+  loading: boolean = true;
+
+
+  print =  console.log
 
   constructor(private apiService: ApiService, private fb: FormBuilder, private _toastService: ToastService, private router : Router) { }
 
@@ -23,13 +27,13 @@ export class AccountPinComponent implements OnInit {
           this.showGeneratePINForm = false;
         }
         this.initPinChangeForm();
-
+        this.loading = false; // Set loading to false after receiving the API response.
       },
       (error) => {
+        this.loading = false; // Set loading to false in case of an error.
         console.error('Error checking PIN status:', error);
       }
     );
-
   }
 
   initPinChangeForm(): void {
@@ -48,8 +52,6 @@ export class AccountPinComponent implements OnInit {
       });
     }
   }
-
-  // ... Other code ...
 
   onSubmitGeneratePIN(): void {
     if (this.pinChangeForm.valid) {
@@ -78,8 +80,6 @@ export class AccountPinComponent implements OnInit {
       const newPin = this.pinChangeForm.get('newPin')?.value;
       const password = this.pinChangeForm.get('password')?.value;
 
-      console.log(this.pinChangeForm);
-      
       // Call the API to update the PIN.
       this.apiService.updatePin(oldPin, newPin, password).subscribe(
         (response: any) => {
@@ -94,8 +94,6 @@ export class AccountPinComponent implements OnInit {
         }
       );
     }
-
-
   }
 
 }

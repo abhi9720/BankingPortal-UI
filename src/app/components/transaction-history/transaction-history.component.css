@@ -33,4 +33,14 @@
     color: #6366f1 !important; /* Indigo */
     background-color: #e0e7ff; /* Light indigo background */
   }
-  
+  /* For the custom select element */
+.custom-select select {
+  padding: 0.75rem 2rem; /* Customize the padding as needed */
+  font-size: 16px; /* Increase the font size as needed */
+}
+
+/* For the options within the custom select */
+.custom-select option {
+  padding: 0.5rem; /* Customize the padding for options as needed */
+  font-size: 16px; /* Increase the font size for options as needed */
+}

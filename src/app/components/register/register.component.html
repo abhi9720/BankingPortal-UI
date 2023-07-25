@@ -1,6 +1,6 @@
 <div class="h-full flex items-center justify-center">
   <div class="max-w-md w-full">
-    <div class="rounded-lg border border-gray-300 p-8">
+    <div class="rounded-lg border border-gray-300 p-8" *ngIf="!showRegistrationData">
       <h2 class="text-3xl font-semibold mb-6">Register</h2>
 
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -9,49 +9,81 @@
             <label for="name" class="block text-sm font-bold mb-2">Name:</label>
             <input formControlName="name" type="text" id="name"
               class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500" />
+            <div *ngIf="f.name.invalid && f.name.touched" class="text-red-500 text-sm mt-1">
+              Please enter a valid name.
+            </div>
           </div>
           <div class="col-span-2">
             <label for="email" class="block text-sm font-bold mb-2">Email:</label>
             <input formControlName="email" type="email" id="email"
               class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500" />
+            <div *ngIf="f.email.invalid && f.email.touched" class="text-red-500 text-sm mt-1">
+              <div *ngIf="f.email.errors?.required">Email is required.</div>
+              <div *ngIf="f.email.errors?.email">Please enter a valid email address.</div>
+            </div>
           </div>
           <div class="col-span-2">
             <label for="address" class="block text-sm font-bold mb-2">Address:</label>
             <input formControlName="address" type="text" id="address"
               class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500" />
+            <div *ngIf="f.address.invalid && f.address.touched" class="text-red-500 text-sm mt-1">
+              Address is required.
+            </div>
           </div>
           <div class="col-span-2">
             <label for="phone_number" class="block text-sm font-bold mb-2">Phone Number:</label>
             <input formControlName="phone_number" type="tel" id="phone_number"
               class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500" />
+       
+
+
+              <div *ngIf="f.phone_number.invalid && f.phone_number.touched" class="text-red-500 text-sm mt-1">
+              <div *ngIf="f.phone_number.errors?.required">Phone number is required.</div>
+              <div *ngIf="f.phone_number.errors?.pattern">Please enter a valid 10-digit phone number.</div>
+            </div>
           </div>
+
           <div class="col-span-1">
             <label for="password" class="block text-sm font-bold mb-2">Password:</label>
-            <div class="relative">
-              <input formControlName="password" type="{{ showPassword ? 'text' : 'password' }}" id="password"
-                class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500" />
-             
+            <input formControlName="password" type="password" id="password"
+              class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500" />
+            <div *ngIf="f.password.invalid && f.password.touched" class="text-red-500 text-sm mt-1">
+              <div *ngIf="f.password.errors?.required">Password is required.</div>
+              <div *ngIf="f.password.errors?.minlength">Password must be at least 6 characters long.</div>
             </div>
           </div>
           <div class="col-span-1">
             <label for="confirmPassword" class="block text-sm font-bold mb-2">Confirm Password:</label>
-            <div class="relative">
-              <input formControlName="confirmPassword" type="{{ showPassword ? 'text' : 'password' }}" id="confirmPassword"
-                class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500" />
-             
-            </div>
+            <input formControlName="confirmPassword" type="password" id="confirmPassword"
+              class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500" />
+            <div *ngIf="f.confirmPassword.invalid && f.confirmPassword.touched" class="text-red-500 text-sm mt-1">
+              <div *ngIf="f.confirmPassword.errors?.required">Confirm Password is required.</div>
+              <div *ngIf="f.confirmPassword.errors?.passwordMismatch">Passwords do not match.</div>
+            </div>  
           </div>
-        </div>
-        <!-- Checkbox for password toggle -->
-        <div class="mt-4 flex items-center">
-          <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" (change)="togglePasswordVisibility()" />
-          <label class="ml-2 text-sm text-gray-700">Show Password</label>
+
         </div>
         <div class="mt-4 flex items-center justify-center">
-          <button type="submit"
-            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Register</button>
+          <button type="submit"  [disabled]="registerForm.invalid"
+            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline
+                   disabled:opacity-50 disabled:cursor-not-allowed w-48">Register</button>
         </div>
+        
       </form>
     </div>
+
+    <div class="rounded-lg border border-gray-300 p-8" *ngIf="showRegistrationData">
+      <h2 class="text-3xl font-semibold mb-6">Registration Successful!</h2>
+      <p>Name: {{ registrationData.name }}</p>
+      <p>Email: {{ registrationData.email }}</p>
+      <p>Account Number: {{ registrationData.accountNumber }}</p>
+      <p>Branch: {{ registrationData.branch }}</p>
+      <div class="mt-4 flex items-center justify-center">
+        <a routerLink="/login" type="button"
+          class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          (click)="showRegistrationData = false">Continue to Login</a>
+      </div>
+    </div>
+
   </div>
 </div>
