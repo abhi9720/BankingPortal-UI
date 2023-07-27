@@ -23,6 +23,15 @@ export class AuthService {
     return this.http.get<any>(`${this.baseUrl}/dashboard/user`);
   }
 
+  generateOTP(accountNumber: string): Observable<any> {
+    const body = { accountNumber: accountNumber };
+    return this.http.post(`${this.baseUrl}/users/generate-otp`, body);
+  }
+
+  verifyOTP(otpVerificationRequest: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/users/verify-otp`, otpVerificationRequest);
+  }
+
   login(accountNumber: string, password: string): Observable<any> {
     const body = {
       accountNumber: accountNumber,

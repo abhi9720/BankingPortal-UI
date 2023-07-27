@@ -1,17 +1,17 @@
-<header class="py-4 border-b border-gray-300">
-  <div class="flex items-center justify-between mx-8">
-    <h1 class="text-2xl font-bold">
+<header class="nav border-b border-gray-300 bg-white">
+  <div class="nav-wrapper flex items-center justify-between mx-1">
+    <h1 class="nav-logo text-2xl font-bold">
       <i class="fas fa-piggy-bank text-blue-500 mr-2"></i>
       OneStopBank
     </h1>
-    <div class="flex space-x-4">
-      <a *ngIf="!isLoggedIn()" routerLink="/login" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+    <div class=" nav-body flex space-x-4">
+      <a *ngIf="!isLoggedIn()" routerLink="/login" class="smallscreen bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">
         <i class="fas fa-sign-in-alt mr-1"></i> Login
       </a>
-      <a *ngIf="!isLoggedIn()" routerLink="/register" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+      <a *ngIf="!isLoggedIn()" routerLink="/register" class="smallscreen bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">
         <i class="fas fa-user-plus mr-1"></i> Create Account
       </a>
-      <button *ngIf="isLoggedIn()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" (click)="logout()">
+      <button *ngIf="isLoggedIn()" class="smallscreen bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm" (click)="logout()">
         <i class="fas fa-sign-out-alt mr-1"></i> Logout
       </button>
     </div>

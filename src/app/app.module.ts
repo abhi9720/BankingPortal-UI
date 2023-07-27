@@ -23,6 +23,9 @@ import { AuthInterceptor } from './auth.interceptor';
 import { AngularToastifyModule } from 'angular-toastify';
 import { PinCreationModelComponent } from './components/pin-creation-model/pin-creation-model.component';
 import { HomeComponent } from './components/home/home.component';
+import { OtpComponent } from './components/otp/otp.component';
+import { LoadermodelService } from './services/loadermodel.service';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { HomeComponent } from './components/home/home.component';
     HeaderComponent,
     SidebarComponent,
     PinCreationModelComponent,
-    HomeComponent
+    HomeComponent,
+    OtpComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,9 @@ import { HomeComponent } from './components/home/home.component';
 
     
   ],
-  providers: [ApiService, AuthService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [ApiService, AuthService, LoadermodelService,
+     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    ],
   bootstrap: [AppComponent],
   entryComponents: [PinCreationModelComponent]
 })

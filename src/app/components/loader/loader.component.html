@@ -1,0 +1,8 @@
+<!-- example.component.html -->
+<div *ngIf="loadermodelService.isShown()" class="loader-overlay">
+    <div class="loader-container">
+      <div class="loader"></div>
+      <p>{{ loadermodelService.getMessage() }}</p>
+    </div>
+  </div>
+  

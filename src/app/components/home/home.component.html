@@ -1,62 +1,94 @@
 <section class="hero bg-gradient-to-r from-blue-400 via-purple-400 to-pink-500">
-  <!--  -->
-    <div class="container-fluid">
-      <div class="panel-wrapper">
-        <!-- Left Side -->
-        <div class="left-panel p-4 ">
-          <h1 class="text-white text-6xl font-semibold mb-4"> <i class="fas fa-piggy-bank text-blue-500 mr-2"></i> OneStopBank</h1>
-          <p class="text-slat-800 text-2xl mb-4">Your One-Stop Solution for Banking Needs</p>
-          <div *ngIf="!authService.isLoggedIn()">
-            <button class="bg-blue-500 text-white px-4 py-2 rounded shadow-md font-semibold" routerLink="/register">
-              Create Account
-            </button>
-          </div>
-          
-          <div *ngIf="authService.isLoggedIn()">
-            <button class="bg-blue-500 text-white px-4 py-2 rounded shadow-md text-sm font-semibold" routerLink="/dashboard">
-              Dashboard
-            </button>
-          </div>
+  <div class="container-fluid">
+    <div class="panel-wrapper">
+      <!-- Left Side -->
+      <div class="left-panel p-4">
+        <h1 class="text-white text-4xl sm:text-5xl md:text-6xl font-semibold mb-4">
+          <i class="fas fa-piggy-bank text-blue-500 mr-2"></i> OneStopBank
+        </h1>
+        <p class="text-slate-800 text-lg sm:text-xl mb-4">Your One-Stop Solution for Banking Needs</p>
+        <div *ngIf="!authService.isLoggedIn()">
+          <button class="bg-blue-500 text-white px-4 py-2 rounded shadow-md font-semibold" routerLink="/register">
+            Create Account
+          </button>
         </div>
-        <!-- Right Side -->
-        <div class="right-panel">
-          <img src="assets/dashboard.png" alt="Dashboard Screenshot" class="w-full rounded-lg border border-gray-200">
+
+        <div *ngIf="authService.isLoggedIn()">
+          <button class="bg-blue-500 text-white px-4 py-2 rounded shadow-md text-sm font-semibold"
+            routerLink="/dashboard">
+            Dashboard
+          </button>
         </div>
       </div>
+      <!-- Right Side -->
+      <div class="right-panel">
+        <img src="assets/dashboard.png" alt="Dashboard Screenshot" class="w-full rounded-lg border border-gray-200">
+      </div>
+
     </div>
-  </section>
-  
-  <section class="features">
-    <div class="container mx-auto p-4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="p-4 border border-gray-200 rounded-lg">
-          <i class="fas fa-shield-alt text-blue-500 text-3xl mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Secure Transactions</h3>
-          <p class="text-gray-600">
-            Your transactions are secured using the latest encryption technologies to protect your financial data.
-          </p>
-        </div>
-        <div class="p-4 border border-gray-200 rounded-lg">
-          <i class="fas fa-wallet text-blue-500 text-3xl mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Easy Fund Management</h3>
-          <p class="text-gray-600">
-            Manage your funds with ease using our intuitive and user-friendly banking interface.
-          </p>
-        </div>
-        <div class="p-4 border border-gray-200 rounded-lg">
-          <i class="fas fa-users text-blue-500 text-3xl mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Multi-User Support</h3>
-          <p class="text-gray-600">
-            Our banking portal supports multiple users, making it perfect for families and businesses.
-          </p>
-        </div>
-        <div class="p-4 border border-gray-200 rounded-lg">
-          <i class="fas fa-history text-blue-500 text-3xl mb-4"></i>
-          <h3 class="text-xl font-semibold mb-2">Transaction History</h3>
-          <p class="text-gray-600">
-            Keep track of your transaction history with detailed records and real-time updates.
-          </p>
-        </div>
+  </div>
+</section>
+
+<section class="bg-gray-100 py-8">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-md">
+        <i class="fas fa-shield-alt text-blue-500 text-3xl mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Secure Transactions</h3>
+        <p class="text-gray-600">
+          Your transactions are secured using the latest encryption technologies to protect your financial data.
+        </p>
+      </div>
+      <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-md">
+        <i class="fas fa-wallet text-blue-500 text-3xl mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Easy Fund Management</h3>
+        <p class="text-gray-600">
+          Manage your funds with ease using our intuitive and user-friendly banking interface.
+        </p>
+      </div>
+      <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-md">
+        <i class="fas fa-users text-blue-500 text-3xl mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Multi-User Support</h3>
+        <p class="text-gray-600">
+          Our banking portal supports multiple users, making it perfect for families and businesses.
+        </p>
+      </div>
+      <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-md">
+        <i class="fas fa-history text-blue-500 text-3xl mb-4"></i>
+        <h3 class="text-xl font-semibold mb-2">Transaction History</h3>
+        <p class="text-gray-600">
+          Keep track of your transaction history with detailed records and real-time updates.
+        </p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+
+<footer class="bg-black text-white py-4 mt-8">
+  <div class="container mx-auto text-center">
+    <p>&copy; 2023 OneStopBank. All rights reserved.</p>
+
+    <!-- GitHub Repository Buttons -->
+    <div class="mt-4 flex flex-wrap p-3 justify-center  items-center rowgap">
+      <span class="text-white font-bold text-xl mr-2">Star on Github   </span>
+      <a href="https://github.com/abhi9720/BankingPortal-UI" target="_blank"
+        class="mr-4 text-white  border border-gray-300 p-2 shadow-lg  hover:text-blue-400 transition-all">
+        <i class="fab fa-github mr-1"></i>  UI Repo ⭐
+      </a>
+      <a href="https://github.com/abhi9720/BankingPortal-API" target="_blank"
+        class="text-white mr-6 border border-gray-300 p-2 shadow-lg  hover:text-blue-400 transition-all">
+        <i class="fab fa-github mr-1"></i>  API Repo ⭐
+      </a>
+      
+     
+
+
+      <a href="https://abhi-9720.github.io/" target="_blank" class="text-white  border border-gray-300 p-2 shadow-lg  hover:text-blue-400 transition-all">
+        <i class="fas fa-user-circle mr-1"></i>  Portfolio
+      </a>
+    </div>
+
+   
+  </div>
+</footer>

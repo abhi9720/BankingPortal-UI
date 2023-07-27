@@ -1,23 +1,20 @@
 .hero {
-  background: radial-gradient(circle, #F59E0B, #FCA5A5);
   /* background: linear-gradient(-45deg, #F6AD55, #FC8181, #A78BFA, #63B3ED, #38A169, #F6AD55);  */
   /* Update the gradient with linear-gradient */
 
-  background-image: linear-gradient(
-  285deg,
-  hsl(240deg 100% 20%) 0%,
-  hsl(306deg 28% 32%) 13%,
-  hsl(26deg 30% 49%) 21%,
-  hsl(48deg 68% 55%) 26%,
-  hsl(52deg 91% 61%) 30%,
-  hsl(37deg 49% 69%) 33%,
-  hsl(272deg 23% 66%) 36%,
-  hsl(229deg 82% 65%) 41%,
-  hsl(245deg 65% 64%) 48%,
-  hsl(293deg 33% 53%) 58%,
-  hsl(338deg 48% 56%) 74%,
-  hsl(0deg 65% 59%) 100%
-);
+  background-image: linear-gradient(285deg,
+      hsl(240deg 100% 20%) 0%,
+      hsl(306deg 28% 32%) 13%,
+      hsl(26deg 30% 49%) 21%,
+      hsl(48deg 68% 55%) 26%,
+      hsl(52deg 91% 61%) 30%,
+      hsl(37deg 49% 69%) 33%,
+      hsl(272deg 23% 66%) 36%,
+      hsl(229deg 82% 65%) 41%,
+      hsl(245deg 65% 64%) 48%,
+      hsl(293deg 33% 53%) 58%,
+      hsl(338deg 48% 56%) 74%,
+      hsl(0deg 65% 59%) 100%);
 
   display: flex;
   justify-content: center;
@@ -29,7 +26,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  overflow-x: hidden; /* Hide horizontal overflow */
+  overflow-x: hidden;
+  /* Hide horizontal overflow */
 }
 
 .left-panel {
@@ -40,37 +38,34 @@
 
 .right-panel {
   flex: calc(3/5);
-  padding: 10px;
-  padding-right: 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: end;
+  padding: 20px 0 0 20px;
   background-color: rgba(255, 255, 255, 0.215);
-  margin: 2rem;
+  margin: 2rem 0 0 0;
   margin-right: 0;
-  border-radius: 5px;
+  border-radius: 5px 0 0 0px;
 }
 
 .right-panel img {
- 
+  object-fit: cover;
   border-radius: 4px 0 0 0px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-top: 2px solid gainsboro;
-  border-left: 2px solid gainsboro;
-  opacity: 0; /* Initially set the opacity to 0 to hide the image */
-
-  /* Apply the animation */
+  opacity: 0;
   animation: slideIn 2s forwards;
+}
+
+.rowgap {
+  row-gap: 10px;
 }
 
 @keyframes slideIn {
   from {
-    opacity: 0; /* Start from 0 opacity (hidden) */
-    transform: translateX(1000px); /* Start from the initial position */
+    opacity: 0;
+    transform: translateX(1000px);
   }
+
   to {
-    opacity: 1; /* End at 1 opacity (fully visible) */
-    transform: translateX(0px); /* Slide to the original position */
+    opacity: 1;
+    transform: translateX(0px);
   }
 }
 
@@ -94,65 +89,32 @@ h1 {
   margin: 0 0.5rem;
 }
 
-/* Additional Styling for Features Section */
-.features {
-  padding: 4rem 0;
-}
 
-.features h3 {
-  color: #4299E1;
-}
 
-.features p {
-  font-size: 1.2rem;
-  line-height: 1.6;
-}
-
-.features i {
-  display: block;
-  text-align: center;
-  font-size: 3rem;
-  color: #4299E1;
-  margin-bottom: 1.5rem;
-}
-
-footer {
-  background-color: #2d3748; /* Set the background color for the footer */
-}
-
-footer p {
-  font-size: 1rem;
-}
 
 /* Mobile Responsive Styling */
 @media (max-width: 640px) {
   .hero {
+    background-size: cover;
+    background-position: center;
+  }
+
+  .panel-wrapper {
     flex-direction: column;
-    text-align: center;
   }
 
-  .right-panel,
-  .left-panel {
-    padding: 2rem;
-  }
-
-  .right-panel img {
-    max-width: 100%;
-  }
 
   .left-panel {
-    width: 100%;
+    padding: 1rem;
   }
 
   h1 {
     font-size: 3rem;
   }
 
-  .text-gray-600 {
+  .text-slate-800 {
     font-size: 1.2rem;
   }
 
-  .features div {
-    text-align: center;
-  }
+
 }

@@ -7,16 +7,19 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  showDropdown: boolean = false; // Add this property to control the visibility of the dropdown menu
 
-  
-  constructor(private authservice : AuthService){  }
+  constructor(private authService: AuthService) { }
 
-
-  isLoggedIn(){
-    return this.authservice.isLoggedIn();
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
   }
 
   logout(): void {
-    this.authservice.logOutUser();
+    this.authService.logOutUser();
+  }
+
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown; // Toggle the visibility of the dropdown menu
   }
 }

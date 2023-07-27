@@ -15,6 +15,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { TransactionHistoryComponent } from './components/transaction-history/transaction-history.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { OtpComponent } from './components/otp/otp.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' }, // Root route (HomeComponent) without AuthGuard
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'account/transaction-history', component: TransactionHistoryComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  {path:'login/otp', component:OtpComponent},
   { path: '**', redirectTo: '' }, // Handle 404 - Page Not Found
 ];
 

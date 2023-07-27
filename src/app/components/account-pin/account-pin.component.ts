@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastService } from 'angular-toastify';
 import { ApiService } from 'src/app/services/api.service';
+import { LoadermodelService } from 'src/app/services/loadermodel.service';
 
 @Component({
   selector: 'app-account-pin',
@@ -14,10 +15,15 @@ export class AccountPinComponent implements OnInit {
   pinChangeForm!: FormGroup;
   loading: boolean = true;
 
+  print = console.log;
 
-  print =  console.log
-
-  constructor(private apiService: ApiService, private fb: FormBuilder, private _toastService: ToastService, private router : Router) { }
+  constructor(
+    private apiService: ApiService,
+    private fb: FormBuilder,
+    private _toastService: ToastService,
+    private router: Router,
+    private loader: LoadermodelService // Inject the LoaderService here
+  ) {}
 
   ngOnInit(): void {
     this.apiService.checkPinCreated().subscribe(
@@ -58,15 +64,17 @@ export class AccountPinComponent implements OnInit {
       const newPin = this.pinChangeForm.get('newPin')?.value;
       const password = this.pinChangeForm.get('password')?.value;
 
+      this.loader.show('Generating PIN...'); // Show the loader before making the API call
       // Call the API to generate a PIN.
       this.apiService.createPin(newPin, password).subscribe(
         (response: any) => {
-          this._toastService.success("PIN generated successfully");
+          this.loader.hide(); // Hide the loader on successful PIN generation
+          this._toastService.success('PIN generated successfully');
           console.log('PIN generated successfully:', response);
-          this.router.navigate(['/dashboard'])
-
+          this.router.navigate(['/dashboard']);
         },
         (error: any) => {
+          this.loader.hide(); // Hide the loader on PIN generation request failure
           this._toastService.error(error.error);
           console.error('Error generating PIN:', error);
         }
@@ -80,20 +88,21 @@ export class AccountPinComponent implements OnInit {
       const newPin = this.pinChangeForm.get('newPin')?.value;
       const password = this.pinChangeForm.get('password')?.value;
 
+      this.loader.show('Updating PIN...'); // Show the loader before making the API call
       // Call the API to update the PIN.
       this.apiService.updatePin(oldPin, newPin, password).subscribe(
         (response: any) => {
-          this._toastService.success("PIN updated successfully");
+          this.loader.hide(); // Hide the loader on successful PIN update
+          this._toastService.success('PIN updated successfully');
           console.log('PIN updated successfully:', response);
-          this.router.navigate(['/dashboard'])
-
+          this.router.navigate(['/dashboard']);
         },
         (error: any) => {
+          this.loader.hide(); // Hide the loader on PIN update request failure
           this._toastService.error(error.error);
           console.error('Error updating PIN:', error);
         }
       );
     }
   }
-
 }
