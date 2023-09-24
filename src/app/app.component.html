@@ -1,10 +1,11 @@
 <div class="flex-grow">
-  <app-header />
+
   <div class="content-wrapper ">
     <div class="left-pannel">
       <app-sidebar />
     </div>
-    <div class="right-pannel">
+    <div class="right-pannel bg-gray-50">
+      <app-header />
       <router-outlet></router-outlet>
     </div>
   </div>
@@ -13,4 +14,4 @@
 
 <app-loader></app-loader>
 
-<lib-toastify-toast-container [position]="'bottom-right'" [iconLibrary]="'font-awesome'" ></lib-toastify-toast-container>
+<lib-toastify-toast-container [position]="'bottom-right'" [iconLibrary]="'font-awesome'"></lib-toastify-toast-container>

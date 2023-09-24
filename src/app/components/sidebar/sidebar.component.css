@@ -1,49 +1,53 @@
-/* sidebar.component.css */
-.sidebar-wrapper{
-  border-right: 2px solid gainsboro;
+.sidebar-wrapper {
+  background-color: rgb(79, 70, 229) !important;
+  padding: 10px;
 }
-.togglebtnwrapper{
+
+.togglebtnwrapper {
   display: flex;
   justify-content: flex-end;
-  padding:  4px;
+  gap: 10px;
   right: 0;
+  width: fit-content;
 }
 
-.togglebtnwrapper > button{
+.togglebtnwrapper>button {
   margin: 0;
 }
+
+.hide-logo {
+  display: none;
+}
+
 .sidebar {
-
-  display: none;  
+  overflow: hidden;
+  transition: all 0.3s;
+  background-color: rgb(79, 70, 229);
   padding: 10px;
 }
-
-.showsidebar{
-  display: block;
-}
-
-.dashboard-link {
-  display: block;
-  color: #2d3748; /* Dark text color */
-  font-weight: bold;
-  padding: 10px;
-  border-left: 3px solid transparent;
-  transition: border-color 0.3s ease;
-}
-
-.dashboard-link:hover {
-  border-color: #4299e1; /* Blue border color on hover */
-}
-
-
 
 .toggle-button {
   display: block;
-  margin-bottom: 10px;
-  background-color: #4299e1; /* Blue background color for the toggle button */
   color: white;
-  border: none;
-  padding: 8px 12px;
+  padding: 5px 10px;
+  border: 1px solid white;
   cursor: pointer;
+  font-size: 1rem;
   border-radius: 4px;
+}
+
+.toggle-button:hover {
+  background-color: rgb(67 56 202);
+}
+
+
+
+.sidebar-link {
+  padding: 10px;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
+.sidebar-link:hover {
+  background-color: rgb(67 56 202);
 }

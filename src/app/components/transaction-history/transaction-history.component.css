@@ -1,46 +1,51 @@
 ::ng-deep .Withdraw-color {
-    border-radius: 4px;
-    padding: 4px;
-    text-transform: capitalize;
-    font-weight: 600;
-    color: #e53e3e !important; /* Red */
-    background-color: #fed7d7; /* Light red background */
-  }
-  
-  ::ng-deep .Transfer-color {
-    border-radius: 4px;
-    padding: 4px;
-    text-transform: capitalize;
-    font-weight: 600;
-    color: #3b82f6 !important; /* Blue */
-    background-color: #dbeffe; /* Light blue background */
-  }
-  
-  ::ng-deep .Credited-color {
-    border-radius: 4px;
-    padding: 4px;
-    text-transform: capitalize;
-    font-weight: 600;
-    color: #10b981 !important; /* Green */
-    background-color: #d1fae5; /* Light green background */
-  }
-  
-  ::ng-deep .Deposited-color {
-    border-radius: 4px;
-    padding: 4px;
-    text-transform: capitalize;
-    font-weight: 600;
-    color: #6366f1 !important; /* Indigo */
-    background-color: #e0e7ff; /* Light indigo background */
-  }
-  /* For the custom select element */
+
+
+  color: #e53e3e !important;
+  /* Red */
+  background-color: #fed7d7;
+  /* Light red background */
+}
+
+::ng-deep .Transfer-color {
+
+
+  color: #3b82f6 !important;
+  /* Blue */
+  background-color: #dbeffe;
+  /* Light blue background */
+}
+
+::ng-deep .Credited-color {
+
+
+  color: #10b981 !important;
+  /* Green */
+  background-color: #d1fae5;
+  /* Light green background */
+}
+
+::ng-deep .Deposited-color {
+
+
+  color: #6366f1 !important;
+  /* Indigo */
+  background-color: #e0e7ff;
+  /* Light indigo background */
+}
+
+/* For the custom select element */
 .custom-select select {
-  padding: 0.75rem 2rem; /* Customize the padding as needed */
-  font-size: 16px; /* Increase the font size as needed */
+  padding: 0.75rem 2rem;
+  /* Customize the padding as needed */
+  font-size: 16px;
+  /* Increase the font size as needed */
 }
 
 /* For the options within the custom select */
 .custom-select option {
-  padding: 0.5rem; /* Customize the padding for options as needed */
-  font-size: 16px; /* Increase the font size for options as needed */
+  padding: 0.5rem;
+  /* Customize the padding for options as needed */
+  font-size: 16px;
+  /* Increase the font size for options as needed */
 }

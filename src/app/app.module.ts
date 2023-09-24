@@ -26,6 +26,7 @@ import { HomeComponent } from './components/home/home.component';
 import { OtpComponent } from './components/otp/otp.component';
 import { LoadermodelService } from './services/loadermodel.service';
 import { LoaderComponent } from './components/loader/loader.component';
+import { NotfoundpageComponent } from './components/notfoundpage/notfoundpage.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     PinCreationModelComponent,
     HomeComponent,
     OtpComponent,
-    LoaderComponent
+    LoaderComponent,
+    NotfoundpageComponent
   ],
   imports: [
     BrowserModule,

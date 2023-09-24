@@ -1,24 +1,23 @@
 <!-- dashboard.component.html -->
 
 <div class="dashboard-container">
- 
-  
-      <!-- First Row -->
 
-      <div class="cards-wrapper w-full">
-        <div class="w-full p-2">
-          <app-user-profile></app-user-profile>
-        </div>
-        <div class="w-full p-2">
-          <app-account-details></app-account-details>
-        </div>
-      </div>
-  
-      <!-- Second Row -->
-      <div class="col-span-2">
-        <app-transaction-history></app-transaction-history>
-      </div>
-      
 
+
+  <div class="cards-wrapper w-full">
+    <div class="w-full p-2">
+      <app-user-profile></app-user-profile>
+    </div>
+    <div class="w-full p-2">
+      <app-account-details></app-account-details>
+    </div>
   </div>
-  <app-pin-creation-model *ngIf="showPINCreationModel" (redirect)="redirectToPINCreationPage()"></app-pin-creation-model>
+
+  <!-- Second Row -->
+  <div class="col-span-2">
+    <app-transaction-history></app-transaction-history>
+  </div>
+
+
+</div>
+<app-pin-creation-model *ngIf="showPINCreationModel" (redirect)="redirectToPINCreationPage()"></app-pin-creation-model>
