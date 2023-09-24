@@ -11,12 +11,13 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FundTransferComponent } from './components/fund-transfer/fund-transfer.component';
 import { AccountPinComponent } from './components/account-pin/account-pin.component';
 import { AccountDetailsComponent } from './components/account-details/account-details.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserprofilecardComponent } from './components/userprofilecard/userprofilecard.component';
 import { TransactionHistoryComponent } from './components/transaction-history/transaction-history.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { OtpComponent } from './components/otp/otp.component';
 import { NotfoundpageComponent } from './components/notfoundpage/notfoundpage.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' }, // Root route (HomeComponent) without AuthGuard
@@ -26,7 +27,7 @@ const routes: Routes = [
   { path: 'account/fund-transfer', component: FundTransferComponent, canActivate: [AuthGuard] },
   { path: 'account/pin', component: AccountPinComponent, canActivate: [AuthGuard] },
   { path: 'account', component: AccountDetailsComponent, canActivate: [AuthGuard] },
-  { path: 'user/profile', component: UserProfileComponent, canActivate: [AuthGuard] },
+  { path: 'user/profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'account/transaction-history', component: TransactionHistoryComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

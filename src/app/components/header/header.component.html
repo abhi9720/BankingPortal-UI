@@ -1,13 +1,18 @@
 <header class="nav bg-white shadow">
-  <div class="nav-wrapper flex items-center justify-end mx-1">
+  <div class="nav-wrapper flex items-center justify-between mx-1">
+    <h1 *ngIf="!isLoggedIn() || checkScreenSize()"
+      class="nav-logo min-w-min !min-w-[fit-content] text-xl md:text-2xl font-bold">
+      <i class="fas fa-piggy-bank text-blue-500 mr-2"></i>
+      OneStopBank
+    </h1>
 
-    <div class=" nav-body flex space-x-4">
+    <div class="nav-body w-full flex justify-end space-x-4 p-1">
       <a *ngIf="!isLoggedIn()" routerLink="/login"
-        class="smallscreen bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">
+        class="smallscreen border border-2 border-gray-500 hover:bg-gray-100 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">
         <i class="fas fa-sign-in-alt mr-1"></i> Login
       </a>
       <a *ngIf="!isLoggedIn()" routerLink="/register"
-        class="smallscreen bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">
+        class="smallscreen bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">
         <i class="fas fa-user-plus mr-1"></i> Create Account
       </a>
       <button *ngIf="isLoggedIn()"

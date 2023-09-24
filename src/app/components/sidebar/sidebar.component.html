@@ -13,52 +13,58 @@
     <nav class="h-screen">
       <ul>
         <li class="">
-          <a routerLink="/dashboard"
+          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/dashboard"
             class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
             <i class="fas fa-tachometer-alt"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Dashboard</span>
           </a>
         </li>
         <li class="my-2">
-          <a routerLink="/account/deposit"
+          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account/deposit"
             class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
             <i class="fas fa-money-bill-wave"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Deposit</span>
           </a>
         </li>
         <li class="my-2">
-          <a routerLink="/account/withdraw"
+          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account/withdraw"
             class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
             <i class="fas fa-money-bill"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Withdraw</span>
           </a>
         </li>
         <li class="my-2">
-          <a routerLink="/account/fund-transfer"
+          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account/fund-transfer"
             class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
             <i class="fas fa-exchange-alt"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Fund Transfer</span>
           </a>
         </li>
         <li class="my-2">
-          <a routerLink="/account/pin"
+          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account/pin"
             class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
             <i class="fas fa-key"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Account PIN</span>
           </a>
         </li>
         <!-- <li class="my-2">
-          <a routerLink="/account" class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
-            <i class="fas fa-address-card"></i> Account Details
-          </a>
-        </li>
-        <li class="my-2">
-          <a routerLink="/user/profile" class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
-            <i class="fas fa-user"></i> User Profile
+          <a  [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account"
+            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
+            <i class="fas fa-address-card"></i>
+            <span [ngClass]="{'hide-logo': !sidebarVisible}">Account Details</span>
+
           </a>
         </li> -->
         <li class="my-2">
-          <a routerLink="/account/transaction-history"
+          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/user/profile"
+            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
+            <i class="fas fa-user"></i>
+            <span [ngClass]="{'hide-logo': !sidebarVisible}">User Profile</span>
+
+          </a>
+        </li>
+        <li class="my-2">
+          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account/transaction-history"
             class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
             <i class="fas fa-history"></i>
 

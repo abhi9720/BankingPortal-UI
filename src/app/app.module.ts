@@ -11,7 +11,7 @@ import { WithdrawComponent } from './components/withdraw/withdraw.component';
 import { FundTransferComponent } from './components/fund-transfer/fund-transfer.component';
 import { AccountDetailsComponent } from './components/account-details/account-details.component';
 import { AccountPinComponent } from './components/account-pin/account-pin.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserprofilecardComponent } from './components/userprofilecard/userprofilecard.component';
 import { TransactionHistoryComponent } from './components/transaction-history/transaction-history.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
@@ -27,6 +27,7 @@ import { OtpComponent } from './components/otp/otp.component';
 import { LoadermodelService } from './services/loadermodel.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { NotfoundpageComponent } from './components/notfoundpage/notfoundpage.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { NotfoundpageComponent } from './components/notfoundpage/notfoundpage.co
     FundTransferComponent,
     AccountDetailsComponent,
     AccountPinComponent,
-    UserProfileComponent,
+    UserprofilecardComponent,
     TransactionHistoryComponent,
     HeaderComponent,
     SidebarComponent,
@@ -47,7 +48,8 @@ import { NotfoundpageComponent } from './components/notfoundpage/notfoundpage.co
     HomeComponent,
     OtpComponent,
     LoaderComponent,
-    NotfoundpageComponent
+    NotfoundpageComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

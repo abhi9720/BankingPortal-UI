@@ -11,6 +11,10 @@
   width: fit-content;
 }
 
+.removepadding {
+  padding: 0 !important;
+}
+
 .togglebtnwrapper>button {
   margin: 0;
 }

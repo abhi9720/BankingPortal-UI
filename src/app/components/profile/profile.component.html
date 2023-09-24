@@ -1,0 +1,94 @@
+<div class="container mx-auto mt-5">
+    <h1 class="text-3xl font-semibold mb-4">User Profile</h1>
+
+    <!-- Display user profile information -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2  gap-4">
+            <div>
+                <label class="text-gray-600 font-semibold">Name:</label>
+                <span class="text-gray-800 block">{{ profileForm.value.name }}</span>
+            </div>
+
+            <div>
+                <label class="text-gray-600 font-semibold">Email:</label>
+                <span class="text-gray-800 block">{{ profileForm.value.email }}</span>
+            </div>
+
+            <div>
+                <label class="text-gray-600 font-semibold">Address:</label>
+                <span class="text-gray-800 block">{{ profileForm.value.address }}</span>
+            </div>
+
+            <div>
+                <label class="text-gray-600 font-semibold">Phone Number:</label>
+                <span class="text-gray-800 block">{{ profileForm.value.phone_number }}</span>
+            </div>
+
+            <div>
+                <label class="text-gray-600 font-semibold">Account Number:</label>
+                <span class="text-gray-800 block">{{ profileForm.value.accountNumber }}</span>
+            </div>
+
+            <div>
+                <label class="text-gray-600 font-semibold">Branch:</label>
+                <span class="text-gray-800 block">{{ profileForm.value.branch || 'N/A' }}</span>
+            </div>
+
+            <div>
+                <label class="text-gray-600 font-semibold">Account Type:</label>
+                <span class="text-gray-800 block">{{ profileForm.value.account_type || 'N/A' }}</span>
+            </div>
+
+            <div>
+                <label class="text-gray-600 font-semibold">IFSC Code:</label>
+                <span class="text-gray-800 block">{{ profileForm.value.ifsc_code || 'N/A' }}</span>
+            </div>
+        </div>
+        <button (click)="toggleUpdateForm()"
+            class="mt-6 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 cursor-pointer">Edit Profile</button>
+    </div>
+
+    <!-- Profile update form (initially hidden) -->
+    <div *ngIf="showUpdateForm" class="bg-white rounded-lg shadow-lg p-6 mt-4">
+        <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+            <!-- Name field -->
+            <div class="mb-4">
+                <label class="text-gray-600 font-semibold">Name:</label>
+                <input formControlName="name" type="text"
+                    class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
+            </div>
+
+            <!-- Email field -->
+            <div class="mb-4">
+                <label class="text-gray-600 font-semibold">Email:</label>
+                <input formControlName="email" type="email"
+                    class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
+            </div>
+
+            <div class="mb-4">
+                <label class="text-gray-600 font-semibold">Address:</label>
+                <input formControlName="address" type="text"
+                    class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
+            </div>
+
+            <!-- New phone number field -->
+            <div class="mb-4">
+                <label class="text-gray-600 font-semibold">New Phone Number:</label>
+                <input formControlName="phone_number" type="text"
+                    class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
+            </div>
+
+            <!-- Password field -->
+            <div class="mb-4">
+                <label class="text-gray-600 font-semibold">Password:</label>
+                <input formControlName="password" type="password"
+                    class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
+            </div>
+
+            <!-- Button to save changes -->
+            <button type="submit"
+                class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 cursor-pointer">Save
+                Changes</button>
+        </form>
+    </div>
+</div>

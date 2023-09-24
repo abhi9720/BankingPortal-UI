@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private baseUrl = environment.apiUrl; // Replace with your actual API base URL
-  private authtokenName  =  environment.tokenName
+  private authtokenName = environment.tokenName
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -23,6 +23,9 @@ export class AuthService {
     return this.http.get<any>(`${this.baseUrl}/dashboard/user`);
   }
 
+  updateUserProfile(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/users/update`, payload);
+  }
   generateOTP(accountNumber: string): Observable<any> {
     const body = { accountNumber: accountNumber };
     return this.http.post(`${this.baseUrl}/users/generate-otp`, body);
@@ -40,14 +43,14 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}/users/login`, body);
   }
 
-  isLoggedIn(){
+  isLoggedIn() {
     const token = localStorage.getItem(this.authtokenName);
     if (token) {
       try {
         // Decode the JWT token
-        const decodedToken:any = jwt_decode(token);
-        
-  
+        const decodedToken: any = jwt_decode(token);
+
+
         // Check if the token is valid and not expired
         if (decodedToken && decodedToken.exp && decodedToken.exp * 1000 > Date.now()) {
           // Token is valid and not expired
