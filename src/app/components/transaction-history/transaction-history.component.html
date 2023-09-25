@@ -19,17 +19,25 @@
 
   <div class="my-4">
     <h4 class="mb-4 text-lg font-semibold text-gray-600">Filter by Transaction Type</h4>
-    <div class="relative mt-4">
-      <select id="filterCriteria" formControlName="filterCriteria" (change)="onFilterCriteriaChange($event)"
-        class="block w-full p-3 bg-white border border-gray-300 rounded-md shadow focus:ring focus:ring-opacity-50 focus:ring-blue-500 focus:border-blue-500 sm:text-sm custom-select">
-        <option [attr.selected]="true" value="" class="text-lg py-2">All Transactions</option>
-        <!-- Increase font size (text-lg) and add padding (py-2) -->
-        <option value="Deposit" class="text-lg py-2">Deposits</option> <!-- Increase font size and add padding -->
-        <option value="Withdrawal" class="text-lg py-2">Withdrawals</option> <!-- Increase font size and add padding -->
-        <option value="Transfer" class="text-lg py-2">Transfers/Credited</option>
-        <!-- Increase font size and add padding -->
-      </select>
+    <div class="relative mt-4 flex items-center">
+      <div class="flex-grow">
+        <select id="filterCriteria" formControlName="filterCriteria" (change)="onFilterCriteriaChange($event)"
+          class="block w-full p-3 bg-white border border-gray-300 rounded-md shadow focus:ring focus:ring-opacity-50 focus:ring-blue-500 focus:border-blue-500 sm:text-sm custom-select">
+          <option [attr.selected]="true" value="" class="text-lg py-2">All Transactions</option>
+          <!-- Increase font size (text-lg) and add padding (py-2) -->
+          <option value="Deposit" class="text-lg py-2">Deposits</option> <!-- Increase font size and add padding -->
+          <option value="Withdrawal" class="text-lg py-2">Withdrawals</option>
+          <!-- Increase font size and add padding -->
+          <option value="Transfer" class="text-lg py-2">Transfers/Credited</option>
+          <!-- Increase font size and add padding -->
+        </select>
+      </div>
+
+      <app-donwloadtransactions [data]="transactionHistory" />
+
+
     </div>
+
 
   </div>
 

@@ -33,6 +33,7 @@ import { ChartsModule } from 'ng2-charts';
 import { DailyTransactionPiechartComponent } from './components/daily-transaction-piechart/daily-transaction-piechart.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
 import { MonthlyTransactionChartComponent } from './components/monthly-transaction-chart/monthly-transaction-chart.component';
+import { DonwloadtransactionsComponent } from './components/donwloadtransactions/donwloadtransactions.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { MonthlyTransactionChartComponent } from './components/monthly-transacti
     TransactionLinechartComponent,
     DailyTransactionPiechartComponent,
     TransactionComponent,
-    MonthlyTransactionChartComponent
+    MonthlyTransactionChartComponent,
+    DonwloadtransactionsComponent
   ],
   imports: [
     BrowserModule,
