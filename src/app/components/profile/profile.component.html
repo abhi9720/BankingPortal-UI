@@ -1,94 +1,98 @@
-<div class="container mx-auto mt-5">
-    <h1 class="text-3xl font-semibold mb-4">User Profile</h1>
+<div class="container mx-auto mt-5 md:p-5 p-0">
+    <h1 class="text-4xl font-bold text-indigo-700 mb-6">User Profile</h1>
 
-    <!-- Display user profile information -->
-    <div class="bg-white rounded-lg shadow-lg p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2  gap-4">
+    <div *ngIf="!showUpdateForm" class="rounded-lg bg-white md:p-6 p-2 shadow-lg">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
                 <label class="text-gray-600 font-semibold">Name:</label>
-                <span class="text-gray-800 block">{{ profileForm.value.name }}</span>
+                <span class="text-gray-800 block">{{ userProfile.name }}</span>
             </div>
 
             <div>
                 <label class="text-gray-600 font-semibold">Email:</label>
-                <span class="text-gray-800 block">{{ profileForm.value.email }}</span>
+                <span class="text-gray-800 block">{{ userProfile.email }}</span>
             </div>
 
             <div>
                 <label class="text-gray-600 font-semibold">Address:</label>
-                <span class="text-gray-800 block">{{ profileForm.value.address }}</span>
+                <span class="text-gray-800 block">{{ userProfile.address }}</span>
             </div>
 
             <div>
                 <label class="text-gray-600 font-semibold">Phone Number:</label>
-                <span class="text-gray-800 block">{{ profileForm.value.phone_number }}</span>
+                <span class="text-gray-800 block">{{ userProfile.phone_number }}</span>
             </div>
 
             <div>
                 <label class="text-gray-600 font-semibold">Account Number:</label>
-                <span class="text-gray-800 block">{{ profileForm.value.accountNumber }}</span>
+                <span class="text-gray-800 block">{{ userProfile.accountNumber }}</span>
             </div>
 
             <div>
                 <label class="text-gray-600 font-semibold">Branch:</label>
-                <span class="text-gray-800 block">{{ profileForm.value.branch || 'N/A' }}</span>
+                <span class="text-gray-800 block">{{ userProfile.branch || 'N/A' }}</span>
             </div>
 
             <div>
                 <label class="text-gray-600 font-semibold">Account Type:</label>
-                <span class="text-gray-800 block">{{ profileForm.value.account_type || 'N/A' }}</span>
+                <span class="text-gray-800 block">{{ userProfile.account_type || 'N/A' }}</span>
             </div>
 
             <div>
                 <label class="text-gray-600 font-semibold">IFSC Code:</label>
-                <span class="text-gray-800 block">{{ profileForm.value.ifsc_code || 'N/A' }}</span>
+                <span class="text-gray-800 block">{{ userProfile.ifsc_code || 'N/A' }}</span>
             </div>
         </div>
-        <button (click)="toggleUpdateForm()"
-            class="mt-6 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 cursor-pointer">Edit Profile</button>
+
+        <button (click)="toggleUpdateForm()" type="button"
+            class="mt-6 font-semibold cursor-pointer text-indigo-900 bg-blue-100 py-2 px-4 rounded-lg hover:bg-blue-200 transition duration-300 ease-in-out">Edit
+            Profile
+        </button>
     </div>
 
-    <!-- Profile update form (initially hidden) -->
-    <div *ngIf="showUpdateForm" class="bg-white rounded-lg shadow-lg p-6 mt-4">
+    <div *ngIf="showUpdateForm" class="bg-white rounded-lg shadow-lg md:p-6 p-2 mt-4">
         <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
             <!-- Name field -->
             <div class="mb-4">
                 <label class="text-gray-600 font-semibold">Name:</label>
-                <input formControlName="name" type="text"
+                <input formControlName="name" type="text" [readonly]="!showUpdateForm"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
             </div>
 
-            <!-- Email field -->
             <div class="mb-4">
                 <label class="text-gray-600 font-semibold">Email:</label>
-                <input formControlName="email" type="email"
+                <input formControlName="email" type="email" [readonly]="!showUpdateForm"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
             </div>
 
             <div class="mb-4">
                 <label class="text-gray-600 font-semibold">Address:</label>
-                <input formControlName="address" type="text"
+                <input formControlName="address" type="text" [readonly]="!showUpdateForm"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
             </div>
 
-            <!-- New phone number field -->
             <div class="mb-4">
-                <label class="text-gray-600 font-semibold">New Phone Number:</label>
-                <input formControlName="phone_number" type="text"
+                <label class="text-gray-600 font-semibold">Phone Number:</label>
+                <input formControlName="phone_number" type="text" [readonly]="!showUpdateForm"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
             </div>
 
-            <!-- Password field -->
-            <div class="mb-4">
+            <div *ngIf="showUpdateForm" class="mb-4">
                 <label class="text-gray-600 font-semibold">Password:</label>
                 <input formControlName="password" type="password"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
             </div>
 
-            <!-- Button to save changes -->
-            <button type="submit"
-                class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 cursor-pointer">Save
-                Changes</button>
+            <div class="flex gap-2">
+                <button *ngIf="showUpdateForm" type="submit"
+                    class="mt-6 font-semibold cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">Save
+                    Changes</button>
+
+                <button (click)="toggleUpdateForm()" type="button"
+                    class="mt-6 font-semibold cursor-pointer bg-gray-100 text-slate-800 py-2 px-4 rounded hover:bg-indigo-50 cursor-pointer">Cancel
+                    Profile
+                </button>
+            </div>
         </form>
     </div>
 </div>

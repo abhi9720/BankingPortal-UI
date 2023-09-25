@@ -9,7 +9,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DepositComponent } from './components/deposit/deposit.component';
 import { WithdrawComponent } from './components/withdraw/withdraw.component';
 import { FundTransferComponent } from './components/fund-transfer/fund-transfer.component';
-import { AccountDetailsComponent } from './components/account-details/account-details.component';
+import { AccountdetailcardComponent } from './components/accountdetailcard/accountdetailcard.component';
 import { AccountPinComponent } from './components/account-pin/account-pin.component';
 import { UserprofilecardComponent } from './components/userprofilecard/userprofilecard.component';
 import { TransactionHistoryComponent } from './components/transaction-history/transaction-history.component';
@@ -38,7 +38,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     DepositComponent,
     WithdrawComponent,
     FundTransferComponent,
-    AccountDetailsComponent,
+    AccountdetailcardComponent,
     AccountPinComponent,
     UserprofilecardComponent,
     TransactionHistoryComponent,

@@ -1,5 +1,5 @@
-<div class="sidebar-wrapper shadow-lg" *ngIf="isLoggedIn()">
-  <div class="togglebtnwrapper">
+<div class="sidebar-wrapper shadow-lg pt-1" *ngIf="isLoggedIn()">
+  <div class="togglebtnwrapper" [ngClass]="{'removepadding': !sidebarVisible}">
     <h2 class="text-xl font-bold text-white" [ngClass]="{'hide-logo': !sidebarVisible}">
       <i class="fas fa-piggy-bank mr-2"></i>
       <span>OneStopBank</span>
@@ -9,63 +9,63 @@
     </button>
   </div>
 
-  <div class="sidebar">
+  <div class="sidebar" [ngClass]="{'removepadding': !sidebarVisible}">
     <nav class="h-screen">
       <ul>
-        <li class="">
-          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/dashboard"
-            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
+        <li class="mb-5">
+          <a routerLinkActive="active-link" routerLinkActive="active-link" routerLink="/dashboard"
+            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150">
             <i class="fas fa-tachometer-alt"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Dashboard</span>
           </a>
         </li>
-        <li class="my-2">
-          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account/deposit"
-            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
+        <li class="mb-5">
+          <a routerLinkActive="active-link" routerLink="/account/deposit"
+            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150">
             <i class="fas fa-money-bill-wave"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Deposit</span>
           </a>
         </li>
-        <li class="my-2">
-          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account/withdraw"
-            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
+        <li class="mb-5">
+          <a routerLinkActive="active-link" routerLink="/account/withdraw"
+            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150">
             <i class="fas fa-money-bill"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Withdraw</span>
           </a>
         </li>
-        <li class="my-2">
-          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account/fund-transfer"
-            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
+        <li class="mb-5">
+          <a routerLinkActive="active-link" routerLink="/account/fund-transfer"
+            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150">
             <i class="fas fa-exchange-alt"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Fund Transfer</span>
           </a>
         </li>
-        <li class="my-2">
-          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account/pin"
-            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
+        <li class="mb-5">
+          <a routerLinkActive="active-link" routerLink="/account/pin"
+            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150">
             <i class="fas fa-key"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Account PIN</span>
           </a>
         </li>
-        <!-- <li class="my-2">
-          <a  [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account"
-            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
+        <!-- <li class="mb-5">
+          <a  routerLinkActive="active-link" routerLink="/account"
+            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150">
             <i class="fas fa-address-card"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Account Details</span>
 
           </a>
         </li> -->
-        <li class="my-2">
-          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/user/profile"
-            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
+        <li class="mb-5">
+          <a routerLinkActive="active-link" routerLink="/user/profile"
+            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150">
             <i class="fas fa-user"></i>
             <span [ngClass]="{'hide-logo': !sidebarVisible}">User Profile</span>
 
           </a>
         </li>
-        <li class="my-2">
-          <a [ngClass]="{'removepadding': !sidebarVisible}" routerLink="/account/transaction-history"
-            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150 hover:text-white">
+        <li class="mb-5">
+          <a routerLinkActive="active-link" routerLink="/account/transaction-history"
+            class="sidebar-link inline-flex items-center gap-4 w-full text-normal font-semibold  text-gray-300 transition-colors duration-150">
             <i class="fas fa-history"></i>
 
             <span [ngClass]="{'hide-logo': !sidebarVisible}">Transaction History</span>

@@ -10,7 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FundTransferComponent } from './components/fund-transfer/fund-transfer.component';
 import { AccountPinComponent } from './components/account-pin/account-pin.component';
-import { AccountDetailsComponent } from './components/account-details/account-details.component';
+import { AccountdetailcardComponent } from './components/accountdetailcard/accountdetailcard.component';
 import { UserprofilecardComponent } from './components/userprofilecard/userprofilecard.component';
 import { TransactionHistoryComponent } from './components/transaction-history/transaction-history.component';
 import { LoginComponent } from './components/login/login.component';
@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'account/withdraw', component: WithdrawComponent, canActivate: [AuthGuard] },
   { path: 'account/fund-transfer', component: FundTransferComponent, canActivate: [AuthGuard] },
   { path: 'account/pin', component: AccountPinComponent, canActivate: [AuthGuard] },
-  { path: 'account', component: AccountDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'account', component: AccountdetailcardComponent, canActivate: [AuthGuard] },
   { path: 'user/profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'account/transaction-history', component: TransactionHistoryComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },

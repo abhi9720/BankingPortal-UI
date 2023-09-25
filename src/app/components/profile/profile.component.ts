@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
     this.authService.getUserDetails().subscribe(
       (data) => {
         this.userProfile = data;
-        // Initialize the form with the existing user data
+
         this.profileForm.patchValue(data);
       },
       (error) => {
@@ -45,6 +45,7 @@ export class ProfileComponent implements OnInit {
   }
 
   toggleUpdateForm(): void {
+    this.profileForm.patchValue(this.userProfile);
     this.showUpdateForm = !this.showUpdateForm;
   }
 
@@ -52,9 +53,10 @@ export class ProfileComponent implements OnInit {
     // Send the form value to your API or service for updating the user profile
     // Implement this logic in your AuthService or a dedicated service
     this.authService.updateUserProfile(this.profileForm.value).subscribe(
-      (response) => {
+      (data) => {
+        this.userProfile = data;
         // Handle success, e.g., show a success message
-        console.log('Profile updated successfully:', response);
+        console.log('Profile updated successfully:', data);
         // Hide the update form
         this.showUpdateForm = false;
       },

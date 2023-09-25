@@ -1,6 +1,5 @@
 .sidebar-wrapper {
   background-color: rgb(79, 70, 229) !important;
-  padding: 10px;
 }
 
 .togglebtnwrapper {
@@ -9,11 +8,10 @@
   gap: 10px;
   right: 0;
   width: fit-content;
+  padding: 10px;
 }
 
-.removepadding {
-  padding: 0 !important;
-}
+
 
 .togglebtnwrapper>button {
   margin: 0;
@@ -28,6 +26,10 @@
   transition: all 0.3s;
   background-color: rgb(79, 70, 229);
   padding: 10px;
+}
+
+.removepadding {
+  padding: 3px;
 }
 
 .toggle-button {
@@ -52,6 +54,7 @@
   border-radius: 5px;
 }
 
-.sidebar-link:hover {
+.active-link {
+  color: white;
   background-color: rgb(67 56 202);
 }

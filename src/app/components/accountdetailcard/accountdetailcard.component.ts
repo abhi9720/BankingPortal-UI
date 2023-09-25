@@ -3,11 +3,11 @@ import { ToastService } from 'angular-toastify';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-account-details',
-  templateUrl: './account-details.component.html',
-  styleUrls: ['./account-details.component.css']
+  selector: 'app-accountdetailcard',
+  templateUrl: './accountdetailcard.component.html',
+  styleUrls: ['./accountdetailcard.component.css']
 })
-export class AccountDetailsComponent implements OnInit {
+export class AccountdetailcardComponent implements OnInit {
   accountDetails: any;
 
   constructor(private apiService: ApiService , private _toastService: ToastService ) { }
