@@ -1,12 +1,24 @@
-<!-- transaction-history.component.html -->
-
 <div class="coverparentspace">
-  <h2 class="my-6 text-2xl font-semibold text-gray-900">Transaction History</h2>
 
+  <div class="flex gap-5 flex-col">
+
+
+    <app-transaction-linechart *ngIf="transactionHistory.length!=0" [transactions]="transactionHistory" />
+
+    <div class="flex flex-col gap-5 md:flex-row space-y-4 md:space-y-0">
+      <div class="w-full">
+        <app-monthly-transaction-chart *ngIf="transactionHistory.length!=0"
+          [transactions]="transactionHistory"></app-monthly-transaction-chart>
+      </div>
+      <div class="w-full">
+        <app-daily-transaction-piechart *ngIf="transactionHistory.length!=0" [transactions]="transactionHistory" />
+      </div>
+    </div>
+
+  </div>
 
   <div class="my-4">
-    <h4 class="mb-4 text-lg font-semibold text-gray-600">Filter by
-      Transaction Type</h4>
+    <h4 class="mb-4 text-lg font-semibold text-gray-600">Filter by Transaction Type</h4>
     <div class="relative mt-4">
       <select id="filterCriteria" formControlName="filterCriteria" (change)="onFilterCriteriaChange($event)"
         class="block w-full p-3 bg-white border border-gray-300 rounded-md shadow focus:ring focus:ring-opacity-50 focus:ring-blue-500 focus:border-blue-500 sm:text-sm custom-select">
@@ -21,8 +33,7 @@
 
   </div>
 
-
-  <div class="w-full mb-8 overflow-hidden rounded-lg  border border-gray-200">
+  <div class="w-full rounded-lg  border border-gray-200">
     <div class="w-full overflow-x-auto" *ngIf="!(filteredTransactionHistory.length === 0)">
       <table class="w-full whitespace-no-wrap">
         <thead>

@@ -43,7 +43,6 @@ export class WithdrawComponent implements OnInit {
           this.loader.hide(); // Hide the loader on successful withdrawal
           this._toastService.success(response.msg);
           console.log('Withdrawal successful!', response);
-          this.router.navigate(['/dashboard']);
         },
         (error) => {
           this.loader.hide(); // Hide the loader on withdrawal request failure

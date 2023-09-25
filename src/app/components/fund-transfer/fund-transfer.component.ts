@@ -20,7 +20,7 @@ export class FundTransferComponent implements OnInit {
     private _toastService: ToastService,
     private router: Router,
     private loader: LoadermodelService // Inject the LoaderService here
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initFundTransferForm();
@@ -48,7 +48,6 @@ export class FundTransferComponent implements OnInit {
             // Handle successful fund transfer if needed
             this._toastService.success(response.msg);
             console.log('Fund transfer successful!', response);
-            this.router.navigate(['/dashboard']);
           },
           (error) => {
             this.loader.hide(); // Hide the loader on fund transfer request failure

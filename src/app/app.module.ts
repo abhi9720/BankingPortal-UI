@@ -28,6 +28,11 @@ import { LoadermodelService } from './services/loadermodel.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { NotfoundpageComponent } from './components/notfoundpage/notfoundpage.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { TransactionLinechartComponent } from './components/transaction-linechart/transaction-linechart.component';
+import { ChartsModule } from 'ng2-charts';
+import { DailyTransactionPiechartComponent } from './components/daily-transaction-piechart/daily-transaction-piechart.component';
+import { TransactionComponent } from './components/transaction/transaction.component';
+import { MonthlyTransactionChartComponent } from './components/monthly-transaction-chart/monthly-transaction-chart.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +54,11 @@ import { ProfileComponent } from './components/profile/profile.component';
     OtpComponent,
     LoaderComponent,
     NotfoundpageComponent,
-    ProfileComponent
+    ProfileComponent,
+    TransactionLinechartComponent,
+    DailyTransactionPiechartComponent,
+    TransactionComponent,
+    MonthlyTransactionChartComponent
   ],
   imports: [
     BrowserModule,
@@ -57,13 +66,14 @@ import { ProfileComponent } from './components/profile/profile.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    AngularToastifyModule
+    AngularToastifyModule,
+    ChartsModule
 
-    
+
   ],
   providers: [ApiService, AuthService, LoadermodelService,
-     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-    ],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [PinCreationModelComponent]
 })

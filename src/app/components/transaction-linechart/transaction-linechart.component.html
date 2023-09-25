@@ -1,0 +1,13 @@
+<div class="bg-white shadow-lg rounded-lg overflow-hidden px-6 py-4">
+    <div class="mb-2">
+        <h4 class="text-lg font-semibold text-gray-800">
+            Line Chart
+        </h4>
+    </div>
+    <div class="">
+        <canvas class="w-full h-32 border border-gray-300 rounded-lg" baseChart [datasets]="lineChartData"
+            [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend"
+            [chartType]="lineChartType">
+        </canvas>
+    </div>
+</div>

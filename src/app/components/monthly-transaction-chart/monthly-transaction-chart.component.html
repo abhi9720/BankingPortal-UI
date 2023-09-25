@@ -1,0 +1,11 @@
+<div class="bg-white shadow-lg rounded-lg overflow-hidden px-6 py-4">
+    <div class="mb-2">
+        <h4 class="text-lg font-semibold text-gray-800">
+            Monthly Transaction Chart
+        </h4>
+    </div>
+    <div class="">
+        <canvas class="w-full h-64 border border-gray-300 rounded-lg" baseChart [datasets]="barChartData"
+            [labels]="barChartLabels" [chartType]="barChartType"></canvas>
+    </div>
+</div>

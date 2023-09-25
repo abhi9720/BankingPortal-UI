@@ -20,7 +20,7 @@ export class DepositComponent implements OnInit {
     private _toastService: ToastService,
     private router: Router,
     private loader: LoadermodelService // Inject the LoaderService here
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initDepositForm();
@@ -46,7 +46,6 @@ export class DepositComponent implements OnInit {
             // Handle successful deposit if needed
             this._toastService.success(response.msg);
             console.log('Deposit successful!', response);
-            this.router.navigate(['/dashboard']);
           },
           (error) => {
             this.loader.hide(); // Hide the loader on deposit request failure

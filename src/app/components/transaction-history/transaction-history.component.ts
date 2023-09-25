@@ -23,6 +23,8 @@ export class TransactionHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTransactionHistory();
+    console.log(this.transactionHistory);
+
   }
 
   loadTransactionHistory(): void {
