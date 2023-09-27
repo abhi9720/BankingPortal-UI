@@ -17,11 +17,11 @@ import jwt_decode from "jwt-decode";
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService, private router: Router, private toastService: ToastService) {}
+  constructor(private authService: AuthService, private router: Router, private toastService: ToastService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    
-   
+
+
 
     const token = localStorage.getItem(environment.tokenName);
 

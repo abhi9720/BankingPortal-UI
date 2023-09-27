@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ChartType } from 'chart.js';
 import { Label, SingleDataSet } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
+
 
 @Component({
   selector: 'app-daily-transaction-piechart',
@@ -9,6 +11,8 @@ import { Label, SingleDataSet } from 'ng2-charts';
 })
 export class DailyTransactionPiechartComponent {
   @Input() transactions: any;
+  @ViewChild(BaseChartDirective)
+  public chart!: BaseChartDirective;
 
   public pieChartLabels: Label[] = []; // Transaction types
   public pieChartData: SingleDataSet = []; // Transaction amounts
@@ -26,6 +30,10 @@ export class DailyTransactionPiechartComponent {
     this.updateChart();
   }
   updateChart() {
+
+    this.pieChartLabels = [];
+    this.pieChartData = [];
+
     if (this.selectedDate) {
 
       const selectedDateObject = new Date(this.selectedDate);
@@ -74,6 +82,9 @@ export class DailyTransactionPiechartComponent {
       this.pieChartData = totalAmounts;
 
 
+
     }
+
+    this.chart.chart.update()
   }
 }

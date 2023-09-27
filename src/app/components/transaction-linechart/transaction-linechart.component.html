@@ -1,9 +1,27 @@
-<div class="bg-white shadow-lg rounded-lg overflow-hidden px-6 py-4">
-    <div class="mb-2">
-        <h4 class="text-lg font-semibold text-gray-800">
+<div class="bg-white card rounded-lg overflow-hidden px-6 py-4">
+    <div class="flex justify-between mb-2">
+        <h4 class="text-2xl font-semibold text-gray-800">
             Transaction
         </h4>
+        <div class="flex gap-2">
+            <div class="mb-3">
+                <select id="yearSelect" [(ngModel)]="selectedYear" (change)="updateChartData()"
+                    class="w-full mt-1 p-2 border rounded-lg">
+                    <option selected value="">All Years</option>
+                    <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <select id="monthSelect" [(ngModel)]="selectedMonth" (change)="updateChartData()"
+                    class="w-full mt-1 p-2 border rounded-lg">
+                    <option selected value="">All Months</option>
+                    <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+                </select>
+            </div>
+        </div>
     </div>
+
     <div class="">
         <canvas class="w-full !h-96 border border-gray-300 rounded-lg" baseChart [datasets]="lineChartData"
             [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend"

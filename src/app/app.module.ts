@@ -34,6 +34,7 @@ import { DailyTransactionPiechartComponent } from './components/daily-transactio
 import { TransactionComponent } from './components/transaction/transaction.component';
 import { MonthlyTransactionChartComponent } from './components/monthly-transaction-chart/monthly-transaction-chart.component';
 import { DonwloadtransactionsComponent } from './components/donwloadtransactions/donwloadtransactions.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { DonwloadtransactionsComponent } from './components/donwloadtransactions
     DonwloadtransactionsComponent
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
