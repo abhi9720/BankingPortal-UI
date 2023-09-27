@@ -1,5 +1,5 @@
-<div class="container mx-auto mt-5 md:p-5 p-0">
-    <h1 class="text-4xl font-bold text-indigo-700 mb-6">User Profile</h1>
+<div class="container mx-auto md:p-5 p-0">
+    <h1 class="text-2xl font-bold text-indigo-700 mb-6">{{showUpdateForm ? 'Edit':''}} User Profile</h1>
 
     <div *ngIf="!showUpdateForm" class="rounded-lg bg-white md:p-6 p-2 shadow-lg">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -50,7 +50,7 @@
         </button>
     </div>
 
-    <div *ngIf="showUpdateForm" class="bg-white rounded-lg shadow-lg md:p-6 p-2 mt-4">
+    <div *ngIf="showUpdateForm" class="bg-white rounded-lg shadow-lg md:p-6 p-2 ">
         <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
             <!-- Name field -->
             <div class="mb-4">
