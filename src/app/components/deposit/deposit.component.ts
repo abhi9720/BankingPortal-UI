@@ -45,6 +45,7 @@ export class DepositComponent implements OnInit {
             this.loader.hide(); // Hide the loader on successful deposit
             // Handle successful deposit if needed
             this._toastService.success(response.msg);
+            this.depositForm.reset();
             console.log('Deposit successful!', response);
           },
           (error) => {

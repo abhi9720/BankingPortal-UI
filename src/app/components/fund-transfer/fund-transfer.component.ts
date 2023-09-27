@@ -46,6 +46,7 @@ export class FundTransferComponent implements OnInit {
           (response) => {
             this.loader.hide(); // Hide the loader on successful fund transfer
             // Handle successful fund transfer if needed
+            this.fundTransferForm.reset()
             this._toastService.success(response.msg);
             console.log('Fund transfer successful!', response);
           },

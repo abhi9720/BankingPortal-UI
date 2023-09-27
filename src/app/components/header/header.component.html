@@ -1,6 +1,6 @@
 <header class="nav bg-white shadow">
   <div class="nav-wrapper flex items-center justify-between mx-1">
-    <h1 *ngIf="isLoggedIn() || checkScreenSize()"
+    <h1 *ngIf="!isLoggedIn() || checkScreenSize()"
       class="nav-logo min-w-min !min-w-[fit-content] text-xl md:text-2xl font-bold">
       <i class="fas fa-piggy-bank text-blue-500 mr-2"></i>
       OneStopBank
