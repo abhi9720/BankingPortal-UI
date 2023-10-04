@@ -9,7 +9,6 @@
 
 .left-pannel {
     flex: 0 0 auto;
-    width: fit-content;
     position: sticky;
     left: 0;
     top: 0;
@@ -20,4 +19,5 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    overflow-y: scroll;
 }
