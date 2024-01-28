@@ -5,7 +5,7 @@
 .togglebtnwrapper {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 30px;
   right: 0;
   width: fit-content;
   padding: 10px;
@@ -25,7 +25,7 @@
   overflow: hidden;
   transition: all 0.3s;
   background-color: rgb(79, 70, 229);
-  padding: 10px;
+  padding: 10px 50px 10px 10px;
 }
 
 .removepadding {
