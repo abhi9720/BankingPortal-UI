@@ -62,6 +62,9 @@ The Banking Portal API provides a set of endpoints for managing user accounts, f
 4. Build and run the project: `mvn spring-boot:run`
 
 ## Screenshots
+![project](https://github.com/abhi9720/BankingPortal-UI/assets/68281476/6c3d8c2e-13e2-49d6-9ec1-ffc3387c741a)
+
+<!---
 <img width="960" alt="Screenshot 2023-07-23 200531" src="https://github.com/abhi9720/BankingPortal-API/assets/68281476/1c3a614b-a87d-4603-9eb8-0a21da6e1ee2">
 
 ---
@@ -83,3 +86,4 @@ The Banking Portal API provides a set of endpoints for managing user accounts, f
 ---
 
 <img width="960" alt="Screenshot 2023-07-23 212118" src="https://github.com/abhi9720/BankingPortal-API/assets/68281476/2654311c-7af9-4425-adea-36ab709d9c48">
+--->
