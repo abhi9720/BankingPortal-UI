@@ -50,8 +50,8 @@ export class RegisterComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
-      phone_number: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^(\+?\d{1,4}[\s-]?)?(\(?\d{1,4}\)?[\s-]?)?[\d\s-]{5,15}$/)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(127)]],
       confirmPassword: ['', [Validators.required]],
       // Add other form controls if needed
     }, { 

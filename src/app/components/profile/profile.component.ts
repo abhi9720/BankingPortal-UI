@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastService } from 'angular-toastify';
 
 @Component({
   selector: 'app-profile',
@@ -12,17 +13,25 @@ export class ProfileComponent implements OnInit {
   profileForm!: FormGroup;
   showUpdateForm: boolean = false;
 
-  constructor(private authService: AuthService, private fb: FormBuilder) { }
+  constructor(
+    private authService: AuthService, 
+    private fb: FormBuilder,
+    private _toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.getUserProfileData();
     this.profileForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
-      phone_number: ['', Validators.required]
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^(\+?\d{1,4}[\s-]?)?(\(?\d{1,4}\)?[\s-]?)?[\d\s-]{5,15}$/)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(127)]]
     });
   }
+
+  // Convenience getter for easy access to form fields
+  get f() { return this.profileForm.controls; }
 
   getUserProfileData(): void {
     this.authService.getUserDetails().subscribe(
@@ -53,6 +62,7 @@ export class ProfileComponent implements OnInit {
         this.showUpdateForm = false;
       },
       (error) => {
+        this._toastService.error(error.error);
         console.error('Error updating user profile:', error);
       }
     );

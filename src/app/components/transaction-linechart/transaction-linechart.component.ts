@@ -60,14 +60,14 @@ export class TransactionLinechartComponent implements OnInit {
 
   }
   initializeYearAndMonthLists() {
-    this.years = Array.from(new Set(this.transactions.map((transaction: any) => new Date(transaction.transaction_date).getFullYear())));
+    this.years = Array.from(new Set(this.transactions.map((transaction: any) => new Date(transaction.transactionDate).getFullYear())));
 
   }
 
   prepareChartData(): void {
 
     const filteredTransactions = this.transactions.filter((transaction: any) => {
-      const transactionDate = new Date(transaction.transaction_date);
+      const transactionDate = new Date(transaction.transactionDate);
       const transactionYear = transactionDate.getFullYear();
       const transactionMonth: string = this.months[transactionDate.getMonth()];
 
@@ -94,18 +94,18 @@ export class TransactionLinechartComponent implements OnInit {
 
 
     // Separate filtered transactions by type
-    const depositTransactions = filteredTransactions.filter((transaction: any) => transaction.transaction_type === 'Deposit');
-    const fundTransferTransactions = filteredTransactions.filter((transaction: any) => transaction.transaction_type === 'Fund Transfer');
-    const withdrawalTransactions = filteredTransactions.filter((transaction: any) => transaction.transaction_type === 'Withdrawal');
+    const depositTransactions = filteredTransactions.filter((transaction: any) => transaction.transactionType === 'Deposit');
+    const fundTransferTransactions = filteredTransactions.filter((transaction: any) => transaction.transactionType === 'Fund Transfer');
+    const withdrawalTransactions = filteredTransactions.filter((transaction: any) => transaction.transactionType === 'Withdrawal');
 
     // Prepare data for each line
-    const depositDates = depositTransactions.map((transaction: any) => new Date(transaction.transaction_date));
+    const depositDates = depositTransactions.map((transaction: any) => new Date(transaction.transactionDate));
     const depositAmounts = depositTransactions.map((transaction: any) => transaction.amount);
 
-    const fundTransferDates = fundTransferTransactions.map((transaction: any) => new Date(transaction.transaction_date));
+    const fundTransferDates = fundTransferTransactions.map((transaction: any) => new Date(transaction.transactionDate));
     const fundTransferAmounts = fundTransferTransactions.map((transaction: any) => transaction.amount);
 
-    const withdrawalDates = withdrawalTransactions.map((transaction: any) => new Date(transaction.transaction_date));
+    const withdrawalDates = withdrawalTransactions.map((transaction: any) => new Date(transaction.transactionDate));
     const withdrawalAmounts = withdrawalTransactions.map((transaction: any) => transaction.amount);
 
     this.lineChartData = [

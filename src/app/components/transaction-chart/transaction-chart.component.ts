@@ -58,7 +58,7 @@ export class TransactionChartComponent implements OnInit {
 
   prepareChartData(): void {
     // Prepare data for the line chart
-    const transactionDates = this.transactions.map((transaction: any) => new Date(transaction.transaction_date));
+    const transactionDates = this.transactions.map((transaction: any) => new Date(transaction.transactionDate));
     const transactionAmounts = this.transactions.map((transaction: any) => transaction.amount);
 
     this.lineChartLabels = transactionDates;

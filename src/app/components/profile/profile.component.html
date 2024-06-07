@@ -20,7 +20,7 @@
 
             <div>
                 <label class="text-gray-600 font-semibold">Phone Number:</label>
-                <span class="text-gray-800 block">{{ userProfile.phone_number }}</span>
+                <span class="text-gray-800 block">{{ userProfile.phoneNumber }}</span>
             </div>
 
             <div>
@@ -35,12 +35,12 @@
 
             <div>
                 <label class="text-gray-600 font-semibold">Account Type:</label>
-                <span class="text-gray-800 block">{{ userProfile.account_type || 'N/A' }}</span>
+                <span class="text-gray-800 block">{{ userProfile.accountType || 'N/A' }}</span>
             </div>
 
             <div>
                 <label class="text-gray-600 font-semibold">IFSC Code:</label>
-                <span class="text-gray-800 block">{{ userProfile.ifsc_code || 'N/A' }}</span>
+                <span class="text-gray-800 block">{{ userProfile.ifscCode || 'N/A' }}</span>
             </div>
         </div>
 
@@ -57,12 +57,19 @@
                 <label class="text-gray-600 font-semibold">Name:</label>
                 <input formControlName="name" type="text" [readonly]="!showUpdateForm"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
+                <div *ngIf="f.name.invalid && f.name.touched" class="text-red-500 text-sm mt-1">
+                    Please enter a valid name.
+                </div>
             </div>
 
             <div class="mb-4">
                 <label class="text-gray-600 font-semibold">Email:</label>
                 <input formControlName="email" type="email" [readonly]="!showUpdateForm"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
+                <div *ngIf="f.email.invalid && f.email.touched" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="f.email.errors?.required">Email is required.</div>
+                    <div *ngIf="f.email.errors?.email">Please enter a valid email address.</div>
+                </div>
             </div>
 
             <div class="mb-4">
@@ -73,19 +80,34 @@
 
             <div class="mb-4">
                 <label class="text-gray-600 font-semibold">Phone Number:</label>
-                <input formControlName="phone_number" type="text" [readonly]="!showUpdateForm"
+                <input formControlName="phoneNumber" type="text" [readonly]="!showUpdateForm"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
+                <div *ngIf="f.phoneNumber.invalid && f.phoneNumber.touched" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="f.phoneNumber.errors?.required">Phone number is required.</div>
+                    <div *ngIf="f.phoneNumber.errors?.pattern">Please enter a valid phone number.</div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="text-gray-600 font-semibold">Password:</label>
+                <input formControlName="password" type="password" [readonly]="!showUpdateForm"
+                    class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
+                <div *ngIf="f.password.invalid && f.password.touched" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="f.password.errors?.required">Password is required.</div>
+                    <div *ngIf="f.password.errors?.minlength">Password must be at least 8 characters long.</div>
+                    <div *ngIf="f.password.errors?.maxlength">Password must be at most 127 characters long.</div>
+                </div>
             </div>
 
 
             <div class="flex gap-2">
-                <button *ngIf="showUpdateForm" type="submit"
-                    class="mt-6 font-semibold cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out">Save
+                <button *ngIf="showUpdateForm" type="submit" [disabled]="profileForm.invalid"
+                    class="mt-6 font-semibold cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out
+                    disabled:opacity-50 disabled:cursor-not-allowed w-48">Save
                     Changes</button>
 
                 <button (click)="toggleUpdateForm()" type="button"
                     class="mt-6 font-semibold cursor-pointer bg-gray-100 text-slate-800 py-2 px-4 rounded hover:bg-indigo-50 cursor-pointer">Cancel
-                    Profile
                 </button>
             </div>
         </form>
