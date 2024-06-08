@@ -43,18 +43,14 @@ export class TransactionHistoryComponent implements OnInit {
   }
 
   getTransactionStatus(transaction: any): string {
-    if (transaction.transactionType === 'Fund Transfer') {
-      if (transaction.sourceAccountNumber === this.userAccountNumber) {
-        return 'Transfer';
-      } else if (transaction.targetAccountNumber === this.userAccountNumber) {
-        return 'Credited';
-      }
-    } else if (transaction.transactionType === 'Withdrawal') {
-      return 'Withdraw';
-    } else if (transaction.transactionType === 'Deposit') {
-      return 'Deposited';
+    let status = transaction.transactionType.slice(5).toLowerCase();
+
+    if (status === 'transfer' &&
+        transaction.targetAccountNumber === this.userAccountNumber) {
+      return 'Credit';
     }
-    return 'N/A'; // If no conditions are met, return 'N/A' for other types of transactions
+
+    return status.charAt(0).toUpperCase() + status.slice(1);
   }
 
   getAccountNumberFromToken(): string | null {
