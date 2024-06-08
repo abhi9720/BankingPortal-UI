@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastService } from 'angular-toastify';
 
 
  function passwordMismatch(controlName: string, matchingControlName: string){
@@ -43,7 +44,11 @@ export class RegisterComponent implements OnInit {
   registrationData: any;
   print  =  console
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private authService: AuthService,
+    private _toastService: ToastService
+  ) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -83,6 +88,7 @@ export class RegisterComponent implements OnInit {
       },
       (error: any) => {
         console.error('Registration failed:', error);
+        this._toastService.error(error.error);
       }
     );
   }
