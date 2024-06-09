@@ -5,13 +5,13 @@
         </h4>
         <div class="flex mb-2">
             <input type="date" id="selectedDate" [(ngModel)]="selectedDate"
-                class="flex-grow border rounded py-2 px-3 text-gray-700">
+                class="flex-grow border rounded py-2 px-3 text-gray-700" aria-label="Select date">
 
-            <button class="bg-indigo-600 hover:bg-blue-700 text-white py-1 px-2 rounded mt-2 ml-2"
+            <button type="button" class="bg-indigo-600 hover:bg-blue-700 text-white py-1 px-2 rounded mt-2 ml-2"
                 (click)="updateChart()">Show
             </button>
 
-            <button class="text-black bg-gray-100 hover:bg-gray-200 py-1 px-2 rounded mt-2 ml-2"
+            <button type="button" class="text-black bg-gray-100 hover:bg-gray-200 py-1 px-2 rounded mt-2 ml-2"
                 (click)="clearDate()">Clear
             </button>
         </div>
@@ -27,7 +27,7 @@
 
         <div *ngIf="pieChartData.length==0" class="w-full h-full bg-orange-100 text-orange-500 rounded-lg p-4">
             <p>
-                Now Transaction Available for this date
+                No transaction available for this date
             </p>
         </div>
     </div>

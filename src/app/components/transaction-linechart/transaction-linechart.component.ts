@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
+import { environment } from 'src/environment/environment';
+import jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-transaction-linechart',
@@ -9,6 +11,8 @@ import { Label } from 'ng2-charts';
 })
 export class TransactionLinechartComponent implements OnInit {
   @Input() transactions: any;
+
+  private authtokenNameName = environment.tokenName;
 
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
@@ -43,25 +47,34 @@ export class TransactionLinechartComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType: ChartType = 'line';
 
-  public selectedYear: number | string = "";
-  public selectedMonth: string = "";
-
   public years: number[] = [];
   public months: string[] = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
+  public selectedYear: number | string = new Date().getFullYear();
+  public selectedMonth: string = this.months[new Date().getMonth()];
+
   constructor() { }
 
   ngOnInit(): void {
     this.prepareChartData();
     this.initializeYearAndMonthLists();
-
   }
-  initializeYearAndMonthLists() {
-    this.years = Array.from(new Set(this.transactions.map((transaction: any) => new Date(transaction.transactionDate).getFullYear())));
 
+  initializeYearAndMonthLists() {
+    this.years = Array.from(new Set(this.transactions.map((transaction: any) =>
+      new Date(transaction.transactionDate).getFullYear())));
+  }
+
+  getAccountNumberFromToken(): string | null {
+    const authTokenName = localStorage.getItem(this.authtokenNameName);
+    if (authTokenName) {
+      const decodedToken: any = jwt_decode(authTokenName);
+      return decodedToken.sub;
+    }
+    return null;
   }
 
   prepareChartData(): void {
@@ -71,61 +84,63 @@ export class TransactionLinechartComponent implements OnInit {
       const transactionYear = transactionDate.getFullYear();
       const transactionMonth: string = this.months[transactionDate.getMonth()];
 
-      console.log(this.selectedYear, this.selectedMonth, transactionYear, transactionMonth);
-
-      console.log(typeof this.selectedYear, typeof this.selectedMonth, typeof transactionYear, typeof transactionMonth);
-
-      // Check if the transaction matches the selected year (if selected)
-      if (this.selectedYear && this.selectedYear != transactionYear) {
-        return false;
-      }
-
-      // Check if the transaction matches the selected month (if selected)
-      if (this.selectedMonth && this.selectedMonth != transactionMonth) {
-        return false;
-      }
-
-      console.log("return true");
-
-      return true;
+      return transactionYear === this.selectedYear &&
+        transactionMonth === this.selectedMonth;
     });
 
-    console.log(filteredTransactions);
+    // Group transactions by date and type
+    const groupedTransactions = filteredTransactions.reduce((acc: any, transaction: any) => {
+      const transactionDate = new Date(transaction.transactionDate);
+      const dateKey = transactionDate.toISOString().slice(0, 10); // YYYY-MM-DD format
 
+      if (!acc[dateKey]) {
+        acc[dateKey] = {
+          date: transactionDate, amounts: {
+            CASH_DEPOSIT: 0,
+            CASH_WITHDRAWAL: 0,
+            CASH_TRANSFER: 0,
+            CASH_CREDIT: 0
+          }
+        };
+      }
 
-    // Separate filtered transactions by type
-    const depositTransactions = filteredTransactions.filter((transaction: any) => transaction.transactionType === 'Deposit');
-    const fundTransferTransactions = filteredTransactions.filter((transaction: any) => transaction.transactionType === 'Fund Transfer');
-    const withdrawalTransactions = filteredTransactions.filter((transaction: any) => transaction.transactionType === 'Withdrawal');
+      if (transaction.transactionType === 'CASH_TRANSFER' &&
+        transaction.targetAccountNumber === this.getAccountNumberFromToken()) {
+        acc[dateKey].amounts.CASH_CREDIT += transaction.amount;
+      } else {
+        acc[dateKey].amounts[transaction.transactionType] += transaction.amount;
+      }
 
-    // Prepare data for each line
-    const depositDates = depositTransactions.map((transaction: any) => new Date(transaction.transactionDate));
-    const depositAmounts = depositTransactions.map((transaction: any) => transaction.amount);
+      // Add other transaction types here
+      return acc;
+    }, {});
 
-    const fundTransferDates = fundTransferTransactions.map((transaction: any) => new Date(transaction.transactionDate));
-    const fundTransferAmounts = fundTransferTransactions.map((transaction: any) => transaction.amount);
-
-    const withdrawalDates = withdrawalTransactions.map((transaction: any) => new Date(transaction.transactionDate));
-    const withdrawalAmounts = withdrawalTransactions.map((transaction: any) => transaction.amount);
+    // Convert grouped transactions to arrays for Chart.js
+    const dates = Object.keys(groupedTransactions).map(date => new Date(date));
+    const depositAmounts = Object.values(groupedTransactions).map((group: any) =>
+      group.amounts.CASH_DEPOSIT);
+    const fundTransferAmounts = Object.values(groupedTransactions).map((group: any) =>
+      group.amounts.CASH_TRANSFER);
+    const fundCreditAmounts = Object.values(groupedTransactions).map((group: any) =>
+      group.amounts.CASH_CREDIT);
+    const withdrawalAmounts = Object.values(groupedTransactions).map((group: any) =>
+      group.amounts.CASH_WITHDRAWAL);
 
     this.lineChartData = [
       { data: depositAmounts, label: 'Deposit' },
-      { data: fundTransferAmounts, label: 'Fund Transfer' },
       { data: withdrawalAmounts, label: 'Withdrawal' },
+      { data: fundTransferAmounts, label: 'Fund Transfer' },
+      { data: fundCreditAmounts, label: 'Fund Credit' },
     ];
 
-    this.lineChartLabels = depositDates;
+    this.lineChartLabels = dates.map(date => date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }));
   }
 
   updateChartData(): void {
-
-    console.log(typeof this.selectedMonth, typeof this.selectedYear);
-    if (this.selectedYear == "") {
-      this.selectedMonth = "";
-    }
-
-    console.log(this.selectedMonth, this.selectedYear);
-
     this.prepareChartData();
   }
 }

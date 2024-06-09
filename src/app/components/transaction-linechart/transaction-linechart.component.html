@@ -6,16 +6,14 @@
         <div class="flex gap-2">
             <div class="mb-3">
                 <select id="yearSelect" [(ngModel)]="selectedYear" (change)="updateChartData()"
-                    class="w-full mt-1 p-2 border rounded-lg">
-                    <option selected value="">All Years</option>
+                    class="w-full mt-1 p-2 border rounded-lg" aria-label="Select a year">
                     <option *ngFor="let year of years" [value]="year">{{ year }}</option>
                 </select>
             </div>
 
             <div class="mb-3">
                 <select id="monthSelect" [(ngModel)]="selectedMonth" (change)="updateChartData()"
-                    class="w-full mt-1 p-2 border rounded-lg">
-                    <option selected value="">All Months</option>
+                    class="w-full mt-1 p-2 border rounded-lg" aria-label="Select a month">
                     <option *ngFor="let month of months" [value]="month">{{ month }}</option>
                 </select>
             </div>

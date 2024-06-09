@@ -69,17 +69,17 @@ export class TransactionHistoryComponent implements OnInit {
     if (this.filterCriteria === 'Deposit') {
       // Filter transactions for deposits
       this.filteredTransactionHistory = this.filteredTransactionHistory.filter(transaction =>
-        transaction.transactionType === 'Deposit'
+        transaction.transactionType === 'CASH_DEPOSIT'
       );
     } else if (this.filterCriteria === 'Withdrawal') {
       // Filter transactions for withdrawals
       this.filteredTransactionHistory = this.filteredTransactionHistory.filter(transaction =>
-        transaction.transactionType === 'Withdrawal'
+        transaction.transactionType === 'CASH_WITHDRAWAL'
       );
     } else if (this.filterCriteria === 'Transfer') {
       // Filter transactions for fund transfers
       this.filteredTransactionHistory = this.filteredTransactionHistory.filter(transaction =>
-        transaction.transactionType === 'Fund Transfer'
+        transaction.transactionType === 'CASH_TRANSFER'
       );
     }
   }
