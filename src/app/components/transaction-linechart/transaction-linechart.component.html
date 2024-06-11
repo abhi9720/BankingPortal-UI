@@ -5,14 +5,14 @@
         </h4>
         <div class="flex gap-2">
             <div class="mb-3">
-                <select id="yearSelect" [(ngModel)]="selectedYear" (change)="updateChartData()"
+                <select id="yearSelect" [(ngModel)]="selectedYear" (ngModelChange)="updateChart()"
                     class="w-full mt-1 p-2 border rounded-lg" aria-label="Select a year">
                     <option *ngFor="let year of years" [value]="year">{{ year }}</option>
                 </select>
             </div>
 
             <div class="mb-3">
-                <select id="monthSelect" [(ngModel)]="selectedMonth" (change)="updateChartData()"
+                <select id="monthSelect" [(ngModel)]="selectedMonth" (ngModelChange)="updateChart()"
                     class="w-full mt-1 p-2 border rounded-lg" aria-label="Select a month">
                     <option *ngFor="let month of months" [value]="month">{{ month }}</option>
                 </select>
@@ -20,10 +20,9 @@
         </div>
     </div>
 
-    <div class="">
-        <canvas class="w-full !h-96 border border-gray-300 rounded-lg" baseChart [datasets]="lineChartData"
-            [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend"
-            [chartType]="lineChartType">
+    <div>
+        <canvas class="w-full !h-96 border border-gray-300 rounded-lg" baseChart [data]="lineChartData"
+            [options]="lineChartOptions" [type]="lineChartType">
         </canvas>
     </div>
 </div>

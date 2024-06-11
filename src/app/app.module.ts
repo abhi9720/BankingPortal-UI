@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -16,7 +15,11 @@ import { TransactionHistoryComponent } from './components/transaction-history/tr
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { ApiService } from './services/api.service';
 import { AuthInterceptor } from './auth.interceptor';
@@ -29,12 +32,15 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { NotfoundpageComponent } from './components/notfoundpage/notfoundpage.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { TransactionLinechartComponent } from './components/transaction-linechart/transaction-linechart.component';
-import { ChartsModule } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 import { DailyTransactionPiechartComponent } from './components/daily-transaction-piechart/daily-transaction-piechart.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
 import { MonthlyTransactionChartComponent } from './components/monthly-transaction-chart/monthly-transaction-chart.component';
 import { DonwloadtransactionsComponent } from './components/donwloadtransactions/donwloadtransactions.component';
 import { RouterModule } from '@angular/router';
+import { Chart, registerables } from 'chart.js';
+
+Chart.register(...registerables);
 
 @NgModule({
   declarations: [
@@ -61,7 +67,7 @@ import { RouterModule } from '@angular/router';
     DailyTransactionPiechartComponent,
     TransactionComponent,
     MonthlyTransactionChartComponent,
-    DonwloadtransactionsComponent
+    DonwloadtransactionsComponent,
   ],
   imports: [
     RouterModule,
@@ -69,16 +75,16 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule,
     AngularToastifyModule,
-    ChartsModule
-
-
+    BaseChartDirective,
   ],
-  providers: [ApiService, AuthService, LoadermodelService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  providers: [
+    ApiService,
+    AuthService,
+    LoadermodelService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    provideHttpClient(withInterceptorsFromDi()),
   ],
   bootstrap: [AppComponent],
-  entryComponents: [PinCreationModelComponent]
 })
-export class AppModule { }
+export class AppModule {}

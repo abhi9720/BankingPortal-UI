@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { environment } from '../../environment/environment';
 import { Router } from '@angular/router';
 
@@ -48,7 +48,7 @@ export class AuthService {
     if (token) {
       try {
         // Decode the JWT token
-        const decodedToken: any = jwt_decode(token);
+        const decodedToken: any = jwtDecode(token);
 
 
         // Check if the token is valid and not expired

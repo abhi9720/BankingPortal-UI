@@ -11,7 +11,7 @@ import { AuthService } from './services/auth.service';
 import { environment } from 'src/environment/environment';
 import { ToastService } from 'angular-toastify';
 
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 
 @Injectable()
@@ -29,7 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // Token is present, check if it's valid
       try {
         // Decode the JWT token
-        const decodedToken: any = jwt_decode(token);
+        const decodedToken: any = jwtDecode(token);
 
         // Check if the token is valid and not expired
         if (decodedToken && decodedToken.exp && decodedToken.exp * 1000 > Date.now()) {

@@ -28,7 +28,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "node_modules/chart.js/dist/Chart.min.js"
+              "node_modules/chart.js/dist/chart.js"
             ],
             "allowedCommonJsDependencies": [
               "chart.js"
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "BankingPortal:build:production"
+              "buildTarget": "BankingPortal:build:production"
             },
             "development": {
-              "browserTarget": "BankingPortal:build:development"
+              "buildTarget": "BankingPortal:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "BankingPortal:build"
+            "buildTarget": "BankingPortal:build"
           }
         },
         "test": {
