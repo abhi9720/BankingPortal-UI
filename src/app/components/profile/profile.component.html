@@ -14,6 +14,11 @@
             </div>
 
             <div>
+                <label class="text-gray-600 font-semibold">Country:</label>
+                <span class="text-gray-800 block">{{ userProfile.country || 'N/A' }}</span>
+            </div>
+
+            <div>
                 <label class="text-gray-600 font-semibold">Address:</label>
                 <span class="text-gray-800 block">{{ userProfile.address }}</span>
             </div>
@@ -54,8 +59,8 @@
         <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
             <!-- Name field -->
             <div class="mb-4">
-                <label class="text-gray-600 font-semibold">Name:</label>
-                <input formControlName="name" type="text" [readonly]="!showUpdateForm"
+                <label class="text-gray-600 font-semibold" for="name">Name:</label>
+                <input formControlName="name" type="text" [readonly]="!showUpdateForm" id="name"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
                 <div *ngIf="f.name.invalid && f.name.touched" class="text-red-500 text-sm mt-1">
                     Please enter a valid name.
@@ -63,8 +68,8 @@
             </div>
 
             <div class="mb-4">
-                <label class="text-gray-600 font-semibold">Email:</label>
-                <input formControlName="email" type="email" [readonly]="!showUpdateForm"
+                <label class="text-gray-600 font-semibold" for="email">Email:</label>
+                <input formControlName="email" type="email" [readonly]="!showUpdateForm" id="email"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
                 <div *ngIf="f.email.invalid && f.email.touched" class="text-red-500 text-sm mt-1">
                     <div *ngIf="f.email.errors?.required">Email is required.</div>
@@ -73,14 +78,8 @@
             </div>
 
             <div class="mb-4">
-                <label class="text-gray-600 font-semibold">Address:</label>
-                <input formControlName="address" type="text" [readonly]="!showUpdateForm"
-                    class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
-            </div>
-
-            <div class="mb-4">
-                <label class="text-gray-600 font-semibold">Phone Number:</label>
-                <input formControlName="phoneNumber" type="text" [readonly]="!showUpdateForm"
+                <label class="text-gray-600 font-semibold" for="phoneNumber">Phone Number:</label>
+                <input formControlName="phoneNumber" type="text" [readonly]="!showUpdateForm" id="phoneNumber"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
                 <div *ngIf="f.phoneNumber.invalid && f.phoneNumber.touched" class="text-red-500 text-sm mt-1">
                     <div *ngIf="f.phoneNumber.errors?.required">Phone number is required.</div>
@@ -89,8 +88,14 @@
             </div>
 
             <div class="mb-4">
-                <label class="text-gray-600 font-semibold">Password:</label>
-                <input formControlName="password" type="password" [readonly]="!showUpdateForm"
+                <label class="text-gray-600 font-semibold" for="address">Address:</label>
+                <input formControlName="address" type="text" [readonly]="!showUpdateForm" id="address"
+                    class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
+            </div>
+
+            <div class="mb-4">
+                <label class="text-gray-600 font-semibold" for="password">Password:</label>
+                <input formControlName="password" type="password" [readonly]="!showUpdateForm" id="password"
                     class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500">
                 <div *ngIf="f.password.invalid && f.password.touched" class="text-red-500 text-sm mt-1">
                     <div *ngIf="f.password.errors?.required">Password is required.</div>
@@ -101,8 +106,7 @@
 
 
             <div class="flex gap-2">
-                <button *ngIf="showUpdateForm" type="submit" [disabled]="profileForm.invalid"
-                    class="mt-6 font-semibold cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out
+                <button *ngIf="showUpdateForm" type="submit" [disabled]="profileForm.invalid" class="mt-6 font-semibold cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out
                     disabled:opacity-50 disabled:cursor-not-allowed w-48">Save
                     Changes</button>
 

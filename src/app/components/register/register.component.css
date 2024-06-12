@@ -1,11 +1,18 @@
 :host {
-
-    display: flex;
-    flex: 1;
+  display: flex;
+  flex: 1;
 }
 
 .coverparentspace {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .ipv_selected-item {
+  border: none;
+}
+
+::ng-deep .ipv_country-list {
+  width: 100%;
 }
