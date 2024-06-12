@@ -56,12 +56,12 @@ export class ProfileComponent implements OnInit {
 
   getUserProfileData(): void {
     this.authService.getUserDetails().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.userProfile = data;
 
         this.profileForm.patchValue(data);
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error fetching user profile data:', error);
       },
     });

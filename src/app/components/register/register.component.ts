@@ -1,9 +1,9 @@
 import { ToastService } from 'angular-toastify';
+import { ICountry } from 'ngx-countries-dropdown';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ICountry } from 'ngx-countries-dropdown';
 
 function passwordMismatch(
   controlName: string,
