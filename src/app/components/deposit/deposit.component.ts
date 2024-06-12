@@ -51,7 +51,7 @@ export class DepositComponent implements OnInit {
           (error) => {
             this.loader.hide(); // Hide the loader on deposit request failure
             // Handle error if the deposit request fails
-            this._toastService.success(error.error || 'Deposit failed');
+            this._toastService.error(error.error || 'Deposit failed');
             console.error('Deposit failed:', error);
           }
         );
