@@ -49,6 +49,7 @@ export class DepositComponent implements OnInit {
             // Handle successful deposit if needed
             this._toastService.success(response.msg);
             this.depositForm.reset();
+            this.router.navigate(['/dashboard']);
             console.log('Deposit successful!', response);
           },
           error: (error: any) => {
