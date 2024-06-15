@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   onCountryChange(country: ICountry) {
-    this.registerForm.patchValue({ country: country.code });
+    this.registerForm.patchValue({ countryCode: country.code });
   }
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
       {
         name: new FormControl('', Validators.required),
         email: new FormControl('', [Validators.required, Validators.email]),
-        country: new FormControl('', Validators.required),
+        countryCode: new FormControl('', Validators.required),
         phoneNumber: new FormControl('', [
           Validators.required,
           Validators.pattern(/^(\(?\d{1,4}\)?[\s-]?)?[\d\s-]{5,15}$/),
@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-
+    console.log(this.registerForm.value);
     // Call the API service to register the user
     this.authService.registerUser(this.registerForm.value).subscribe({
       next: (response: any) => {
