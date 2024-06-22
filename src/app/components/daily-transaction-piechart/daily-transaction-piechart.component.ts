@@ -41,6 +41,8 @@ export class DailyTransactionPiechartComponent implements OnInit {
   updateChart() {
     this.pieChartData.datasets[0].data = [];
 
+    const sourceAccountNumber =
+      TransactionComponent.getAccountNumberFromToken();
     const selectedDateObject = new Date(this.selectedDate);
     const selectedDateTransactions = this.transactions.filter(
       (transaction: TransactionComponent) => {
@@ -63,8 +65,7 @@ export class DailyTransactionPiechartComponent implements OnInit {
       type = type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
       if (
         type === 'Transfer' &&
-        transaction.targetAccountNumber ===
-          TransactionComponent.getAccountNumberFromToken()
+        transaction.targetAccountNumber === sourceAccountNumber
       ) {
         typeData.Credit += transaction.amount;
       } else {
