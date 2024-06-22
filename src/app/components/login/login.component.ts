@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         },
         error: (error: any) => {
           // Handle login failure here
-          this._toastService.error('Invalid Credentials');
+          this._toastService.error(error.error);
           console.error('Login error:', error);
           this.loader.hide(); // Hide the loader on login error
         },

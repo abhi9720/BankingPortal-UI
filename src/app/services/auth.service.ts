@@ -1,19 +1,20 @@
+import { jwtDecode } from 'jwt-decode';
+import { Observable } from 'rxjs';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { jwtDecode } from "jwt-decode";
-import { environment } from '../../environment/environment';
 import { Router } from '@angular/router';
 
+import { environment } from '../../environment/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private baseUrl = environment.apiUrl; // Replace with your actual API base URL
-  private authtokenName = environment.tokenName
+  private authtokenName = environment.tokenName;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   registerUser(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/users/register`, data);
@@ -32,13 +33,16 @@ export class AuthService {
   }
 
   verifyOTP(otpVerificationRequest: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/users/verify-otp`, otpVerificationRequest);
+    return this.http.post(
+      `${this.baseUrl}/users/verify-otp`,
+      otpVerificationRequest
+    );
   }
 
   login(accountNumber: string, password: string): Observable<any> {
     const body = {
       accountNumber: accountNumber,
-      password: password
+      password: password,
     };
     return this.http.post<any>(`${this.baseUrl}/users/login`, body);
   }
@@ -50,9 +54,12 @@ export class AuthService {
         // Decode the JWT token
         const decodedToken: any = jwtDecode(token);
 
-
         // Check if the token is valid and not expired
-        if (decodedToken && decodedToken.exp && decodedToken.exp * 1000 > Date.now()) {
+        if (
+          decodedToken &&
+          decodedToken.exp &&
+          decodedToken.exp * 1000 > Date.now()
+        ) {
           // Token is valid and not expired
           return true;
         }
@@ -63,9 +70,7 @@ export class AuthService {
     return false;
   }
 
-
   logOutUser() {
-    localStorage.removeItem(this.authtokenName)
-    this.router.navigate(['/']);
+    return this.http.get<any>(`${this.baseUrl}/users/logout`);
   }
 }

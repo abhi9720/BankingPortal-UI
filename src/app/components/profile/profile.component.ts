@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   onCountryChange(country: ICountry) {
-    this.profileForm.patchValue({ country: country.code });
+    this.profileForm.patchValue({ countryCode: country.code });
   }
 
   ngOnInit(): void {
@@ -29,7 +29,6 @@ export class ProfileComponent implements OnInit {
     this.profileForm = new FormGroup({
       name: new FormControl(['', Validators.required]),
       email: new FormControl(['', [Validators.required, Validators.email]]),
-      //   country: new FormControl(['', Validators.required]),
       phoneNumber: new FormControl([
         '',
         [
