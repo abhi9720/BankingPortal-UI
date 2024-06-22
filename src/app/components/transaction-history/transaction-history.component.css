@@ -1,4 +1,4 @@
-::ng-deep .Withdraw-color {
+::ng-deep .Withdrawal-color {
 
 
   color: #e53e3e !important;
@@ -16,7 +16,7 @@
   /* Light blue background */
 }
 
-::ng-deep .Credited-color {
+::ng-deep .Credit-color {
 
 
   color: #10b981 !important;
@@ -25,7 +25,7 @@
   /* Light green background */
 }
 
-::ng-deep .Deposited-color {
+::ng-deep .Deposit-color {
 
 
   color: #6366f1 !important;

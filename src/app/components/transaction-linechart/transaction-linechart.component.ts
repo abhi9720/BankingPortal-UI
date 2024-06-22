@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChartConfiguration } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import { TransactionComponent } from '../transaction/transaction.component';
 
 @Component({
   selector: 'app-transaction-linechart',
@@ -8,124 +9,157 @@ import { Label } from 'ng2-charts';
   styleUrls: ['./transaction-linechart.component.css'],
 })
 export class TransactionLinechartComponent implements OnInit {
-  @Input() transactions: any;
+  @Input() transactions: TransactionComponent[] = [];
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  public lineChartData: ChartDataSets[] = [];
-  public lineChartLabels: Label[] = [];
-  public lineChartOptions: ChartOptions = {
+  public lineChartData: ChartConfiguration<'line'>['data'] = {
+    labels: [],
+    datasets: [
+      { data: [], label: 'Deposit' },
+      { data: [], label: 'Withdrawal' },
+      { data: [], label: 'Fund Transfer' },
+      { data: [], label: 'Fund Credit' },
+    ],
+  };
+
+  public lineChartOptions: ChartConfiguration<'line'>['options'] = {
     responsive: true,
-    scales: {
-      xAxes: [
-        {
-          type: 'time',
-          time: {
-            unit: 'day',
-            displayFormats: {
-              day: 'MMM DD',
-            },
-          },
-          scaleLabel: {
-            display: true,
-            labelString: 'Date',
-          },
-        },
-      ],
-      yAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: 'Transaction Amount',
-          },
-        },
-      ],
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
     },
   };
-  public lineChartLegend = true;
-  public lineChartType: ChartType = 'line';
-
-  public selectedYear: number | string = "";
-  public selectedMonth: string = "";
+  public lineChartType: any = 'line';
 
   public years: number[] = [];
   public months: string[] = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
-  constructor() { }
+  public selectedYear: number | string = new Date().getFullYear();
+  public selectedMonth: string = this.months[new Date().getMonth()];
+
+  constructor() {}
 
   ngOnInit(): void {
-    this.prepareChartData();
+    this.updateChart();
     this.initializeYearAndMonthLists();
-
   }
+
   initializeYearAndMonthLists() {
-    this.years = Array.from(new Set(this.transactions.map((transaction: any) => new Date(transaction.transaction_date).getFullYear())));
-
+    this.years = Array.from(
+      new Set(
+        this.transactions.map((transaction: TransactionComponent) =>
+          new Date(transaction.transactionDate).getFullYear()
+        )
+      )
+    );
   }
 
-  prepareChartData(): void {
+  /**
+   * Updates the line chart data based on the selected year and month.
+   * @returns void
+   */
+  updateChart(): void {
+    const filteredTransactions: TransactionComponent[] =
+      this.transactions.filter((transaction: TransactionComponent) => {
+        const transactionDate: Date = new Date(transaction.transactionDate);
+        return (
+          transactionDate.getFullYear() === this.selectedYear &&
+          this.months[transactionDate.getMonth()] === this.selectedMonth
+        );
+      });
 
-    const filteredTransactions = this.transactions.filter((transaction: any) => {
-      const transactionDate = new Date(transaction.transaction_date);
-      const transactionYear = transactionDate.getFullYear();
-      const transactionMonth: string = this.months[transactionDate.getMonth()];
+    const groupedTransactions: {
+      [date: string]: { date: Date; amounts: { [type: string]: number } };
+    } = filteredTransactions.reduce(
+      (
+        acc: {
+          [date: string]: { date: Date; amounts: { [type: string]: number } };
+        },
+        transaction: TransactionComponent
+      ) => {
+        const transactionDate: Date = new Date(transaction.transactionDate);
+        const date: string = transactionDate.toISOString().split('T')[0];
 
-      console.log(this.selectedYear, this.selectedMonth, transactionYear, transactionMonth);
+        if (!acc[date]) {
+          acc[date] = {
+            date: transactionDate,
+            amounts: {
+              CASH_DEPOSIT: 0,
+              CASH_WITHDRAWAL: 0,
+              CASH_TRANSFER: 0,
+              CASH_CREDIT: 0,
+            },
+          };
+        }
 
-      console.log(typeof this.selectedYear, typeof this.selectedMonth, typeof transactionYear, typeof transactionMonth);
+        if (
+          transaction.transactionType === 'CASH_TRANSFER' &&
+          transaction.targetAccountNumber ===
+            TransactionComponent.getAccountNumberFromToken()
+        ) {
+          acc[date].amounts.CASH_CREDIT += transaction.amount;
+        } else {
+          acc[date].amounts[transaction.transactionType] += transaction.amount;
+        }
 
-      // Check if the transaction matches the selected year (if selected)
-      if (this.selectedYear && this.selectedYear != transactionYear) {
-        return false;
-      }
+        return acc;
+      },
+      {}
+    );
 
-      // Check if the transaction matches the selected month (if selected)
-      if (this.selectedMonth && this.selectedMonth != transactionMonth) {
-        return false;
-      }
+    const sortedTransactions: {
+      date: Date;
+      amounts: { [type: string]: number };
+    }[] = Object.values(groupedTransactions).sort(
+      (a: { date: Date }, b: { date: Date }) =>
+        a.date.getTime() - b.date.getTime()
+    );
 
-      console.log("return true");
+    this.lineChartData.labels = sortedTransactions.map(
+      (group: { date: Date }) =>
+        group.date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+    );
 
-      return true;
-    });
+    this.lineChartData.datasets[0].data = sortedTransactions.map(
+      (group: { amounts: { [type: string]: number } }) =>
+        group.amounts.CASH_DEPOSIT
+    );
 
-    console.log(filteredTransactions);
+    this.lineChartData.datasets[1].data = sortedTransactions.map(
+      (group: { amounts: { [type: string]: number } }) =>
+        group.amounts.CASH_WITHDRAWAL
+    );
 
+    this.lineChartData.datasets[2].data = sortedTransactions.map(
+      (group: { amounts: { [type: string]: number } }) =>
+        group.amounts.CASH_TRANSFER
+    );
 
-    // Separate filtered transactions by type
-    const depositTransactions = filteredTransactions.filter((transaction: any) => transaction.transaction_type === 'Deposit');
-    const fundTransferTransactions = filteredTransactions.filter((transaction: any) => transaction.transaction_type === 'Fund Transfer');
-    const withdrawalTransactions = filteredTransactions.filter((transaction: any) => transaction.transaction_type === 'Withdrawal');
+    this.lineChartData.datasets[3].data = sortedTransactions.map(
+      (group: { amounts: { [type: string]: number } }) =>
+        group.amounts.CASH_CREDIT
+    );
 
-    // Prepare data for each line
-    const depositDates = depositTransactions.map((transaction: any) => new Date(transaction.transaction_date));
-    const depositAmounts = depositTransactions.map((transaction: any) => transaction.amount);
-
-    const fundTransferDates = fundTransferTransactions.map((transaction: any) => new Date(transaction.transaction_date));
-    const fundTransferAmounts = fundTransferTransactions.map((transaction: any) => transaction.amount);
-
-    const withdrawalDates = withdrawalTransactions.map((transaction: any) => new Date(transaction.transaction_date));
-    const withdrawalAmounts = withdrawalTransactions.map((transaction: any) => transaction.amount);
-
-    this.lineChartData = [
-      { data: depositAmounts, label: 'Deposit' },
-      { data: fundTransferAmounts, label: 'Fund Transfer' },
-      { data: withdrawalAmounts, label: 'Withdrawal' },
-    ];
-
-    this.lineChartLabels = depositDates;
-  }
-
-  updateChartData(): void {
-
-    console.log(typeof this.selectedMonth, typeof this.selectedYear);
-    if (this.selectedYear == "") {
-      this.selectedMonth = "";
-    }
-
-    console.log(this.selectedMonth, this.selectedYear);
-
-    this.prepareChartData();
+    this.chart?.update();
   }
 }

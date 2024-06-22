@@ -23,13 +23,13 @@
       <div class="flex-grow">
         <select id="filterCriteria" formControlName="filterCriteria" (change)="onFilterCriteriaChange($event)"
           class="block w-full p-3 bg-white border border-gray-300 rounded-md shadow focus:ring focus:ring-opacity-50 focus:ring-blue-500 focus:border-blue-500 sm:text-sm custom-select">
-          <option [attr.selected]="true" value="" class="text-lg py-2">All Transactions</option>
           <!-- Increase font size (text-lg) and add padding (py-2) -->
           <option value="Deposit" class="text-lg py-2">Deposits</option> <!-- Increase font size and add padding -->
           <option value="Withdrawal" class="text-lg py-2">Withdrawals</option>
           <!-- Increase font size and add padding -->
           <option value="Transfer" class="text-lg py-2">Transfers/Credited</option>
           <!-- Increase font size and add padding -->
+          <option [attr.selected]="true" value="" class="text-lg py-2">All Transactions</option>
         </select>
       </div>
 
@@ -61,7 +61,7 @@
               <td class="px-4 py-3 text-center">{{ transaction.id }}</td>
               <td class="px-4 py-3 font-semibold">{{ transaction.amount | currency:'INR':'symbol' }}</td>
 
-              <td class="px-4 py-3 text-center">{{ transaction.transaction_date | date:'yyyy-MM-dd' }}</td>
+              <td class="px-4 py-3 text-center">{{ transaction.transactionDate | date:'yyyy-MM-dd' }}</td>
 
               <td class="px-4 py-3 text-center">
                 <span

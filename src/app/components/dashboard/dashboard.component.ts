@@ -1,11 +1,12 @@
+import { ApiService } from 'src/app/services/api.service';
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
   showPINCreationModel: boolean = false;
@@ -18,17 +19,17 @@ export class DashboardComponent implements OnInit {
   }
 
   checkPINStatus(): void {
-    this.apiService.checkPinCreated().subscribe(
-      (response) => {
+    this.apiService.checkPinCreated().subscribe({
+      next: (response: any) => {
         if (response && response.hasPIN === false) {
           // Show the PIN creation model.
           this.showPINCreationModel = true;
         }
       },
-      (error) => {
+      error: (error: any) => {
         console.error('Error checking PIN status:', error);
-      }
-    );
+      },
+    });
   }
 
   redirectToPINCreationPage(): void {

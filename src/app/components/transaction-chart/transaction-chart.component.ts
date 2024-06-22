@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChartConfiguration } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import { TransactionComponent } from '../transaction/transaction.component';
 
 @Component({
   selector: 'app-transaction-chart',
@@ -8,60 +9,48 @@ import { Label } from 'ng2-charts';
   styleUrls: ['./transaction-chart.component.css'],
 })
 export class TransactionChartComponent implements OnInit {
-  @Input() transactions: any;
-  public lineChartData: ChartDataSets[] = [
-    { data: [], label: 'Transaction Amount' },
-  ];
+  @Input() transactions: TransactionComponent[] = [];
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  public lineChartLabels: Label[] = [];
-  public lineChartOptions: ChartOptions = {
+  public lineChartData: ChartConfiguration<'line'>['data'] = {
+    labels: [],
+    datasets: [{ data: [], label: 'Transaction Amount' }],
+  };
+
+  public lineChartOptions: ChartConfiguration<'line'>['options'] = {
     responsive: true,
-    scales: {
-      xAxes: [ // Use 'xAxes' instead of 'xAxis'
-        {
-          type: 'time',
-          time: {
-            unit: 'day', // Adjust as needed
-            displayFormats: {
-              day: 'MMM DD', // Adjust date format as needed
-            },
-          },
-          scaleLabel: {
-            display: true,
-            labelString: 'Date', // Label for the x-axis
-          },
-        },
-      ],
-      yAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: 'Transaction Amount', // Label for the y-axis
-          },
-        },
-      ],
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
     },
   };
 
-
-  public lineChartLegend = true;
-  public lineChartType: ChartType = 'line';
+  public lineChartType: any = 'line';
 
   // Your transaction data (replace with your actual data)
 
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-    this.prepareChartData();
+    this.updateChart();
   }
 
-  prepareChartData(): void {
+  updateChart(): void {
     // Prepare data for the line chart
-    const transactionDates = this.transactions.map((transaction: any) => new Date(transaction.transaction_date));
-    const transactionAmounts = this.transactions.map((transaction: any) => transaction.amount);
+    const transactionDates = this.transactions.map(
+      (transaction: TransactionComponent) =>
+        new Date(transaction.transactionDate)
+    );
+    const transactionAmounts = this.transactions.map(
+      (transaction: TransactionComponent) => transaction.amount
+    );
 
-    this.lineChartLabels = transactionDates;
-    this.lineChartData[0].data = transactionAmounts;
+    this.lineChartData.labels = transactionDates;
+    this.lineChartData.datasets[0].data = transactionAmounts;
+
+    this.chart?.update();
   }
 }

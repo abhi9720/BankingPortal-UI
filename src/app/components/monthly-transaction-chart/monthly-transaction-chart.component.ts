@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ChartType } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChartConfiguration } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import { TransactionComponent } from '../transaction/transaction.component';
 
 @Component({
   selector: 'app-monthly-transaction-chart',
@@ -8,41 +9,82 @@ import { Label } from 'ng2-charts';
   styleUrls: ['./monthly-transaction-chart.component.css'],
 })
 export class MonthlyTransactionChartComponent implements OnInit {
-  @Input() transactions: any;
-  public barChartLabels: Label[] = []; // Months
-  public barChartType: ChartType = 'bar';
-  public barChartData: any[] = [];
+  @Input() transactions: TransactionComponent[] = [];
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  constructor() { }
+  public barChartType: any = 'bar';
+  public barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [],
+    datasets: [
+      { data: [], label: 'Deposit' },
+      { data: [], label: 'Withdrawal' },
+      { data: [], label: 'Transfer' },
+      { data: [], label: 'Credit' },
+    ],
+  };
+
+  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
+    },
+  };
+
+  constructor() {}
 
   ngOnInit(): void {
-    // Group transactions by month and calculate monthly total for each type
-    const monthlyData: { [monthYear: string]: { [type: string]: number } } = {};
+    const monthlyData: {
+      [monthYear: string]: { [type: string]: number };
+    } = {};
 
-    this.transactions.forEach((transaction: any) => {
-      const date = new Date(transaction.transaction_date);
-      const monthYear = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+    this.transactions.forEach((transaction: TransactionComponent) => {
+      const date = new Date(transaction.transactionDate);
+      const monthYear = date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+      });
 
       if (!monthlyData[monthYear]) {
-        monthlyData[monthYear] = {};
+        monthlyData[monthYear] = {
+          CASH_DEPOSIT: 0,
+          CASH_WITHDRAWAL: 0,
+          CASH_TRANSFER: 0,
+          CASH_CREDIT: 0,
+        };
       }
 
-      if (!monthlyData[monthYear][transaction.transaction_type]) {
-        monthlyData[monthYear][transaction.transaction_type] = transaction.amount;
+      if (
+        transaction.transactionType === 'CASH_TRANSFER' &&
+        transaction.targetAccountNumber ===
+          TransactionComponent.getAccountNumberFromToken()
+      ) {
+        monthlyData[monthYear].CASH_CREDIT += transaction.amount;
       } else {
-        monthlyData[monthYear][transaction.transaction_type] += transaction.amount;
+        monthlyData[monthYear][transaction.transactionType] +=
+          transaction.amount;
       }
     });
 
-    // Extract months and corresponding total amounts for each type
     const sortedMonthYears = Object.keys(monthlyData).sort();
-    const transactionTypes = [...new Set(this.transactions.map((transaction: any) => transaction.transaction_type))];
 
-    this.barChartLabels = sortedMonthYears;
-    this.barChartData = transactionTypes.map((type) => ({
-      data: sortedMonthYears.map((monthYear) => monthlyData[monthYear][type as number] || 0),
-      label: type,
-    }));
+    this.barChartData.labels = sortedMonthYears;
+    this.barChartData.datasets[0].data = sortedMonthYears.map(
+      (monthYear) => monthlyData[monthYear].CASH_DEPOSIT
+    );
+    this.barChartData.datasets[1].data = sortedMonthYears.map(
+      (monthYear) => monthlyData[monthYear].CASH_WITHDRAWAL
+    );
+    this.barChartData.datasets[2].data = sortedMonthYears.map(
+      (monthYear) => monthlyData[monthYear].CASH_TRANSFER
+    );
+    this.barChartData.datasets[3].data = sortedMonthYears.map(
+      (monthYear) => monthlyData[monthYear].CASH_CREDIT
+    );
+
+    this.chart?.update();
   }
-
 }
