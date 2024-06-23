@@ -3,9 +3,10 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { environment } from 'src/environment/environment';
@@ -40,7 +41,18 @@ export class AuthInterceptor implements HttpInterceptor {
               'Access-Control-Allow-Origin': environment.origin
             }
           });
-          return next.handle(authRequest);
+          return next.handle(authRequest).pipe(
+            catchError((error: HttpErrorResponse) => {
+              if (error.status === 401) {
+                // Handle 401 Unauthorized error
+                console.error('Unauthorized access. Redirecting to login page...');
+                localStorage.clear();
+                this.router.navigate(['/login']);
+                this.toastService.error('Unauthorized access. Please log in again.');
+              }
+              return throwError(error);
+            })
+          );
         } else {
           // Token is expired, clear it and redirect to login page
           console.error('Session expired. Redirecting to login page...');
@@ -60,7 +72,17 @@ export class AuthInterceptor implements HttpInterceptor {
       }
     } else {
       // No token present, allow the request as it is
-      return next.handle(request);
+      return next.handle(request).pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            // Handle 401 Unauthorized error
+            console.error('Unauthorized access. Redirecting to login page...');
+            this.router.navigate(['/login']);
+            this.toastService.error('Unauthorized access. Please log in again.');
+          }
+          return throwError(error);
+        })
+      );
     }
   }
 }

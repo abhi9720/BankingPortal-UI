@@ -32,13 +32,22 @@ export class DailyTransactionPiechartComponent implements OnInit {
     },
   };
 
-  public selectedDate: string = new Date().toISOString().split('T')[0];
+  public selectedDate!: string;
 
   ngOnInit() {
+    const currentDate = new Date();
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const year = currentDate.getFullYear();
+
+    this.selectedDate = `${year}-${month}-${day}`;
+
     this.updateChart();
   }
 
   updateChart() {
+    console.log(this.selectedDate);
+
     this.pieChartData.datasets[0].data = [];
 
     const sourceAccountNumber =
