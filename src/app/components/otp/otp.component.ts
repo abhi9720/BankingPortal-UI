@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LoadermodelService } from 'src/app/services/loadermodel.service';
 import { environment } from 'src/environment/environment';
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,7 +22,7 @@ export class OtpComponent {
     private toastService: ToastService,
     private router: Router,
     private loader: LoadermodelService // Inject the LoaderService here
-  ) {}
+  ) { }
 
   ngOnInit() {
     // Check if the accountNumber exists in sessionStorage (on page refresh)
@@ -31,6 +31,24 @@ export class OtpComponent {
       this.accountNumber = storedAccountNumber;
       this.otpGenerated = true; // If account number exists, it means OTP is generated
     }
+  }
+
+  @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
+  config = {
+    allowNumbersOnly: true,
+    length: 6,
+    placeholder: '',
+    inputStyles: {
+      'width': '50px',
+      'height': '50px'
+    }
+  };
+  onOtpChange(otp: string) {
+    this.otp = otp;
+  }
+
+  setVal(val: string) {
+    this.ngOtpInput.setValue(val);
   }
 
   generateOTP() {

@@ -42,6 +42,7 @@ import { WithdrawComponent } from './components/withdraw/withdraw.component';
 import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
 import { LoadermodelService } from './services/loadermodel.service';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { LoadermodelService } from './services/loadermodel.service';
     AngularToastifyModule,
     BaseChartDirective,
     NgxCountriesDropdownModule,
+    NgOtpInputModule
   ],
   providers: [
     ApiService,
@@ -89,6 +91,6 @@ import { LoadermodelService } from './services/loadermodel.service';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 
 Chart.register(...registerables);
