@@ -43,6 +43,7 @@ import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
 import { LoadermodelService } from './services/loadermodel.service';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     TransactionComponent,
     MonthlyTransactionChartComponent,
     DonwloadtransactionsComponent,
+    ResetPasswordComponent
   ],
   imports: [
     RouterModule,
