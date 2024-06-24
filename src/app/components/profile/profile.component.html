@@ -16,7 +16,7 @@
       </div>
 
       <div>
-        <label class="text-gray-600 font-semibold">Country:</label>
+        <label class="text-gray-600 font-semibold">Country Code:</label>
         <span class="text-gray-800 block">{{
           userProfile.countryCode || "N/A"
         }}</span>
@@ -76,8 +76,9 @@
         <input
           formControlName="name"
           type="text"
-          [readonly]="!showUpdateForm"
           id="name"
+          [readonly]="!showUpdateForm"
+          [value]="userProfile.name"
           class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500"
         />
         <div
@@ -93,8 +94,9 @@
         <input
           formControlName="email"
           type="email"
-          [readonly]="!showUpdateForm"
           id="email"
+          [readonly]="!showUpdateForm"
+          [value]="userProfile.email"
           class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500"
         />
         <div
@@ -109,14 +111,35 @@
       </div>
 
       <div class="mb-4">
+        <label class="text-gray-600 font-semibold" for="countryCode"
+          >Country Code:</label
+        >
+        <lib-country-list
+          formControlName="countryCode"
+          id="countryCode"
+          [selectedCountryCode]="userProfile.countryCode"
+          (onCountryChange)="onCountryChange($event)"
+          class="block w-full border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500"
+        >
+        </lib-country-list>
+        <div
+          *ngIf="f.countryCode.invalid && f.countryCodetouched"
+          class="text-red-500 text-sm mt-1"
+        >
+          Please enter a valid country code.
+        </div>
+      </div>
+
+      <div class="mb-4">
         <label class="text-gray-600 font-semibold" for="phoneNumber"
           >Phone Number:</label
         >
         <input
           formControlName="phoneNumber"
           type="text"
-          [readonly]="!showUpdateForm"
           id="phoneNumber"
+          [readonly]="!showUpdateForm"
+          [value]="userProfile.phoneNumber"
           class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500"
         />
         <div
@@ -126,7 +149,7 @@
           <div *ngIf="f.phoneNumber.errors?.required">
             Phone number is required.
           </div>
-          <div *ngIf="f.phoneNumber.errors?.pattern">
+          <div *ngIf="f.phoneNumber.errors?.invalidPhoneNumber">
             Please enter a valid phone number.
           </div>
         </div>
@@ -139,8 +162,9 @@
         <input
           formControlName="address"
           type="text"
-          [readonly]="!showUpdateForm"
           id="address"
+          [readonly]="!showUpdateForm"
+          [value]="userProfile.address"
           class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500"
         />
       </div>
@@ -152,8 +176,9 @@
         <input
           formControlName="password"
           type="password"
-          [readonly]="!showUpdateForm"
           id="password"
+          autocomplete="current-password"
+          [readonly]="!showUpdateForm"
           class="border border-gray-300 rounded p-2 w-full focus:outline-none focus:border-blue-500"
         />
         <div

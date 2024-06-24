@@ -1,8 +1,14 @@
 import { ToastService } from 'angular-toastify';
 import { ICountry } from 'ngx-countries-dropdown';
 import { AuthService } from 'src/app/services/auth.service';
+import {
+  getSearchInput,
+  handleCountryCodeMutations,
+  invalidPhoneNumber,
+  observeCountryCodeChanges,
+} from 'src/app/services/country-code.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -17,40 +23,47 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private _toastService: ToastService
+    private _toastService: ToastService,
+    private elementRef: ElementRef
   ) {}
-
-  onCountryChange(country: ICountry) {
-    this.profileForm.patchValue({ countryCode: country.code });
-  }
 
   ngOnInit(): void {
     this.getUserProfileData();
-    this.profileForm = new FormGroup({
-      name: new FormControl(['', Validators.required]),
-      email: new FormControl(['', [Validators.required, Validators.email]]),
-      phoneNumber: new FormControl([
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^(\(?\d{1,4}\)?[\s-]?)?[\d\s-]{5,15}$/),
-        ],
-      ]),
-      address: new FormControl(['', Validators.required]),
-      password: new FormControl([
-        '',
-        [
+    this.profileForm = new FormGroup(
+      {
+        name: new FormControl('', Validators.required),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        countryCode: new FormControl('', Validators.required),
+        phoneNumber: new FormControl('', Validators.required),
+        address: new FormControl('', Validators.required),
+        password: new FormControl('', [
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(127),
-        ],
-      ]),
-    });
+        ]),
+      },
+      {
+        validators: invalidPhoneNumber(),
+      }
+    );
+  }
+
+  ngAfterViewChecked() {
+    observeCountryCodeChanges(
+      this.elementRef,
+      (mutations: MutationRecord[]) => {
+        handleCountryCodeMutations(mutations, getSearchInput);
+      }
+    );
   }
 
   // Convenience getter for easy access to form fields
   get f() {
     return this.profileForm.controls;
+  }
+
+  onCountryChange(country: ICountry) {
+    this.profileForm.patchValue({ countryCode: country.code });
   }
 
   getUserProfileData(): void {

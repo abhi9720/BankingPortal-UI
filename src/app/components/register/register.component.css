@@ -11,6 +11,7 @@
 
 ::ng-deep .ipv_selected-item {
   border: none;
+  border-radius: 0.5rem;
 }
 
 ::ng-deep .ipv_country-list {
