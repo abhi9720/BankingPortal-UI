@@ -1,23 +1,31 @@
 .content-wrapper {
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    overflow-y: hidden;
-
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  overflow-y: hidden;
 }
 
 .left-pannel {
-    flex: 0 0 auto;
-    position: sticky;
-    left: 0;
-    top: 0;
-
+  flex: 0 0 auto;
+  position: sticky;
+  left: 0;
+  top: 0;
 }
 
 .right-pannel {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: scroll;
+}
+
+::ng-deep .ipv_selected-item {
+  border: none;
+  border-radius: 0.5rem;
+}
+
+::ng-deep .ipv_country-list {
+  min-width: auto;
+  white-space: normal;
 }

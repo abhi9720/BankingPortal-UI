@@ -1,14 +1,9 @@
 import { ToastService } from 'angular-toastify';
 import { ICountry } from 'ngx-countries-dropdown';
 import { AuthService } from 'src/app/services/auth.service';
-import {
-  getSearchInput,
-  handleCountryCodeMutations,
-  invalidPhoneNumber,
-  observeCountryCodeChanges,
-} from 'src/app/services/country-code.service';
+import { invalidPhoneNumber } from 'src/app/services/country-code.service';
 
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -23,8 +18,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private _toastService: ToastService,
-    private elementRef: ElementRef
+    private _toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -44,15 +38,6 @@ export class ProfileComponent implements OnInit {
       },
       {
         validators: invalidPhoneNumber(),
-      }
-    );
-  }
-
-  ngAfterViewChecked() {
-    observeCountryCodeChanges(
-      this.elementRef,
-      (mutations: MutationRecord[]) => {
-        handleCountryCodeMutations(mutations, getSearchInput);
       }
     );
   }
