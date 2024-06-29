@@ -124,6 +124,19 @@
                 Password must be at most 127 characters long.
               </div>
             </div>
+            <div class="text-red-400 text-sm" *ngIf="f.password?.dirty">
+              <span class="block" [ngClass]="{'text-primary': f.password?.value?.match('^(?=.*[A-Z])')}">At least oneu ppercase
+                                      letter.</span>
+              <span class="block" [ngClass]="{'text-primary': f.password?.value?.match('(?=.*[a-z])')}">At least one lowercase
+                                      letter.</span>
+              <span class="block" [ngClass]="{'text-primary': f.password?.value?.match('(.*[0-9].*)')}">At least one
+                                      digit.</span>
+              <span class="block" [ngClass]="{'text-primary': f.password?.value?.match('(?=.*[!@#$%^&*])')}">At least one
+                                      special
+                                      character.</span>
+              <span class="block" [ngClass]="{'text-primary': f.password?.value?.match('.{8,}')}">At least 8 characters
+                                      long.</span>
+           </div>
           </div>
           <div class="col-span-1">
             <label for="confirmPassword" class="block text-sm font-bold mb-2"

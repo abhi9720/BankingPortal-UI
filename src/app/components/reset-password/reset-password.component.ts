@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastService } from 'angular-toastify';
 import { finalize } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadermodelService } from 'src/app/services/loadermodel.service';
+import { passwordMismatch, StrongPasswordRegx } from 'src/app/util/formutil';
 
 @Component({
   selector: 'app-reset-password',
@@ -39,9 +40,20 @@ export class ResetPasswordComponent implements OnInit {
     });
 
     this.newPasswordForm = this.fb.group({
-      newPassword: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(127),
+        Validators.pattern(StrongPasswordRegx)
+      ]),
+      confirmPassword: new FormControl('', Validators.required),
+    }, {
+      validators: passwordMismatch('password', 'confirmPassword'),
     });
+  }
+
+  get f() {
+    return this.newPasswordForm.controls;
   }
 
   onOtpChange(otp: string): void {
@@ -90,7 +102,7 @@ export class ResetPasswordComponent implements OnInit {
         next: (response) => {
           this.toastService.success('OTP Verified');
           this.showNewPasswordForm = true;
-          this.resetToken = response.resetToken;
+          this.resetToken = response.passwordResetToken;
         },
         error: (error) => {
           this.toastService.error('Error verifying OTP : ' + error.error);
@@ -114,6 +126,7 @@ export class ResetPasswordComponent implements OnInit {
           next: (response) => {
             this.toastService.success('Password reset successfully');
             console.log('Password reset successfully:', response);
+            this.router.navigate(['/login']);
           },
           error: (error) => {
             this.toastService.error('Error resetting password ' + error.error);
