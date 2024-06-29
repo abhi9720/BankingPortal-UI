@@ -1,6 +1,7 @@
 import { ToastService } from 'angular-toastify';
 import { ICountry } from 'ngx-countries-dropdown';
 import { AuthService } from 'src/app/services/auth.service';
+import { invalidPhoneNumber } from 'src/app/services/country-code.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -23,20 +24,13 @@ export class RegisterComponent implements OnInit {
     private _toastService: ToastService
   ) { }
 
-  onCountryChange(country: ICountry) {
-    this.registerForm.patchValue({ countryCode: country.code });
-  }
-
   ngOnInit() {
     this.registerForm = new FormGroup(
       {
         name: new FormControl('', Validators.required),
         email: new FormControl('', [Validators.required, Validators.email]),
         countryCode: new FormControl('', Validators.required),
-        phoneNumber: new FormControl('', [
-          Validators.required,
-          Validators.pattern(/^(\(?\d{1,4}\)?[\s-]?)?[\d\s-]{5,15}$/),
-        ]),
+        phoneNumber: new FormControl('', Validators.required),
         address: new FormControl('', Validators.required),
         password: new FormControl('', [
           Validators.required,
@@ -47,7 +41,10 @@ export class RegisterComponent implements OnInit {
         confirmPassword: new FormControl('', Validators.required),
       },
       {
-        validators: passwordMismatch('password', 'confirmPassword'),
+        validators: [
+          passwordMismatch('password', 'confirmPassword'),
+          invalidPhoneNumber(),
+        ],
       }
     );
   }
@@ -55,6 +52,10 @@ export class RegisterComponent implements OnInit {
   // Convenience getter for easy access to form fields
   get f() {
     return this.registerForm.controls;
+  }
+
+  onCountryChange(country: ICountry) {
+    this.registerForm.patchValue({ countryCode: country.code });
   }
 
   onSubmit() {
