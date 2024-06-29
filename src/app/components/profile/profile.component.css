@@ -1,11 +1,10 @@
 :host {
-
-    display: flex;
-    flex: 1;
+  display: flex;
+  flex: 1;
 }
 
 .coverparentspace {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }

@@ -15,6 +15,7 @@
               formControlName="name"
               type="text"
               id="name"
+              autocomplete="name"
               class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500"
             />
             <div
@@ -32,6 +33,7 @@
               formControlName="email"
               type="email"
               id="email"
+              autocomplete="email"
               class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500"
             />
             <div
@@ -46,10 +48,11 @@
           </div>
           <div class="col-span-2">
             <label for="countryCode" class="block text-sm font-bold mb-2"
-              >Country:</label
+              >Country Code:</label
             >
             <lib-country-list
               formControlName="countryCode"
+              id="countryCode"
               (onCountryChange)="onCountryChange($event)"
               class="block w-full border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500"
             >
@@ -69,6 +72,7 @@
               formControlName="phoneNumber"
               type="tel"
               id="phoneNumber"
+              autocomplete="tel"
               class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500"
             />
             <div
@@ -91,6 +95,7 @@
               formControlName="address"
               type="text"
               id="address"
+              autocomplete="street-address"
               class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500"
             />
             <div
@@ -108,6 +113,7 @@
               formControlName="password"
               type="password"
               id="password"
+              autocomplete="new-password"
               class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500"
             />
             <div
@@ -133,6 +139,7 @@
               formControlName="confirmPassword"
               type="password"
               id="confirmPassword"
+              autocomplete="new-password"
               class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500"
             />
             <div

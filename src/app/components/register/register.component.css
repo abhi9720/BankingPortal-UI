@@ -8,11 +8,3 @@
   display: flex;
   flex-direction: column;
 }
-
-::ng-deep .ipv_selected-item {
-  border: none;
-}
-
-::ng-deep .ipv_country-list {
-  width: 100%;
-}
