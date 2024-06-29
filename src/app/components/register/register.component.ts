@@ -17,7 +17,6 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   showRegistrationData = false;
   registrationData: any;
-  print = console;
 
   constructor(
     private authService: AuthService,

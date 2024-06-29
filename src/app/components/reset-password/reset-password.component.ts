@@ -35,12 +35,12 @@ export class ResetPasswordComponent implements OnInit {
     private authService: AuthService,
   ) {
     this.resetPasswordForm = this.fb.group({
-      identifier: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$|^\d{6}$/)]],
+      identifier: ['', [Validators.required, Validators.pattern(/^(?:(?:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})|(?:.{6}))$/)]],
       otp: [''] // Added OTP field to the form
     });
 
     this.newPasswordForm = this.fb.group({
-      password: new FormControl('', [
+      newPassword: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(127),
@@ -48,7 +48,7 @@ export class ResetPasswordComponent implements OnInit {
       ]),
       confirmPassword: new FormControl('', Validators.required),
     }, {
-      validators: passwordMismatch('password', 'confirmPassword'),
+      validators: passwordMismatch('newPassword', 'confirmPassword'),
     });
   }
 
