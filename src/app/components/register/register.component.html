@@ -118,7 +118,7 @@
             />
             <div
               *ngIf="f.password.invalid && f.password.touched"
-              class="text-red-500 text-sm mt-1"
+              class="block text-red-500 font-medium rounded-lg mt-2 text-sm"
             >
               <div *ngIf="f.password.errors?.required">
                 Password is required.
@@ -130,6 +130,8 @@
                 Password must be at most 127 characters long.
               </div>
             </div>
+            
+        
           </div>
           <div class="col-span-1">
             <label for="confirmPassword" class="block text-sm font-bold mb-2"
@@ -144,7 +146,7 @@
             />
             <div
               *ngIf="f.confirmPassword.invalid && f.confirmPassword.touched"
-              class="text-red-500 text-sm mt-1"
+              class="block text-red-500 font-medium rounded-lg mt-2 text-sm"
             >
               <div *ngIf="f.confirmPassword.errors?.required">
                 Confirm Password is required.
@@ -155,6 +157,21 @@
             </div>
           </div>
         </div>
+
+        <ul class="text-red-400 text-sm list-disc" *ngIf="f.password?.dirty">
+          <li class="block text-red-500 font-medium rounded-lg mt-2" *ngIf="!f.password?.value?.match('^(?=.*[A-Z])')">At least oneuppercase
+                                  letter.</li>
+          <li class="block text-red-500 font-medium rounded-lg mt-2" *ngIf="!f.password?.value?.match('(?=.*[a-z])')">At least one lowercase
+                                  letter.</li>
+          <li class="block text-red-500 font-medium rounded-lg mt-2" *ngIf="!f.password?.value?.match('(.*[0-9].*)')">At least one
+                                  digit.</li>
+          <li class="block text-red-500 font-medium rounded-lg mt-2" *ngIf="!f.password?.value?.match('(?=.*[!@#$%^&*])')">At least one
+                                  special
+                                  character.</li>
+          <li class="block text-red-500 font-medium rounded-lg mt-2" *ngIf="!f.password?.value?.match('.{8,}')">At least 8 characters
+                                  long.</li>
+       </ul>
+
         <div class="mt-4 flex items-center justify-center">
           <button
             type="submit"
@@ -167,19 +184,19 @@
       </form>
     </div>
     <div
-      class="rounded-lg border border-gray-300 p-8"
+      class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
       *ngIf="showRegistrationData"
     >
-      <h2 class="text-3xl font-semibold mb-6">Registration Successful!</h2>
-      <p>Name: {{ registrationData.name }}</p>
-      <p>Email: {{ registrationData.email }}</p>
-      <p>Account Number: {{ registrationData.accountNumber }}</p>
-      <p>Branch: {{ registrationData.branch }}</p>
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Registration Successful!</h5>
+      <p class="mb-3 font-normal text-gray-700">Name: <span class="font-medium">{{ registrationData.name || '-' }}</span></p>
+      <p class="mb-3 font-normal text-gray-700">Email:<span class="font-medium"> {{ registrationData.email }}</span></p>
+      <p class="mb-3 font-normal text-gray-700">Account Number: :<span class="font-medium">{{ registrationData.accountNumber }}</span></p>
+      <p class="mb-3 font-normal text-gray-700">Branch: <span class="font-medium">{{ registrationData.branch }}</span></p>
       <div class="mt-4 flex items-center justify-center">
         <a
           routerLink="/login"
           type="button"
-          class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
           (click)="showRegistrationData = false"
           >Continue to Login</a
         >

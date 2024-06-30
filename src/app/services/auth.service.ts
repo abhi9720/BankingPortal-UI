@@ -14,7 +14,7 @@ export class AuthService {
   private baseUrl = environment.apiUrl; // Replace with your actual API base URL
   private authtokenName = environment.tokenName;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   registerUser(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/users/register`, data);
@@ -72,5 +72,21 @@ export class AuthService {
 
   logOutUser() {
     return this.http.get<any>(`${this.baseUrl}/users/logout`);
+  }
+
+  // Password reset
+  sendOtpForPasswordReset(identifier: string): Observable<any> {
+    const body = { identifier: identifier };
+    return this.http.post(`${this.baseUrl}/auth/password-reset/send-otp`, body);
+  }
+
+  verifyOtpForPasswordReset(identifier: string, otp: string): Observable<any> {
+    const body = { identifier: identifier, otp: otp };
+    return this.http.post(`${this.baseUrl}/auth/password-reset/verify-otp`, body);
+  }
+
+  resetPassword(identifier: string, resetToken: string, newPassword: string): Observable<any> {
+    const body = { identifier: identifier, resetToken: resetToken, newPassword: newPassword };
+    return this.http.post(`${this.baseUrl}/auth/password-reset`, body);
   }
 }

@@ -5,26 +5,9 @@ import { invalidPhoneNumber } from 'src/app/services/country-code.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { passwordMismatch, StrongPasswordRegx } from 'src/app/util/formutil';
 
-function passwordMismatch(
-  controlName: string,
-  matchingControlName: string
-): any {
-  return (formGroup: FormGroup) => {
-    const control = formGroup.controls[controlName];
-    const matchingControl = formGroup.controls[matchingControlName];
 
-    if (matchingControl.errors && !matchingControl.errors.passwordMismatch) {
-      return;
-    }
-
-    if (control.value !== matchingControl.value) {
-      matchingControl.setErrors({ passwordMismatch: true });
-    } else {
-      matchingControl.setErrors(null);
-    }
-  };
-}
 
 @Component({
   selector: 'app-register',
@@ -35,12 +18,11 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   showRegistrationData = false;
   registrationData: any;
-  print = console;
 
   constructor(
     private authService: AuthService,
     private _toastService: ToastService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.registerForm = new FormGroup(
@@ -54,6 +36,7 @@ export class RegisterComponent implements OnInit {
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(127),
+          Validators.pattern(StrongPasswordRegx)
         ]),
         confirmPassword: new FormControl('', Validators.required),
       },

@@ -5,6 +5,7 @@ import { environment } from 'src/environment/environment';
 
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-otp',
@@ -21,7 +22,7 @@ export class OtpComponent {
     private authService: AuthService,
     private toastService: ToastService,
     private router: Router,
-    private loader: LoadermodelService // Inject the LoaderService here
+    private loader: LoadermodelService
   ) { }
 
   ngOnInit() {
@@ -29,7 +30,7 @@ export class OtpComponent {
     const storedAccountNumber = sessionStorage.getItem('accountNumber');
     if (storedAccountNumber) {
       this.accountNumber = storedAccountNumber;
-      this.otpGenerated = true; // If account number exists, it means OTP is generated
+      this.otpGenerated = true;
     }
   }
 
@@ -53,16 +54,18 @@ export class OtpComponent {
 
   generateOTP() {
     this.loader.show('Generating OTP...'); // Show the loader before making the API call
-    this.authService.generateOTP(this.accountNumber).subscribe({
+    this.authService.generateOTP(this.accountNumber).pipe(
+      finalize(() => {
+        this.loader.hide(); // Hide the loader after API call completes (success or error)
+      })
+    ).subscribe({
       next: (response: any) => {
-        this.loader.hide(); // Hide the loader on API response
         this.toastService.success(response.message + ', Check Email');
         this.otpGenerated = true;
         // Save the account number in sessionStorage
         sessionStorage.setItem('accountNumber', this.accountNumber);
       },
       error: (error: any) => {
-        this.loader.hide(); // Hide the loader on API error
         this.toastService.error(error.error);
         console.error(error);
       },
@@ -76,9 +79,13 @@ export class OtpComponent {
       otp: this.otp,
     };
 
-    this.authService.verifyOTP(otpVerificationRequest).subscribe({
+    this.authService.verifyOTP(otpVerificationRequest).pipe(
+      finalize(() => {
+        // Hide the loader after API call completes (success or error)
+        this.loader.hide();
+      })
+    ).subscribe({
       next: (response: any) => {
-        this.loader.hide(); // Hide the loader on API response
         console.log(response);
         this.toastService.success('Account LoggedIn');
         const token = response.token;
@@ -86,7 +93,6 @@ export class OtpComponent {
         this.router.navigate(['/dashboard']);
       },
       error: (error: any) => {
-        this.loader.hide(); // Hide the loader on API error
         this.toastService.error(error.error);
         console.error(error);
       },
