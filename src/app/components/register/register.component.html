@@ -130,8 +130,6 @@
                 Password must be at most 127 characters long.
               </div>
             </div>
-            
-        
           </div>
           <div class="col-span-1">
             <label for="confirmPassword" class="block text-sm font-bold mb-2"
@@ -151,7 +149,7 @@
               <div *ngIf="f.confirmPassword.errors?.required">
                 Confirm Password is required.
               </div>
-              <div *ngIf="f.confirmPassword.errors?.passwordMismatch">
+              <div *ngIf="f.confirmPassword.errors?.mismatch">
                 Passwords do not match.
               </div>
             </div>
@@ -159,18 +157,37 @@
         </div>
 
         <ul class="text-red-400 text-sm list-disc" *ngIf="f.password?.dirty">
-          <li class="block text-red-500 font-medium rounded-lg mt-2" *ngIf="!f.password?.value?.match('^(?=.*[A-Z])')">At least oneuppercase
-                                  letter.</li>
-          <li class="block text-red-500 font-medium rounded-lg mt-2" *ngIf="!f.password?.value?.match('(?=.*[a-z])')">At least one lowercase
-                                  letter.</li>
-          <li class="block text-red-500 font-medium rounded-lg mt-2" *ngIf="!f.password?.value?.match('(.*[0-9].*)')">At least one
-                                  digit.</li>
-          <li class="block text-red-500 font-medium rounded-lg mt-2" *ngIf="!f.password?.value?.match('(?=.*[!@#$%^&*])')">At least one
-                                  special
-                                  character.</li>
-          <li class="block text-red-500 font-medium rounded-lg mt-2" *ngIf="!f.password?.value?.match('.{8,}')">At least 8 characters
-                                  long.</li>
-       </ul>
+          <li
+            class="block text-red-500 font-medium rounded-lg mt-2"
+            *ngIf="!f.password?.value?.match('^(?=.*[A-Z])')"
+          >
+            At least oneuppercase letter.
+          </li>
+          <li
+            class="block text-red-500 font-medium rounded-lg mt-2"
+            *ngIf="!f.password?.value?.match('(?=.*[a-z])')"
+          >
+            At least one lowercase letter.
+          </li>
+          <li
+            class="block text-red-500 font-medium rounded-lg mt-2"
+            *ngIf="!f.password?.value?.match('(.*[0-9].*)')"
+          >
+            At least one digit.
+          </li>
+          <li
+            class="block text-red-500 font-medium rounded-lg mt-2"
+            *ngIf="!f.password?.value?.match('(?=.*[^A-Za-z0-9])')"
+          >
+            At least one special character.
+          </li>
+          <li
+            class="block text-red-500 font-medium rounded-lg mt-2"
+            *ngIf="!f.password?.value?.match('.{8,}')"
+          >
+            At least 8 characters long.
+          </li>
+        </ul>
 
         <div class="mt-4 flex items-center justify-center">
           <button
@@ -187,11 +204,26 @@
       class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
       *ngIf="showRegistrationData"
     >
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Registration Successful!</h5>
-      <p class="mb-3 font-normal text-gray-700">Name: <span class="font-medium">{{ registrationData.name || '-' }}</span></p>
-      <p class="mb-3 font-normal text-gray-700">Email:<span class="font-medium"> {{ registrationData.email }}</span></p>
-      <p class="mb-3 font-normal text-gray-700">Account Number: :<span class="font-medium">{{ registrationData.accountNumber }}</span></p>
-      <p class="mb-3 font-normal text-gray-700">Branch: <span class="font-medium">{{ registrationData.branch }}</span></p>
+      <h5
+        class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center"
+      >
+        Registration Successful!
+      </h5>
+      <p class="mb-3 font-normal text-gray-700">
+        Name:
+        <span class="font-medium">{{ registrationData.name || "-" }}</span>
+      </p>
+      <p class="mb-3 font-normal text-gray-700">
+        Email:<span class="font-medium"> {{ registrationData.email }}</span>
+      </p>
+      <p class="mb-3 font-normal text-gray-700">
+        Account Number: :<span class="font-medium">{{
+          registrationData.accountNumber
+        }}</span>
+      </p>
+      <p class="mb-3 font-normal text-gray-700">
+        Branch: <span class="font-medium">{{ registrationData.branch }}</span>
+      </p>
       <div class="mt-4 flex items-center justify-center">
         <a
           routerLink="/login"

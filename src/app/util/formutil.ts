@@ -8,12 +8,12 @@ export function passwordMismatch(
         const control = formGroup.controls[controlName];
         const matchingControl = formGroup.controls[matchingControlName];
 
-        if (matchingControl.errors && !matchingControl.errors.passwordMismatch) {
+        if (matchingControl.errors && !matchingControl.errors.mismatch) {
             return;
         }
 
         if (control.value !== matchingControl.value) {
-            matchingControl.setErrors({ passwordMismatch: true });
+            matchingControl.setErrors({ mismatch: true });
         } else {
             matchingControl.setErrors(null);
         }
