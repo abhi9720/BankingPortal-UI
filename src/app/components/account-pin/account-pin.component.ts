@@ -3,8 +3,9 @@ import { ApiService } from 'src/app/services/api.service';
 import { LoadermodelService } from 'src/app/services/loadermodel.service';
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { passwordMismatch } from 'src/app/util/formutil';
 
 @Component({
   selector: 'app-account-pin',
@@ -20,7 +21,6 @@ export class AccountPinComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private fb: FormBuilder,
     private _toastService: ToastService,
     private router: Router,
     private loader: LoadermodelService // Inject the LoaderService here
@@ -46,37 +46,34 @@ export class AccountPinComponent implements OnInit {
   initPinChangeForm(): void {
     if (this.showGeneratePINForm) {
       // For "Generate PIN" form
-      this.pinChangeForm = this.fb.group({
-        newPin: [
-          '',
-          [
+      this.pinChangeForm = new FormGroup(
+        {
+          newPin: new FormControl('', [
             Validators.required,
             Validators.minLength(4),
             Validators.maxLength(4),
-          ],
-        ],
-        password: ['', Validators.required],
-      });
+          ]),
+          confirmPin: new FormControl('', Validators.required),
+          password: new FormControl('', Validators.required),
+        },
+        {
+          validators: passwordMismatch('newPin', 'confirmPin'),
+        }
+      );
     } else {
       // For "Change PIN" form
-      this.pinChangeForm = this.fb.group({
-        oldPin: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(4),
-          ],
-        ],
-        newPin: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(4),
-          ],
-        ],
-        password: ['', Validators.required],
+      this.pinChangeForm = new FormGroup({
+        oldPin: new FormControl('', [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(4),
+        ]),
+        newPin: new FormControl('', [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(4),
+        ]),
+        password: new FormControl('', Validators.required),
       });
     }
   }

@@ -1,38 +1,92 @@
 <div class="flex justify-center items-center coverparentspace">
   <div
     class="max-w-md w-full rounded-lg bg-white p-6 leading-5 text-slate-700 shadow-xl shadow-black/5 ring-1 ring-slate-700/10"
-    *ngIf="!loading; else loader">
-
-
+    *ngIf="!loading; else loader"
+  >
     <ng-container *ngIf="showGeneratePINForm; else changePINForm">
       <!-- "Generate PIN" form -->
       <h2 class="text-3xl font-semibold mb-6 text-center">Generate PIN</h2>
-      <form [formGroup]="pinChangeForm" (ngSubmit)="onSubmitGeneratePIN()" class="space-y-4">
+      <form
+        [formGroup]="pinChangeForm"
+        (ngSubmit)="onSubmitGeneratePIN()"
+        class="space-y-4"
+      >
         <div>
-          <label for="newPin" class="block text-sm font-bold mb-2">New PIN:</label>
-          <input formControlName="newPin" type="password" id="newPin"
+          <label for="newPinGenerate" class="block text-sm font-bold mb-2"
+            >New PIN:</label
+          >
+          <input
+            formControlName="newPin"
+            type="password"
+            id="newPinGenerate"
             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            placeholder="Enter the new PIN" />
-          <div *ngIf="pinChangeForm.get('newPin')?.invalid && pinChangeForm.get('newPin')?.touched"
-            class="text-red-500 text-sm mt-1">
+            placeholder="Enter the new PIN"
+          />
+          <div
+            *ngIf="
+              pinChangeForm.get('newPin')?.invalid &&
+              pinChangeForm.get('newPin')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
             New PIN is required and must be 4 digits.
           </div>
         </div>
-        {{print(pinChangeForm.get('newPin'))}}
         <div>
-          <label for="password" class="block text-sm font-bold mb-2">Password:</label>
-          <input formControlName="password" type="password" id="password"
+          <label for="confirmPinGenerate" class="block text-sm font-bold mb-2"
+            >Confirm PIN:</label
+          >
+          <input
+            formControlName="confirmPin"
+            type="password"
+            id="confirmPinGenerate"
             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            placeholder="Enter your password" />
-          <div *ngIf="pinChangeForm.get('password')?.invalid && pinChangeForm.get('password')?.touched"
-            class="text-red-500 text-sm mt-1">
+            placeholder="Confirm the new PIN"
+          />
+          <div
+            *ngIf="
+              pinChangeForm.get('confirmPin')?.invalid &&
+              pinChangeForm.get('confirmPin')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            <div *ngIf="pinChangeForm.get('confirmPin')?.errors?.required">
+              Confirm PIN is required.
+            </div>
+            <div *ngIf="pinChangeForm.get('confirmPin')?.errors?.mismatch">
+              PINs do not match.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="passwordGenerate" class="block text-sm font-bold mb-2"
+            >Password:</label
+          >
+          <input
+            formControlName="password"
+            type="password"
+            id="passwordGenerate"
+            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
+            placeholder="Enter your password"
+          />
+          <div
+            *ngIf="
+              pinChangeForm.get('password')?.invalid &&
+              pinChangeForm.get('password')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
             Password is required.
           </div>
         </div>
         <div class="flex justify-center">
-          <button type="submit" [disabled]="pinChangeForm.invalid"
-            class="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed">Generate
-            PIN</button>
+          <button
+            type="submit"
+            [disabled]="pinChangeForm.invalid"
+            class="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Generate PIN
+          </button>
         </div>
       </form>
     </ng-container>
@@ -40,41 +94,82 @@
     <ng-template #changePINForm>
       <!-- "Change PIN" form -->
       <h2 class="text-3xl font-semibold mb-6 text-center">Change PIN</h2>
-      <form [formGroup]="pinChangeForm" (ngSubmit)="onSubmitChangePIN()" class="space-y-4">
+      <form
+        [formGroup]="pinChangeForm"
+        (ngSubmit)="onSubmitChangePIN()"
+        class="space-y-4"
+      >
         <div>
-          <label for="oldPin" class="block text-sm font-bold mb-2">Old PIN:</label>
-          <input formControlName="oldPin" type="password" id="oldPin"
+          <label for="oldPin" class="block text-sm font-bold mb-2"
+            >Old PIN:</label
+          >
+          <input
+            formControlName="oldPin"
+            type="password"
+            id="oldPin"
             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            placeholder="Enter the old PIN" />
-          <div *ngIf="pinChangeForm.get('oldPin')?.invalid && pinChangeForm.get('oldPin')?.touched"
-            class="text-red-500 text-sm mt-1">
+            placeholder="Enter the old PIN"
+          />
+          <div
+            *ngIf="
+              pinChangeForm.get('oldPin')?.invalid &&
+              pinChangeForm.get('oldPin')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
             Old PIN is required and must be 4 digits.
           </div>
         </div>
         <div>
-          <label for="newPin" class="block text-sm font-bold mb-2">New PIN:</label>
-          <input formControlName="newPin" type="password" id="newPin"
+          <label for="newPinChange" class="block text-sm font-bold mb-2"
+            >New PIN:</label
+          >
+          <input
+            formControlName="newPin"
+            type="password"
+            id="newPinChange"
             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            placeholder="Enter the new PIN" />
-          <div *ngIf="pinChangeForm.get('newPin')?.invalid && pinChangeForm.get('newPin')?.touched"
-            class="text-red-500 text-sm mt-1">
+            placeholder="Enter the new PIN"
+          />
+          <div
+            *ngIf="
+              pinChangeForm.get('newPin')?.invalid &&
+              pinChangeForm.get('newPin')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
             New PIN is required and must be 4 digits.
           </div>
         </div>
         <div>
-          <label for="password" class="block text-sm font-bold mb-2">Password:</label>
-          <input formControlName="password" type="password" id="password"
+          <label for="passwordChange" class="block text-sm font-bold mb-2"
+            >Password:</label
+          >
+          <input
+            formControlName="password"
+            type="password"
+            id="passwordChange"
             class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            placeholder="Enter your password" />
-          <div *ngIf="pinChangeForm.get('password')?.invalid && pinChangeForm.get('password')?.touched"
-            class="text-red-500 text-sm mt-1">
+            placeholder="Enter your password"
+          />
+          <div
+            *ngIf="
+              pinChangeForm.get('password')?.invalid &&
+              pinChangeForm.get('password')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
             Password is required.
           </div>
         </div>
         <div class="flex justify-center">
-          <button type="submit" [disabled]="pinChangeForm.invalid"
-            class="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed">Change
-            PIN</button>
+          <button
+            type="submit"
+            [disabled]="pinChangeForm.invalid"
+            class="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Change PIN
+          </button>
         </div>
       </form>
     </ng-template>
@@ -82,7 +177,6 @@
 </div>
 <ng-template #loader>
   <div class="flex items-center justify-center h-full">
-
     <div class="loader">Loading</div>
   </div>
 </ng-template>
