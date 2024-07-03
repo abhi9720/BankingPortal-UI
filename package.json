@@ -25,15 +25,15 @@
     "libphonenumber-js": "^1.11.4",
     "ng-otp-input": "^1.9.3",
     "ng2-charts": "^6.0.1",
-    "ngx-countries-dropdown": "^2.0.3",
+    "ngx-countries-dropdown": "^2.1.0",
     "rxjs": "^7.8.1",
     "tslib": "^2.6.3",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz",
     "zone.js": "^0.14.7"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^18.0.6",
-    "@angular/cli": "^18.0.6",
+    "@angular-devkit/build-angular": "^18.0.7",
+    "@angular/cli": "^18.0.7",
     "@angular/compiler-cli": "^18.0.5",
     "@types/jasmine": "^5.1.4",
     "autoprefixer": "^10.4.19",
@@ -43,7 +43,7 @@
     "karma-coverage": "^2.2.1",
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.39",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.4.5"
   }
