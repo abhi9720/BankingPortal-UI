@@ -1,11 +1,11 @@
 import { ToastService } from 'angular-toastify';
+import { finalize } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadermodelService } from 'src/app/services/loadermodel.service';
 import { environment } from 'src/environment/environment';
 
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-otp',
@@ -13,7 +13,7 @@ import { finalize } from 'rxjs';
   styleUrls: ['./otp.component.css'],
 })
 export class OtpComponent {
-  accountNumber: string = '';
+  identifier: string = '';
   otp: string = '';
   otpGenerated: boolean = false;
   authTokenName = environment.tokenName;
@@ -23,13 +23,13 @@ export class OtpComponent {
     private toastService: ToastService,
     private router: Router,
     private loader: LoadermodelService
-  ) { }
+  ) {}
 
   ngOnInit() {
     // Check if the accountNumber exists in sessionStorage (on page refresh)
     const storedAccountNumber = sessionStorage.getItem('accountNumber');
     if (storedAccountNumber) {
-      this.accountNumber = storedAccountNumber;
+      this.identifier = storedAccountNumber;
       this.otpGenerated = true;
     }
   }
@@ -40,9 +40,9 @@ export class OtpComponent {
     length: 6,
     placeholder: '',
     inputStyles: {
-      'width': '50px',
-      'height': '50px'
-    }
+      width: '50px',
+      height: '50px',
+    },
   };
   onOtpChange(otp: string) {
     this.otp = otp;
@@ -54,48 +54,54 @@ export class OtpComponent {
 
   generateOTP() {
     this.loader.show('Generating OTP...'); // Show the loader before making the API call
-    this.authService.generateOTP(this.accountNumber).pipe(
-      finalize(() => {
-        this.loader.hide(); // Hide the loader after API call completes (success or error)
-      })
-    ).subscribe({
-      next: (response: any) => {
-        this.toastService.success(response.message + ', Check Email');
-        this.otpGenerated = true;
-        // Save the account number in sessionStorage
-        sessionStorage.setItem('accountNumber', this.accountNumber);
-      },
-      error: (error: any) => {
-        this.toastService.error(error.error);
-        console.error(error);
-      },
-    });
+    this.authService
+      .generateOTP(this.identifier)
+      .pipe(
+        finalize(() => {
+          this.loader.hide(); // Hide the loader after API call completes (success or error)
+        })
+      )
+      .subscribe({
+        next: (response: any) => {
+          this.toastService.success(response.message + ', Check Email');
+          this.otpGenerated = true;
+          // Save the account number in sessionStorage
+          sessionStorage.setItem('accountNumber', this.identifier);
+        },
+        error: (error: any) => {
+          this.toastService.error(error.error);
+          console.error(error);
+        },
+      });
   }
 
   verifyOTP() {
     this.loader.show('Verifying OTP...'); // Show the loader before making the API call
     const otpVerificationRequest = {
-      accountNumber: this.accountNumber,
+      identifier: this.identifier,
       otp: this.otp,
     };
 
-    this.authService.verifyOTP(otpVerificationRequest).pipe(
-      finalize(() => {
-        // Hide the loader after API call completes (success or error)
-        this.loader.hide();
-      })
-    ).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        this.toastService.success('Account LoggedIn');
-        const token = response.token;
-        localStorage.setItem(this.authTokenName, token);
-        this.router.navigate(['/dashboard']);
-      },
-      error: (error: any) => {
-        this.toastService.error(error.error);
-        console.error(error);
-      },
-    });
+    this.authService
+      .verifyOTP(otpVerificationRequest)
+      .pipe(
+        finalize(() => {
+          // Hide the loader after API call completes (success or error)
+          this.loader.hide();
+        })
+      )
+      .subscribe({
+        next: (response: any) => {
+          console.log(response);
+          this.toastService.success('Account LoggedIn');
+          const token = response.token;
+          localStorage.setItem(this.authTokenName, token);
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error: any) => {
+          this.toastService.error(error.error);
+          console.error(error);
+        },
+      });
   }
 }

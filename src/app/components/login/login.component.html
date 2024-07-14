@@ -1,46 +1,85 @@
 <div class="h-full flex items-center justify-center coverparentspace">
   <div class="max-w-md w-full">
-    <div class="border-none md:border border-gray-300 px-4 py-3 mb-8 bg-white rounded-lg shadow-none md:shadow-md">
-      <h2 class="my-3 text-center text-3xl font-extrabold text-gray-900">Login</h2>
+    <div
+      class="border-none md:border border-gray-300 px-4 py-3 mb-8 bg-white rounded-lg shadow-none md:shadow-md"
+    >
+      <h2 class="my-3 text-center text-3xl font-extrabold text-gray-900">
+        Login
+      </h2>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="mb-4">
-          <label for="accountNumber" class="block text-sm font-bold mb-2">Account Number:</label>
-          <input formControlName="accountNumber" type="text" id="accountNumber"
-            class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500" />
-          <div *ngIf="loginForm.get('accountNumber')?.invalid && loginForm.get('accountNumber')?.touched"
-            class="text-red-500 text-sm mt-1">
-            Account Number is required.
+          <label for="identifier" class="block text-sm font-bold mb-2"
+            >Email / Account Number:</label
+          >
+          <input
+            formControlName="identifier"
+            type="text"
+            id="identifier"
+            class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500"
+          />
+          <div
+            *ngIf="
+              loginForm.get('identifier')?.invalid &&
+              loginForm.get('identifier')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            Email / Account Number is required.
           </div>
         </div>
         <div class="mb-6">
-          <label for="password" class="block text-sm font-bold mb-2">Password:</label>
+          <label for="password" class="block text-sm font-bold mb-2"
+            >Password:</label
+          >
           <div class="relative">
-            <input formControlName="password" type="{{ showPassword ? 'text' : 'password' }}" id="password"
-              class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500" />
-            <span class="fa fa-eye-slash absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            <input
+              formControlName="password"
+              type="{{ showPassword ? 'text' : 'password' }}"
+              id="password"
+              class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-indigo-500"
+            />
+            <span
+              class="fa fa-eye-slash absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
               (click)="togglePasswordVisibility()"
-              [ngClass]="{ 'fa-eye': showPassword, 'fa-eye-slash': !showPassword }"></span>
+              [ngClass]="{
+                'fa-eye': showPassword,
+                'fa-eye-slash': !showPassword
+              }"
+            ></span>
           </div>
-          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
-            class="text-red-500 text-sm mt-1">
+          <div
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
             Password is required.
           </div>
         </div>
         <div class="flex items-center justify-between">
-          <button type="submit" [disabled]="loginForm.invalid"
-            class="group relative w-full flex justify-center py-2 px-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed">Login</button>
+          <button
+            type="submit"
+            [disabled]="loginForm.invalid"
+            class="group relative w-full flex justify-center py-2 px-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Login
+          </button>
         </div>
       </form>
-     
+
       <div class="flex justify-between">
-        <a class="block mt-4 font-semibold leading-6 text-indigo-600 hover:text-indigo-500" routerLink="/login/otp">Login
-          via
-          Otp</a>
-          <a class="block mt-4 font-semibold leading-6 text-indigo-600 hover:text-indigo-500" routerLink="/forget-password">Forget Password?
-          </a>
-
+        <a
+          class="block mt-4 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+          routerLink="/login/otp"
+          >Login via Otp</a
+        >
+        <a
+          class="block mt-4 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+          routerLink="/forget-password"
+          >Forget Password?
+        </a>
       </div>
-
     </div>
   </div>
 </div>

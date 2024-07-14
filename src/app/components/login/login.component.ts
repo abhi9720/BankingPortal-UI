@@ -32,16 +32,16 @@ export class LoginComponent implements OnInit {
   initLoginForm(): void {
     sessionStorage.clear();
     this.loginForm = this.fb.group({
-      accountNumber: ['', [Validators.required]],
+      identifier: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const { accountNumber, password } = this.loginForm.value;
+      const { identifier, password } = this.loginForm.value;
       this.loader.show('Logging...');
-      this.authService.login(accountNumber, password).subscribe({
+      this.authService.login(identifier, password).subscribe({
         next: (response: any) => {
           // Handle successful login here
           // Save the token from the response if needed
