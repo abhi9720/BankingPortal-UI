@@ -14,7 +14,7 @@ export class AuthService {
   private baseUrl = environment.apiUrl; // Replace with your actual API base URL
   private authtokenName = environment.tokenName;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   registerUser(data: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/users/register`, data);
@@ -27,8 +27,9 @@ export class AuthService {
   updateUserProfile(payload: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/users/update`, payload);
   }
-  generateOTP(accountNumber: string): Observable<any> {
-    const body = { accountNumber: accountNumber };
+
+  generateOTP(identifier: string): Observable<any> {
+    const body = { identifier: identifier };
     return this.http.post(`${this.baseUrl}/users/generate-otp`, body);
   }
 
@@ -39,9 +40,9 @@ export class AuthService {
     );
   }
 
-  login(accountNumber: string, password: string): Observable<any> {
+  login(identifier: string, password: string): Observable<any> {
     const body = {
-      accountNumber: accountNumber,
+      identifier: identifier,
       password: password,
     };
     return this.http.post<any>(`${this.baseUrl}/users/login`, body);
@@ -82,11 +83,22 @@ export class AuthService {
 
   verifyOtpForPasswordReset(identifier: string, otp: string): Observable<any> {
     const body = { identifier: identifier, otp: otp };
-    return this.http.post(`${this.baseUrl}/auth/password-reset/verify-otp`, body);
+    return this.http.post(
+      `${this.baseUrl}/auth/password-reset/verify-otp`,
+      body
+    );
   }
 
-  resetPassword(identifier: string, resetToken: string, newPassword: string): Observable<any> {
-    const body = { identifier: identifier, resetToken: resetToken, newPassword: newPassword };
+  resetPassword(
+    identifier: string,
+    resetToken: string,
+    newPassword: string
+  ): Observable<any> {
+    const body = {
+      identifier: identifier,
+      resetToken: resetToken,
+      newPassword: newPassword,
+    };
     return this.http.post(`${this.baseUrl}/auth/password-reset`, body);
   }
 }

@@ -1,26 +1,41 @@
 <div class="h-full flex items-center justify-center coverparentspace">
   <div class="max-w-md w-full">
-    <div class="border-none md:border border-gray-300 px-4 py-3 mb-8 bg-white rounded-lg shadow-none md:shadow-md">
-
+    <div
+      class="border-none md:border border-gray-300 px-4 py-3 mb-8 bg-white rounded-lg shadow-none md:shadow-md"
+    >
       <h2 class="my-3 text-center text-3xl font-extrabold text-gray-900">
         OTP Verification
       </h2>
 
       <ng-container *ngIf="!otpGenerated; else verifyOtpSection">
         <!-- OTP Generation Section -->
-        <form class="mt-8 space-y-6" (ngSubmit)="generateOTP()" #otpForm="ngForm">
+        <form
+          class="mt-8 space-y-6"
+          (ngSubmit)="generateOTP()"
+          #otpForm="ngForm"
+        >
           <div class="rounded-md shadow-sm -space-y-px">
             <div>
-              <label for="accountNumber" class="sr-only">Account Number</label>
-              <input id="accountNumber" name="accountNumber" type="text" [(ngModel)]="accountNumber" required
+              <label for="identifier" class="block text-sm font-bold mb-2"
+                >Email / Account Number</label
+              >
+              <input
+                id="identifier"
+                name="identifier"
+                type="text"
+                [(ngModel)]="identifier"
+                required
                 class="appearance-none rounded-none relative block w-full px-3 py-2 border text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Account Number" />
+                placeholder="Email / Account Number"
+              />
             </div>
           </div>
 
           <div>
-            <button type="submit"
-              class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button
+              type="submit"
+              class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
               Generate OTP
             </button>
           </div>
@@ -31,12 +46,18 @@
       <ng-template #verifyOtpSection>
         <div class="mt-8 space-y-6">
           <div class="flex justify-center">
-            <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)"  [config]="config"></ng-otp-input>
+            <ng-otp-input
+              #ngOtpInput
+              (onInputChange)="onOtpChange($event)"
+              [config]="config"
+            ></ng-otp-input>
           </div>
-          <button type="submit"
-          (click)="verifyOTP()"
-          [disabled]="otp.length !== 6"
-            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-200 disabled:cursor-not-allowed">
+          <button
+            type="submit"
+            (click)="verifyOTP()"
+            [disabled]="otp.length !== 6"
+            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-200 disabled:cursor-not-allowed"
+          >
             Verify OTP
           </button>
         </div>
