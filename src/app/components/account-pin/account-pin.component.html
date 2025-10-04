@@ -7,14 +7,15 @@
       <!-- "Generate PIN" form -->
       <h2 class="text-3xl font-semibold mb-6 text-center">Generate PIN</h2>
       <form
+        *ngIf="pinChangeForm"
         [formGroup]="pinChangeForm"
         (ngSubmit)="onSubmitGeneratePIN()"
         class="space-y-4"
       >
         <div>
-          <label for="newPinGenerate" class="block text-sm font-bold mb-2"
-            >New PIN:</label
-          >
+          <label for="newPinGenerate" class="block text-sm font-bold mb-2">
+            New PIN:
+          </label>
           <input
             formControlName="newPin"
             type="password"
@@ -32,10 +33,11 @@
             New PIN is required and must be 4 digits.
           </div>
         </div>
+
         <div>
-          <label for="confirmPinGenerate" class="block text-sm font-bold mb-2"
-            >Confirm PIN:</label
-          >
+          <label for="confirmPinGenerate" class="block text-sm font-bold mb-2">
+            Confirm PIN:
+          </label>
           <input
             formControlName="confirmPin"
             type="password"
@@ -58,10 +60,11 @@
             </div>
           </div>
         </div>
+
         <div>
-          <label for="passwordGenerate" class="block text-sm font-bold mb-2"
-            >Password:</label
-          >
+          <label for="passwordGenerate" class="block text-sm font-bold mb-2">
+            Password:
+          </label>
           <input
             formControlName="password"
             type="password"
@@ -79,6 +82,7 @@
             Password is required.
           </div>
         </div>
+
         <div class="flex justify-center">
           <button
             type="submit"
@@ -95,14 +99,15 @@
       <!-- "Change PIN" form -->
       <h2 class="text-3xl font-semibold mb-6 text-center">Change PIN</h2>
       <form
+        *ngIf="pinChangeForm"
         [formGroup]="pinChangeForm"
         (ngSubmit)="onSubmitChangePIN()"
         class="space-y-4"
       >
         <div>
-          <label for="oldPin" class="block text-sm font-bold mb-2"
-            >Old PIN:</label
-          >
+          <label for="oldPin" class="block text-sm font-bold mb-2">
+            Old PIN:
+          </label>
           <input
             formControlName="oldPin"
             type="password"
@@ -120,10 +125,11 @@
             Old PIN is required and must be 4 digits.
           </div>
         </div>
+
         <div>
-          <label for="newPinChange" class="block text-sm font-bold mb-2"
-            >New PIN:</label
-          >
+          <label for="newPinChange" class="block text-sm font-bold mb-2">
+            New PIN:
+          </label>
           <input
             formControlName="newPin"
             type="password"
@@ -141,10 +147,11 @@
             New PIN is required and must be 4 digits.
           </div>
         </div>
+
         <div>
-          <label for="passwordChange" class="block text-sm font-bold mb-2"
-            >Password:</label
-          >
+          <label for="passwordChange" class="block text-sm font-bold mb-2">
+            Password:
+          </label>
           <input
             formControlName="password"
             type="password"
@@ -162,6 +169,7 @@
             Password is required.
           </div>
         </div>
+
         <div class="flex justify-center">
           <button
             type="submit"
@@ -175,6 +183,7 @@
     </ng-template>
   </div>
 </div>
+
 <ng-template #loader>
   <div class="flex items-center justify-center h-full">
     <div class="loader">Loading</div>
