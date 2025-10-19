@@ -23,29 +23,50 @@ export class AccountPinComponent implements OnInit {
     private apiService: ApiService,
     private _toastService: ToastService,
     private router: Router,
-    private loader: LoadermodelService // Inject the LoaderService here
+    private loader: LoadermodelService
   ) {}
 
   ngOnInit(): void {
+    // Initialize with a safe default form so it's never undefined
+    this.pinChangeForm = new FormGroup({
+      newPin: new FormControl(''),
+      confirmPin: new FormControl(''),
+      password: new FormControl(''),
+    });
+
+    // Call API to check if PIN already exists
     this.apiService.checkPinCreated().subscribe({
       next: (response: any) => {
-        if (response && response.hasPIN) {
-          // User has already created a PIN, show the "Change PIN" form.
+        // Handle both JSON and plain text responses
+        if (typeof response === 'string') {
+          // Backend returned plain text like "PIN has not been created..."
+          if (response.includes('not been created')) {
+            this.showGeneratePINForm = true;
+          } else {
+            this.showGeneratePINForm = false;
+          }
+        } else if (response && response.hasPIN) {
           this.showGeneratePINForm = false;
+        } else {
+          this.showGeneratePINForm = true;
         }
-        this.initPinChangeForm();
-        this.loading = false; // Set loading to false after receiving the API response.
+
+        this.initPinChangeForm(); // re-init with correct structure
+        this.loading = false;
       },
       error: (error: any) => {
-        this.loading = false; // Set loading to false in case of an error.
+        this.loading = false;
         console.error('Error checking PIN status:', error);
+        // fallback: assume PIN not created
+        this.showGeneratePINForm = true;
+        this.initPinChangeForm();
       },
     });
   }
 
   initPinChangeForm(): void {
     if (this.showGeneratePINForm) {
-      // For "Generate PIN" form
+      // "Generate PIN" form
       this.pinChangeForm = new FormGroup(
         {
           newPin: new FormControl('', [
@@ -61,7 +82,7 @@ export class AccountPinComponent implements OnInit {
         }
       );
     } else {
-      // For "Change PIN" form
+      // "Change PIN" form
       this.pinChangeForm = new FormGroup({
         oldPin: new FormControl('', [
           Validators.required,
@@ -83,18 +104,17 @@ export class AccountPinComponent implements OnInit {
       const newPin = this.pinChangeForm.get('newPin')?.value;
       const password = this.pinChangeForm.get('password')?.value;
 
-      this.loader.show('Generating PIN...'); // Show the loader before making the API call
-      // Call the API to generate a PIN.
+      this.loader.show('Generating PIN...');
       this.apiService.createPin(newPin, password).subscribe({
         next: (response: any) => {
-          this.loader.hide(); // Hide the loader on successful PIN generation
+          this.loader.hide();
           this._toastService.success('PIN generated successfully');
           console.log('PIN generated successfully:', response);
           this.router.navigate(['/dashboard']);
         },
         error: (error: any) => {
-          this.loader.hide(); // Hide the loader on PIN generation request failure
-          this._toastService.error(error.error);
+          this.loader.hide();
+          this._toastService.error(error.error || 'Failed to generate PIN');
           console.error('Error generating PIN:', error);
         },
       });
@@ -107,18 +127,17 @@ export class AccountPinComponent implements OnInit {
       const newPin = this.pinChangeForm.get('newPin')?.value;
       const password = this.pinChangeForm.get('password')?.value;
 
-      this.loader.show('Updating PIN...'); // Show the loader before making the API call
-      // Call the API to update the PIN.
+      this.loader.show('Updating PIN...');
       this.apiService.updatePin(oldPin, newPin, password).subscribe({
         next: (response: any) => {
-          this.loader.hide(); // Hide the loader on successful PIN update
+          this.loader.hide();
           this._toastService.success('PIN updated successfully');
           console.log('PIN updated successfully:', response);
           this.router.navigate(['/dashboard']);
         },
         error: (error: any) => {
-          this.loader.hide(); // Hide the loader on PIN update request failure
-          this._toastService.error(error.error);
+          this.loader.hide();
+          this._toastService.error(error.error || 'Failed to update PIN');
           console.error('Error updating PIN:', error);
         },
       });

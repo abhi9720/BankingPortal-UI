@@ -1,10 +1,9 @@
-import { ToastService } from 'angular-toastify';
-import { ApiService } from 'src/app/services/api.service';
-import { LoadermodelService } from 'src/app/services/loadermodel.service';
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastService } from 'angular-toastify';
+import { ApiService } from 'src/app/services/api.service';
+import { LoadermodelService } from 'src/app/services/loadermodel.service';
 
 @Component({
   selector: 'app-fund-transfer',
@@ -17,9 +16,9 @@ export class FundTransferComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private _toastService: ToastService,
+    private toastService: ToastService,
     private router: Router,
-    private loader: LoadermodelService // Inject the LoaderService here
+    private loader: LoadermodelService
   ) {}
 
   ngOnInit(): void {
@@ -28,44 +27,92 @@ export class FundTransferComponent implements OnInit {
 
   initFundTransferForm(): void {
     this.fundTransferForm = this.fb.group({
-      amount: ['', [Validators.required, Validators.min(0)]], // Validate that amount is a positive number
-      pin: [
-        '',
-        [Validators.required, Validators.minLength(4), Validators.maxLength(4)],
-      ],
+      amount: ['', [Validators.required, Validators.min(1)]],
+      pin: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
       targetAccountNumber: ['', [Validators.required]],
     });
   }
 
   onSubmit(): void {
-    if (this.fundTransferForm?.valid) {
-      const amount = this.fundTransferForm.get('amount')?.value;
-      const pin = this.fundTransferForm.get('pin')?.value;
-      const targetAccountNumber = this.fundTransferForm.get(
-        'targetAccountNumber'
-      )?.value;
+    if (!this.fundTransferForm.valid) return;
 
-      if (amount !== null && pin !== null && targetAccountNumber !== null) {
-        this.loader.show('Transferring funds...'); // Show the loader before making the API call
-        this.apiService
-          .fundTransfer(amount, pin, targetAccountNumber)
-          .subscribe({
-            next: (response: any) => {
-              this.loader.hide(); // Hide the loader on successful fund transfer
-              // Handle successful fund transfer if needed
-              this.fundTransferForm.reset();
-              this._toastService.success(response.msg);
-              this.router.navigate(['/dashboard']);
-              console.log('Fund transfer successful!', response);
-            },
-            error: (error: any) => {
-              this.loader.hide(); // Hide the loader on fund transfer request failure
-              // Handle error if the fund transfer request fails
-              this._toastService.error(error.error);
-              console.error('Fund transfer failed:', error);
-            },
-          });
-      }
-    }
+    const { amount, pin, targetAccountNumber } = this.fundTransferForm.value;
+
+    this.loader.show('Fetching account details...');
+    this.apiService.getAccountDetails().subscribe({
+      next: (accountResponse: any) => {
+        this.loader.hide();
+        console.log('✅ Account details fetched:', accountResponse);
+
+        const sourceAccountNumber = accountResponse.accountNumber;
+        const newTransfer = { amount, pin, targetAccountNumber, sourceAccountNumber };
+
+        this.loader.show('Detecting Unusaulity...');
+        this.apiService.getTransactions().subscribe({
+          next: (transactionsResponse: any) => {
+            this.loader.hide();
+            console.log('✅ Transactions fetched:', transactionsResponse);
+
+            this.loader.show('Transferring funds...');
+            this.apiService.startWorkflow(transactionsResponse, newTransfer).subscribe({
+              next: (response: any) => {
+                this.loader.hide();
+                console.log('🚦 Workflow response:', response);
+
+                if (response.status === 'WAITING_FOR_OTP') {
+                  sessionStorage.setItem('workflowSessionId', response.checkpoint);
+                  this.toastService.info('OTP sent to your registered email/phone.');
+                  this.router.navigate(['/fund-transfer-otp']);
+                } else if (response.status === 'COMPLETED') {
+                  if (response.data?.transferInstruction) {
+                    const { amount, pin, targetAccountNumber } =
+                      response.data.transferInstruction;
+
+                    this.loader.show('Transferring funds...');
+                    this.apiService
+                      .fundTransfer(amount, pin, targetAccountNumber)
+                      .subscribe({
+                        next: (res: any) => {
+                          this.loader.hide();
+                          this.fundTransferForm.reset();
+                          this.toastService.success(res.msg || 'Transfer successful.');
+                          this.router.navigate(['/dashboard']);
+                          console.log('Fund transfer successful!', res);
+                        },
+                        error: (error: any) => {
+                          this.loader.hide();
+                          this.toastService.error(error.error || 'Transfer failed.');
+                          console.error('Fund transfer failed:', error);
+                        },
+                      });
+                  } else {
+                    this.toastService.success('Transfer successful.');
+                    this.router.navigate(['/dashboard']);
+                  }
+                } else {
+                  this.toastService.error(response.message || 'Unexpected workflow state');
+                }
+              },
+              error: (error: any) => {
+                this.loader.hide();
+                console.error('Workflow start failed:', error);
+                this.toastService.error(error.error || 'Transfer failed.');
+              },
+            });
+          },
+          error: (error: any) => {
+            this.loader.hide();
+            this.toastService.error('Failed to fetch transactions.');
+            console.error('Transaction fetch error:', error);
+          },
+        });
+      },
+      error: (error: any) => {
+        this.loader.hide();
+        this.toastService.error('Failed to fetch account details.');
+        console.error('Account fetch error:', error);
+      },
+    });
   }
+
 }
