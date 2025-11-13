@@ -44,6 +44,7 @@ import { AuthService } from './services/auth.service';
 import { LoadermodelService } from './services/loadermodel.service';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { FundTransferOtpComponent } from './components/fund-transfer-otp/fund-transfer-otp.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     TransactionComponent,
     MonthlyTransactionChartComponent,
     DonwloadtransactionsComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    FundTransferOtpComponent 
   ],
   imports: [
     RouterModule,

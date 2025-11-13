@@ -8,6 +8,7 @@ import { environment } from 'src/environment/environment';
 })
 export class ApiService {
   private baseUrl = environment.apiUrl; // Replace with your actual API base URL
+  private workflowUrl = 'http://localhost:5000/workflow'; // Node.js workflow server
 
   constructor(private http: HttpClient) { }
 
@@ -66,5 +67,15 @@ export class ApiService {
 
   getAccountDetails(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/dashboard/account`);
+  }
+
+  // Start the fraud detection workflow
+  startWorkflow(transactions: any, newTransfer: any): Observable<any> {
+    return this.http.post<any>(`${this.workflowUrl}/start`, { transactions, newTransfer });
+  }
+
+  // Resume workflow after OTP is provided
+  resumeWorkflow(otpProvided: string, checkpoint: string): Observable<any> {
+    return this.http.post<any>(`${this.workflowUrl}/resume`, { otpProvided, checkpoint });
   }
 }

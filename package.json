@@ -1,9 +1,12 @@
 {
   "name": "banking-portal",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
+    "start:client": "ng serve",
+    "start:server": "node src/app/aiserver/index.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -18,9 +21,15 @@
     "@angular/platform-browser": "^18.0.5",
     "@angular/platform-browser-dynamic": "^18.0.5",
     "@angular/router": "^18.0.5",
+    "@langchain/groq": "^0.2.4",
+    "@langchain/langgraph": "^0.4.9",
     "@types/jwt-decode": "^3.1.0",
     "angular-toastify": "^1.0.7",
+    "axios": "^1.12.2",
     "chart.js": "^4.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
     "jwt-decode": "^4.0.0",
     "libphonenumber-js": "^1.11.4",
     "ng-otp-input": "^1.9.3",
@@ -29,6 +38,7 @@
     "rxjs": "^7.8.1",
     "tslib": "^2.6.3",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz",
+    "zod": "^3.25.76",
     "zone.js": "^0.14.7"
   },
   "devDependencies": {
@@ -37,6 +47,7 @@
     "@angular/compiler-cli": "^18.0.5",
     "@types/jasmine": "^5.1.4",
     "autoprefixer": "^10.4.19",
+    "concurrently": "^9.2.1",
     "jasmine-core": "^5.1.2",
     "karma": "^6.4.3",
     "karma-chrome-launcher": "^3.2.0",

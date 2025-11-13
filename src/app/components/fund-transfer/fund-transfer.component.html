@@ -1,33 +1,73 @@
 <div class="flex justify-center items-center coverparentspace">
   <div
-    class="max-w-md w-full rounded-lg bg-white p-6 leading-5 text-slate-700 shadow-xl shadow-black/5 ring-1 ring-slate-700/10">
+    class="max-w-md w-full rounded-lg bg-white p-6 leading-5 text-slate-700 shadow-xl shadow-black/5 ring-1 ring-slate-700/10"
+  >
     <h2 class="text-3xl font-semibold mb-6 text-center">Fund Transfer</h2>
+
     <form [formGroup]="fundTransferForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <!-- Amount -->
       <div>
         <label for="amount" class="block text-sm font-bold mb-2">Amount:</label>
-        <input autocomplete="off" formControlName="amount" type="number" id="amount"
+        <input
+          autocomplete="off"
+          formControlName="amount"
+          type="number"
+          id="amount"
           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-          placeholder="Enter the amount" />
+          placeholder="Enter the amount"
+        />
+        <div *ngIf="fundTransferForm.get('amount')?.invalid && fundTransferForm.get('amount')?.touched"
+             class="text-red-500 text-xs mt-1">
+          Amount must be greater than 0
+        </div>
       </div>
 
+      <!-- Target Account Number -->
       <div>
-        <label for="targetAccountNumber" class="block text-sm font-bold mb-2">Target Account Number:</label>
-        <input autocomplete="off" formControlName="targetAccountNumber" type="text" id="targetAccountNumber"
+        <label for="targetAccountNumber" class="block text-sm font-bold mb-2">
+          Target Account Number:
+        </label>
+        <input
+          autocomplete="off"
+          formControlName="targetAccountNumber"
+          type="text"
+          id="targetAccountNumber"
           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-          placeholder="Enter the target account number" />
+          placeholder="Enter the target account number"
+        />
+        <div *ngIf="fundTransferForm.get('targetAccountNumber')?.invalid && fundTransferForm.get('targetAccountNumber')?.touched"
+             class="text-red-500 text-xs mt-1">
+          Target account number is required
+        </div>
       </div>
 
+      <!-- PIN -->
       <div>
         <label for="pin" class="block text-sm font-bold mb-2">PIN:</label>
-        <input autocomplete="off" formControlName="pin" type="password" id="pin"
+        <input
+          autocomplete="off"
+          formControlName="pin"
+          type="password"
+          id="pin"
+          maxlength="4"
           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-          placeholder="Enter your account PIN" />
+          placeholder="Enter your account PIN"
+        />
+        <div *ngIf="fundTransferForm.get('pin')?.invalid && fundTransferForm.get('pin')?.touched"
+             class="text-red-500 text-xs mt-1">
+          PIN must be 4 digits
+        </div>
       </div>
 
+      <!-- Submit -->
       <div class="flex justify-center">
-        <button type="submit" [disabled]="fundTransferForm.invalid"
-          class="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed">Transfer
-          Funds</button>
+        <button
+          type="submit"
+          [disabled]="fundTransferForm.invalid"
+          class="w-full bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Transfer Funds
+        </button>
       </div>
     </form>
   </div>

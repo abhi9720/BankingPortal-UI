@@ -19,6 +19,7 @@ import { OtpComponent } from './components/otp/otp.component';
 import { NotfoundpageComponent } from './components/notfoundpage/notfoundpage.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { FundTransferOtpComponent } from './components/fund-transfer-otp/fund-transfer-otp.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' }, // Root route (HomeComponent) without AuthGuard
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login/otp', component: OtpComponent },
+  { path: 'fund-transfer-otp', component: FundTransferOtpComponent },
   { path: 'forget-password', component: ResetPasswordComponent },
   { path: '**', component: NotfoundpageComponent }, // Handle 404 - Page Not Found
 ];
